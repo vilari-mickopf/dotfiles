@@ -10,7 +10,8 @@ case "$1" in
     button/sleep)
         case "$2" in
             SLPB|SBTN) logger 'SleepButton pressed';
-                        export DISPLAY=:0 ~/.config/i3/scripts/lock ;;
+                       export DISPLAY=:0;
+                       ~/.config/i3/scripts/lock ;;
             *) logger "ACPI action undefined: $2" ;;
         esac ;;
 
