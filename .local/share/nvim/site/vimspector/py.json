@@ -1,0 +1,17 @@
+{
+    "configurations": {
+        "Debug": {
+            "adapter": "debugpy",
+            "configuration": {
+                "type": "python",
+                "request": "launch",
+                "program": "<program>",
+                "args": [],
+                "cwd": "${workspaceRoot}/",
+                "console": "externalTerminal",
+                "stopOnEntry": true,
+                "debugOptions": []
+            }
+        }
+    }
+}

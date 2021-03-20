@@ -1,0 +1,6 @@
+%FFILE%
+
+:Author: %USER%
+:Date: %FDATE%
+
+%HERE%

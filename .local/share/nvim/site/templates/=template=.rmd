@@ -1,0 +1,57 @@
+---
+output:
+    pdf_document:
+        fig_crop: no
+urlcolor: blue
+---
+
+%HERE%
+
+# Title
+
+## Tile title
+
+### Code with ref
+
+```{r, out.width="0.6\\linewidth", fig.align="center", fig.cap=c("caption\\label{fig:figref}"), fig.pos="H",  echo=FALSE}
+knitr::include_graphics("fmcw.pdf")
+```
+
+```{python, include=FALSE}
+C = None
+```
+
+| Fiedman func. | bagging mse | SVR mse |
+| :-:           | :-:         | :-:     |
+| #1            | 3.36        | 1.75    |
+| #2            | 66,077      | 60,424  |
+| #3            | .0692       | .0692   |
+
+\pagebreak
+
+\begin{thebibliography}{9}
+\bibitem{mmwave1}
+TI:
+\textit{The fundamentals of millimeter wave}, 2017
+
+\bibitem{awr1642}
+TI:
+\textit{ AWR18xx/16xx/14xx Technical Reference Manual (Rev. C)}, 2018
+
+\bibitem{mmwave2}
+TI:
+\textit{AWR1642: 77GHz Radar-on-Chip for Short-Range Radar Applications}, 2017
+
+\bibitem{mmwave3}
+TI:
+\textit{Moving from legacy 24GHz to state-of-the-art 77GHz radar}, 2017
+
+\bibitem{mmwave4}
+TI:
+\textit{77GHz single chip radar sensor enables automotive body and chassis applications}, 2017
+
+\bibitem{mmwave5}
+TI:
+\textit{Using a complex-baseband architecture in FMCW radar systems}, 2017
+
+\end{thebibliography}
