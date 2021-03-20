@@ -1,0 +1,29 @@
+# Vim-like menu bindings
+menu_parent
+menu_parent h Left
+menu_child
+menu_child  l Right
+menu_down
+menu_down   j Down
+menu_up
+menu_up     k Up
+menu_select
+menu_select space Return
+
+# Zooming
+zoom_in
+zoom_in plus
+zoom_out
+zoom_out minus
+size_to_image
+size_to_image f
+
+# Next/previous image
+next_img
+next_img space j l Left
+prev_img
+prev_img BackSpace k h Right
+
+# Delete file
+delete
+delete   Delete
