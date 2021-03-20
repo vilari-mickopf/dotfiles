@@ -1,0 +1,72 @@
+! special !
+*.background:   #282C34
+*.cursorColor:  #ABB2BF
+
+! black !
+*.color0:       #282C34
+*.color8:       #282C34
+
+! red !
+*.color1:       #E06C75
+*.color9:       #D19A66
+! *.color9:       #BE5046 !
+
+! green !
+*.color2:       #98C379
+*.color10:      #98C379
+
+! yellow !
+*.color3:       #D19A66
+*.color11:      #D19A66
+
+! blue !
+*.color4:       #3E5270
+*.color12:      #61AFEF
+
+! magenta !
+*.color5:       #C678DD
+*.color13:      #C678DD
+
+! cyan !
+*.color6:       #56B6C2
+*.color14:      #56B6C2
+
+! white !
+*.color7:       #ABB2BF
+*.color15:      #ABB2BF
+
+
+URxvt.internalBorder: 6
+URxvt.font: xft:UbuntuMono-R:size=11,xft:Font Awesome 5 Free:size=11
+URxvt.geometry: 80x20
+URxvt.depth: 32
+URxvt.background: [100]#2B2F38
+URxvt*scrollBar: false
+URxvt*mouseWheelScrollPage: false
+URxvt*cursorBlink: true
+URxvt*foreground: #ABB2BF
+URxvt*cursorColor: #ABB2BF
+URxvt*saveLines: 5000
+URxvt*fading: 15
+URxvt*fadeColor: black
+URxvt.iso14755: false
+
+
+rofi.color-enabled: true
+!                 'background', 'border',   'separator'
+rofi.color-window: #282C34,      #5C6370,   #5C6370
+
+! State:          'bg',    'fg',    'bgalt', 'hlbg',  'hlfg' !
+rofi.color-normal: #282C34, #5C6370, #282C34, #282C34, #98C379
+rofi.color-active: #282C34, #5C6370, #282C34, #282C34, #ABB2BF
+rofi.color-urgent: #282C34, #5C6370, #282C34, #282C34, #ABB2BF
+
+rofi.separator-style: solid
+rofi.sidebar-mode: false
+rofi.lines: 5
+rofi.font: Ubuntu 15
+rofi.bw: 1
+rofi.columns: 2
+rofi.padding: 5
+rofi.fixed-num-lines: true
+rofi.hide-scrollbar: true
