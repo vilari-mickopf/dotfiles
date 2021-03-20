@@ -1,0 +1,80 @@
+#!/bin/bash
+
+case $BLOCK_BUTTON in
+    1|2|3) ~/.config/i3/scripts/i3blocks/interactivebar bat-bar ;;
+esac
+
+TMP_FILE=/tmp/.battery
+update_charging_state() {
+    charging_state=$1
+    new_charging_state=$(($charging_state + 1))
+    if [[ $percentage -le 5 ]]; then
+        [[ $charging_state -ge 4 ]] && new_charging_state=0
+    elif [[ $percentage -le 25 ]]; then
+        [[ $charging_state -ge 4 ]] && new_charging_state=1
+    elif [[ $percentage -le 50 ]]; then
+        [[ $charging_state -ge 4 ]] && new_charging_state=2
+    elif [[ $percentage -le 75 ]]; then
+        [[ $charging_state -ge 4 ]] && new_charging_state=3
+    else
+        new_charging_state=4
+    fi
+    echo $new_charging_state > $TMP_FILE
+}
+
+# Parse acpi
+readarray -t output <<< $(acpi battery)
+battery_count=${#output[@]}
+[[ $battery_count -le 0 ]] && exit
+
+status=Unknown
+percentage=0
+for line in "${output[@]}"; do
+    bat_percentage=$(echo $line | grep -o -m1 '[0-9]\{1,3\}%' | tr -d '%')
+    bat_status=$(echo $line | egrep -o -m1 'Discharging|Charging|AC|Full|Unknown')
+    percentage=$(($bat_percentage + $percentage))
+    [[ $bat_status != 'Unknown' ]] && status=$bat_status
+done
+
+percentage=$(($percentage / $battery_count))
+
+if [[ $status == 'Charging' ]]; then
+    # Get state
+    [[ -f $TMP_FILE ]] || echo 0 > $TMP_FILE
+    charging_state=$(cat $TMP_FILE)
+
+    update_charging_state $charging_state
+
+    # Get icon
+    [[ $charging_state == 0 ]] && icon=$empty_icon || \
+        { [[ $charging_state == 1 ]] && icon=$quarter_icon || \
+        { [[ $charging_state == 2 ]] && icon=$half_icon || \
+        { [[ $charging_state == 3 ]] && icon=$three_quarters_icon || \
+        { [[ $charging_state == 4 ]] && icon=$full_icon; } } } }
+
+    color=$full_color
+
+    charging_text="<span color='$charging_color'>$charging_icon</span>"
+    battery_text="<span color='$color'>$icon</span>"
+    echo "$charging_text $battery_text "
+else
+    # Get icon
+    [[ $percentage -le 5 ]] && icon=$empty_icon || \
+        { [[ $percentage -le 25 ]] && icon=$quarter_icon || \
+        { [[ $percentage -le 50 ]] && icon=$half_icon || \
+        { [[ $percentage -le 75 ]] && icon=$three_quarters_icon || \
+        { icon=$full_icon; } } } }
+
+    # Get color
+    [[ $percentage -lt 10 ]] && color=$percentage_10_color || \
+        { [[ $percentage -lt 20 ]] && color=$percentage_20_color || \
+        { [[ $percentage -lt 30 ]] && color=$percentage_30_color || \
+        { [[ $percentage -lt 40 ]] && color=$percentage_40_color || \
+        { [[ $percentage -lt 50 ]] && color=$percentage_50_color || \
+        { [[ $percentage -lt 60 ]] && color=$percentage_60_color || \
+        { [[ $percentage -lt 70 ]] && color=$percentage_70_color || \
+        { [[ $percentage -lt 80 ]] && color=$percentage_80_color || \
+        color=$full_color; } } } } } } }
+
+    echo "<span color='$color'>$icon</span> "
+fi

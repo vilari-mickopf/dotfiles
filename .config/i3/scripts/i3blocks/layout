@@ -1,0 +1,8 @@
+#!/bin/bash
+
+case "$BLOCK_BUTTON" in
+    1|2|3) xkb-switch -n ;;
+esac
+
+current=$(xkb-switch -p)
+[[ $current == 'us' ]] && exit || echo $icon $current && echo && echo $color

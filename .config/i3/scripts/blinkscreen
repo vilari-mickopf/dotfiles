@@ -1,0 +1,18 @@
+#!/bin/bash
+
+TMP_FILE=/tmp/.blinkscreen
+[[ -f $TMP_FILE ]] && exit
+
+touch $TMP_FILE
+light -O
+for i in {1..5}; do
+    light -T 0.8
+    sleep 0.03
+done
+
+for i in {1..5}; do
+    light -T 1.25
+    sleep 0.03
+done
+light -I
+rm $TMP_FILE

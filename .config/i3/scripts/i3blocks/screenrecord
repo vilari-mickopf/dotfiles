@@ -1,0 +1,11 @@
+#!/bin/bash
+
+name="/tmp/Screenrecords/screenrecord-$(date +%H:%M:%S).mkv"
+
+pid=$(ps aux | grep -v grep | grep 'ffmpeg -f x11grab' | awk '{print $2}')
+if [[ -z $pid ]]; then
+    ffmpeg -f x11grab -s 1920x1080 -i :0.0 $name </dev/null &>/dev/null &
+    echo "$icon " && echo && echo $color
+else
+    kill $pid
+fi

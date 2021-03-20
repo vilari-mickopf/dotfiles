@@ -1,0 +1,33 @@
+#!/bin/bash
+
+case $BLOCK_BUTTON in
+    1|2|3) ~/.config/i3/scripts/i3blocks/interactivebar wifi-bar ;;
+esac
+
+# Find interfaces
+for dev in `ls /sys/class/net`; do
+    [[ -d /sys/class/net/$dev/wireless ]] && wifi=$dev || \
+        { [[ $dev != 'lo' ]] && eth=$dev; }
+done
+
+eth_state="$(cat /sys/class/net/$eth/operstate)"
+
+# If wifi is not present and eth is down
+[[ ! -d /sys/class/net/$wifi/wireless ]] && [[ $eth_state == 'down' ]] && \
+    echo $eth_icon && echo && echo "$eth_not_connected_color" && exit
+
+if [[ $eth_state == 'up' ]]; then
+    echo $eth_icon && echo
+
+    ipaddr=$(ip addr show $eth | perl -n -e'/inet (.+)\// && print $1')
+    [[ -z $ipaddr ]] && echo "$eth_connected_color" || echo "$eth_not_connected_color"
+else
+    echo $wifi_icon && echo
+
+    quality_wifi=$(grep $wifi /proc/net/wireless | awk '{ print int($3 * 100 / 70) }')
+    [[ $quality_wifi -ge 80 ]] && echo $wifi_excellent_signal_color \
+        || { [[ $quality_wifi -ge 70 ]] && echo $wifi_good_signal_color \
+        || { [[ $quality_wifi -ge 60 ]] && echo $wifi_ok_signal_color \
+        || { [[ $quality_wifi -gt  0 ]] && echo $wifi_bad_signal_color \
+        || echo $wifi_not_connected_color; } } }
+fi

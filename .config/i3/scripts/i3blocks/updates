@@ -1,0 +1,10 @@
+#!/bin/bash
+
+case "$BLOCK_BUTTON" in
+    1|2|3) ~/.config/i3/scripts/i3blocks/interactivebar updates-bar ;
+          echo $icon && echo && echo $color ;
+          exit ;;
+esac
+
+updates=$(checkupdates+aur | wc -l)
+[[ $updates -gt 0 ]] && echo $icon && echo && echo $color

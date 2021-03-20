@@ -1,0 +1,48 @@
+#!/bin/sh
+
+
+# MODE=mirror
+MODE=right
+# MODE=left
+
+PRIMARY_RESOLUTION=1920x1080
+EXTERNAL_RESOLUTION=1920x1080
+
+
+connect() {
+    valid=(right left mirror)
+    (printf '%s\n' "${valid[@]}" | grep -xq $MODE) || return
+
+    [[ $MODE == "mirror" ]] && position=same-as
+    [[ $MODE == "left" || $MODE == "right" ]] && position=$MODE-of
+
+    xrandr --output $1 --mode $EXTERNAL_RESOLUTION --$position $primary
+}
+
+disconnect() {
+    xrandr --output $1 --auto
+}
+
+
+primary=$(xrandr -q | grep -w "primary" |  awk '{print $1;}')
+connected_external=$(xrandr -q | grep -w "connected" |  awk '{print $1;}')
+disconnected_external=$(xrandr -q | grep -w "disconnected" |  awk '{print $1;}')
+
+# Set primary
+case $SRANDRD_ACTION in
+    "$primary connected") xrandr --output $primary --mode $PRIMARY_RESOLUTION ;;
+    "$primary disconnected") disconnect $primary ;;
+esac
+
+# Set connected screens
+for connected_screen in $connected_external; do
+    [[ $connected_screen == $primary ]] && continue
+    [[ $SRANDRD_ACTION == "$connected_screen connected" ]] && \
+        connect $connected_screen
+    echo "conn $connected_screen"
+done
+
+# Set disconnected screens
+for disconnected_screen in $disconnected_external; do
+    disconnect $disconnected_screen
+done

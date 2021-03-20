@@ -1,0 +1,22 @@
+#!/bin/sh
+
+displays=$(xrandr | awk '/connected/{print $1}')
+
+choices=""
+for d in $displays; do
+    choices="$choices$d\n"
+done
+
+choices="$choices""Manual selection"
+primary=$(xrandr -q | grep -w "primary" |  awk '{print $1;}')
+
+chosen=$(echo -e "$choices" | dmenu -i -b -nb '#282C34' \
+                                          -nf '#ABB2BF' \
+                                          -sb '#98c379' \
+                                          -sf '#191919' \
+                                          -fn 'Ubuntu:pixelsize=17')
+
+case "$chosen" in
+    "Manual selection") lxrandr ;;
+    *) export SRANDRD_ACTION="$chosen connected" && ~/.config/i3/scripts/displayhandler;;
+esac

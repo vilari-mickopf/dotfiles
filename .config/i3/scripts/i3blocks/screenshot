@@ -1,0 +1,9 @@
+#!/bin/bash
+
+TMP_FILE=/tmp/.screenshot
+if [[ -f $TMP_FILE ]]; then
+    rm $TMP_FILE
+else
+    touch $TMP_FILE
+    echo "$icon " && echo && echo $color
+fi

@@ -1,0 +1,36 @@
+#!/bin/bash
+
+bar_type=$1
+bar_list=(wifi-bar volume-bar bat-bar date-bar updates-bar)
+ws=$(wmctrl -d | grep '*' | cut -d ' ' -f1)
+
+bar_func() {
+    bar_name=$1
+    bar_command=$2
+
+    [[ $bar_type != $bar_name ]] && return
+
+    # Close other bars
+    for bar in ${bar_list[@]}; do [[ $bar != $bar_name ]] && pkill -f $bar; done
+
+    # Close the bar if it's already opened, otherwise open the bar
+    current_bar_id=$(~/.config/i3/scripts/i3get -i $bar_name -r d)
+    if [[ ! -z $current_bar_id ]]; then
+        bar_pid=$(ps aux | grep $bar_name | awk 'NR==1{print $2}')
+        kill -9 $bar_pid
+        wait $bar_pid 2>/dev/null
+
+        # Check workpace
+        printf -v current_bar_id "%x" "$current_bar_id"
+        barws=$(wmctrl -l | grep -i $current_bar_id | cut -d ' ' -f3)
+        [[ $barws != $ws ]] && sh -c "$bar_command </dev/null &>/dev/null &"
+    else
+        sh -c "$bar_command </dev/null &>/dev/null &"
+    fi
+}
+
+bar_func 'wifi-bar'    'st -n wifi-bar    -e wicd-curses'
+bar_func 'bat-bar'     'st -n bat-bar     -e battop'
+bar_func 'date-bar'    'st -n date-bar    -e calcurse'
+bar_func 'volume-bar'  'st -n volume-bar  -e ncpamixer'
+bar_func 'updates-bar' 'st -n updates-bar -e sh -c "~/.config/i3/scripts/i3blocks/updates-bar"'

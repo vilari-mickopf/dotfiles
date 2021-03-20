@@ -1,0 +1,24 @@
+#! /bin/sh
+
+is_cpu_usage_above_limit() {
+    limit=$1
+
+    usage=$(awk '{u=$2+$4; t=$2+$4+$5; if (NR==1){u1=u; t1=t;} else print ($2+$4-u1)*100/(t-t1) "%"; }' \
+            <(grep 'cpu ' /proc/stat) <(sleep 1; grep 'cpu ' /proc/stat))
+
+    check=$(awk -vx=${usage::-1} -vy=$limit 'BEGIN{ print x>=y?1:0}')
+    [[ $check -eq 1 ]] && return 1 || return 0
+}
+
+
+is_charging() {
+    grep 0 /sys/class/power_supply/AC/online > /dev/null && return 0 || return 1
+}
+
+is_charging
+[[ $? == 1 ]] && exit 0
+
+is_cpu_usage_above_limit 90.0
+[[ $? == 1 ]] && exit 0
+
+exit 1
