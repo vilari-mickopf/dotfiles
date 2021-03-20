@@ -1,0 +1,20 @@
+[flake8]
+ignore =
+    W503  # Line break before binary operator
+    W504  # Line break after binary operator
+    E114  # Indentation is not a multiple of four (comment)
+    E116  # Unexpected indentation (comment)
+    E117  # Nan
+    E127  # Continuation line over-indented for visual indent
+    E128  # Continuation line under-indented for visual indent
+    E211  # Whitespace before '('
+    E221  # Multiple spaces before operator
+    E226  # Missing whitespace around arithmetic operator
+    E261  # At least two spaces before inline comment
+    E265  # Block comment should start with '# '
+    E302  # Expected 2 blank lines, found 0
+    E303  # Too many blank lines
+    E305  # Expected 2 blank lines after end of function or class
+    E306  # Nan
+    E501  # Line too long (82 > 79 characters)
+
