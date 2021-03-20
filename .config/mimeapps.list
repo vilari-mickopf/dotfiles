@@ -1,0 +1,34 @@
+[Default Applications]
+text/html=google-chrome.desktop
+x-scheme-handler/http=google-chrome.desktop
+x-scheme-handler/https=google-chrome.desktop
+x-scheme-handler/about=google-chrome.desktop
+x-scheme-handler/unknown=google-chrome.desktop
+x-scheme-handler/viber=viber.desktop
+
+[Added Associations]
+image/jpeg=feh.desktop;
+application/pdf=org.pwmt.zathura-pdf-mupdf.desktop;
+text/x-python=nvim.desktop;
+text/plain=nvim.desktop;
+text/x-matlab=nvim.desktop;
+image/png=feh.desktop;
+text/csv=nvim.desktop;
+text/vnd.graphviz=nvim.desktop;
+image/tiff=org.gnome.eog.desktop;feh.desktop;
+application/x-shellscript=nvim.desktop;
+application/xml=nvim.desktop;
+application/vnd.openxmlformats-officedocument.wordprocessingml.document=libreoffice-writer.desktop;
+text/x-c++src=nvim.desktop;
+application/x-executable=st-usercreated-2.desktop;
+text/x-makefile=nvim.desktop;
+application/zip=userapp-dtrx %n-7EZK00.desktop;
+text/x-install=nvim.desktop;
+text/markdown=nvim.desktop;
+text/x-tex=nvim.desktop;
+image/gif=mplayer-usercreated-1.desktop;
+video/mp4=vlc.desktop;
+video/x-matroska=vlc.desktop;
+audio/mpeg=mpv.desktop;
+text/x-authors=nvim.desktop;
+inode/directory=ranger.desktop;
