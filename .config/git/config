@@ -1,0 +1,49 @@
+[core]
+    autocrlf = input
+    excludesfile = ~/.config/git/ignore
+
+[user]
+	email = f12markovic@gmail.com
+    name = Filip Markovic
+
+[github]
+	user = vilari-mickopf
+
+[credential]
+    helper = cache --timeout=3600
+
+[help]
+    autocorrect = 1
+
+[merge]
+  tool = nvimdiff
+
+[mergetool]
+    prompt = true
+
+[mergetool "nvimdiff"]
+    cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
+
+[difftool]
+    prompt = false
+
+[diff]
+    tool = nvim -d
+
+[alias]
+    a = add
+    s = status
+    b = branch
+    br = branch
+    co = checkout
+    c = commit
+    ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" \
+             --decorate --numstat
+    lg = log --graph \
+             --pretty=format:'%C(yellow)%h%Creset -%C(auto)%d%Creset %s %C(cyan)(%ar)%Creset %C(green)<%an>%Creset' \
+             --all
+    last = ll -1 HEAD
+    undo = reset HEAD~1 --mixed
+    unstage = reset HEAD --
+    d = difftool
+    fix = "!f() { nvim -p `git rev-parse --show-toplevel`/`git diff --name-only --relative --diff-filter=U | uniq`; }; f"
