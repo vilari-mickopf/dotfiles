@@ -147,6 +147,8 @@ for_window [class="Pavucontrol"] floating enable
 for_window [class="Oblogout"] fullscreen enable
 for_window [class="Arandr"] floating enable
 
+assign [class="Vlc"] $ws9
+
 # Messengers
 assign [class="Skype"] $ws8
 for_window [class="Skype"] layout stacked
