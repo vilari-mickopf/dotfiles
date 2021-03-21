@@ -289,8 +289,8 @@ bindsym $mod+z exec --no-startup-id dmenu_path | dmenu -i -b \
                                                        -sf '#191919' \
                                                        -fn 'Ubuntu:pixelsize=17'
 
-bindsym $mod+d exec --no-startup-id rofi -show run
-bindsym $mod+F7 exec --no-startup-id ~/.config/i3/scripts/displayselect
+bindsym $mod+d exec --no-startup-id ~/.config/i3/scripts/rofi_run
+bindsym $mod+Shift+d exec --no-startup-id ~/.config/i3/scripts/rofi_run ssh
 
 # Browser
 bindsym $mod+b exec chromium
@@ -303,6 +303,9 @@ bindsym $mod+Ctrl+m exec --no-startup-id audiocast restart
 
 # Sound
 bindsym $mod+m exec --no-startup-id ~/.config/i3/scripts/audioselect
+
+# Display
+bindsym $mod+F7 exec --no-startup-id ~/.config/i3/scripts/displayselect
 
 # Change keyboard layout
 bindsym $mod+space exec --no-startup-id xkb-switch -n && pkill -RTMIN+3 i3blocks
