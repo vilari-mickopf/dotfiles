@@ -1,10 +1,26 @@
 #!/bin/python
 
+import sys
 import subprocess
+
+import tty
+import termios
 
 import colorama
 from colorama import Fore
 colorama.init(autoreset=True)
+
+
+def get_char():
+    fd = sys.stdin.fileno()
+    oldSettings = termios.tcgetattr(fd)
+    try:
+        tty.setcbreak(fd)
+        answer = sys.stdin.read(1)
+    finally:
+        termios.tcsetattr(fd, termios.TCSADRAIN, oldSettings)
+
+    return answer
 
 
 def get_updates():
@@ -42,4 +58,5 @@ if __name__ == '__main__':
         print()
 
     print(67*'-')
-    input(Fore.YELLOW + str(len(updates)) + ' updates available')
+    print(Fore.YELLOW + str(len(updates)) + ' updates available', end='')
+    get_char()
