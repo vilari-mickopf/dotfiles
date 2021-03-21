@@ -301,11 +301,11 @@ bindsym $mod+Shift+m exec --no-startup-id ~/.config/i3/scripts/changesink && \
                                           pkill -RTMIN+1 i3blocks
 bindsym $mod+Ctrl+m exec --no-startup-id audiocast restart
 
-# Change keyboard layout
-bindsym $mod+space exec --no-startup-id xkb-switch -n && pkill -RTMIN+3 i3blocks
-
 # Sound
 bindsym $mod+m exec --no-startup-id ~/.config/i3/scripts/audioselect
+
+# Change keyboard layout
+bindsym $mod+space exec --no-startup-id xkb-switch -n && pkill -RTMIN+3 i3blocks
 
 # Start/stop screenrecord
 bindsym $mod+v exec --no-startup-id pkill -RTMIN+4 i3blocks
@@ -412,7 +412,7 @@ exec_always --no-startup-id setxkbmap -layout us,si \
 exec --no-startup-id mkdir -p /tmp/Screenshots && \
                               ln -sf /tmp/Screenshots ~/Pictures/
 exec --no-startup-id mkdir -p /tmp/Screenrecords && \
-                              ln -sf /tmp/Screenrecords ~/Video/
+                              ln -sf /tmp/Screenrecords ~/Videos/
 
 # Lock after 10 min, sleep after 30 min
 exec --no-startup-id xidlehook --not-when-fullscreen \
