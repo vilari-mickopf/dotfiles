@@ -3,11 +3,11 @@
     excludesfile = ~/.config/git/ignore
 
 [user]
-	email = f12markovic@gmail.com
+    email = f12markovic@gmail.com
     name = Filip Markovic
 
 [github]
-	user = vilari-mickopf
+    user = vilari-mickopf
 
 [credential]
     helper = cache --timeout=3600
