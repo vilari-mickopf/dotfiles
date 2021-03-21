@@ -8,11 +8,13 @@ help() {
 
 [[ -z $1 || $1 = '--help' || $1 = '-h' ]] && help && exit
 
-file=$1
+for arg in $@; do
+    file=$arg
 
-base="$(basename -- $file)"
-name="./${base%.*}"
+    base="$(basename -- $file)"
+    name="./${base%.*}"
 
-ffmpeg -i $file -vf palettegen $name.png && \
-    ffmpeg -i $file -i $name.png -filter_complex paletteuse $name.gif && \
-    rm $name.png
+    ffmpeg -i $file -vf palettegen $name.png && \
+        ffmpeg -i $file -i $name.png -filter_complex paletteuse $name.gif && \
+        rm $name.png
+done
