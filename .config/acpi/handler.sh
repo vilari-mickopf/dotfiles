@@ -43,11 +43,11 @@ case "$1" in
 
     button/lid)
         case "$3" in
-            close) logger 'LID closed';
-                   export DISPLAY=:0;
-                   ~/.config/i3/scripts/lock ;;
+            close) logger 'LID closed';;
             open) logger 'LID opened';
-                  ~/.config/i3/scripts/backlight on ;;
+                  ~/.config/i3/scripts/backlight on ;
+                  export DISPLAY=:0;
+                  ~/.config/i3/scripts/lock ;;
             *) logger "ACPI action undefined: $3" ;;
     esac ;;
 
