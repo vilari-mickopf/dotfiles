@@ -1,5 +1,4 @@
-#!/bin/sh
-
+#!/bin/bash
 
 # MODE=mirror
 MODE=right
@@ -7,7 +6,6 @@ MODE=right
 
 PRIMARY_RESOLUTION=1920x1080
 EXTERNAL_RESOLUTION=1920x1080
-
 
 connect() {
     valid=(right left mirror)
@@ -22,7 +20,6 @@ connect() {
 disconnect() {
     xrandr --output $1 --auto
 }
-
 
 primary=$(xrandr -q | grep -w "primary" |  awk '{print $1;}')
 connected_external=$(xrandr -q | grep -w "connected" |  awk '{print $1;}')
@@ -39,7 +36,6 @@ for connected_screen in $connected_external; do
     [[ $connected_screen == $primary ]] && continue
     [[ $SRANDRD_ACTION == "$connected_screen connected" ]] && \
         connect $connected_screen
-    echo "conn $connected_screen"
 done
 
 # Set disconnected screens

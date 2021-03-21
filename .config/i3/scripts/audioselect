@@ -1,15 +1,28 @@
-#!/bin/sh
+#!/bin/bash
 
-choices="laptop\nHDMI\nChange sink\nManual selection"
+cards=$(pacmd list-cards | grep 'output:' \
+                         | sed '/active profile:/d' \
+                         | sed '/available: no/d' \
+                         | awk '{ print $1 }' \
+                         | sed 's/.$//')
+
+names=$(pacmd list-cards | grep 'output:' \
+                         | sed '/active profile:/d' \
+                         | sed '/available: no/d' \
+                         | cut -f 2- -d ' ' \
+                         | sed "s/([^)]*)//g")
+
+choices="$names\nManual selection"
 chosen=$(echo -e "$choices" | dmenu -i -b -nb '#282C34' \
                                           -nf '#ABB2BF' \
                                           -sb '#98c379' \
                                           -sf '#191919' \
                                           -fn 'Ubuntu:pixelsize=17')
 
+chosen=$(echo $chosen | xargs)
 case "$chosen" in
-    laptop) pacmd set-card-profile 0 "output:analog-stereo+input:analog-stereo" ;;
-    HDMI) pacmd set-card-profile 0 "output:hdmi-stereo-extra1" ;;
-    "Change Sink") ~/.config/i3/scripts/changesink ;;
     "Manual selection") st -n volume-bar -e ncpamixer ;;
+    *)  while read n <&3 && read c <&4; do
+            [[ "$chosen" == "$n" ]] && pacmd set-card-profile 0 $c
+        done 3<<<"$names" 4<<<"$cards" ;;
 esac
