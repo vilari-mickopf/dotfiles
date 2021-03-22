@@ -276,6 +276,13 @@
                 " fugitive -- Git from vim
                 call dein#add('tpope/vim-fugitive')
 
+                " git-messenger -- reveal git message under the cursor
+                call dein#add('rhysd/git-messenger.vim', {
+                              \'lazy' : 1,
+                              \'on_cmd' : 'GitMessenger',
+                              \'on_map' : '<Plug>(git-messenger',
+                              \})
+
                 " gv -- Commit search
                 call dein#add('junegunn/gv.vim', {
                              \'depends': 'vim-fugitive'})
@@ -1011,6 +1018,9 @@
             " gitgutter -- Show git diff in gutter
                 " Update in real time
                 let g:gitgutter_realtime = 1
+
+            " git-messenger -- reveal git message under the cursor
+                let g:git_messenger_include_diff = 1
 
             " ConflictMotions -- Resolve conflict easier
                 " Disable mappings
