@@ -224,10 +224,6 @@
         nnoremap Q <Nop>
 
 " LOCAL PLUGINS
-    " Grep
-        nmap <silent> <leader>f :GrepInProject<CR>
-        nmap <silent> <leader>F :GrepWordUnderCursorInProject<CR>
-
     " Window
         " Make all windows equally sized
         nmap <silent> <leader>= :wincmd = \| echo('Resize window')<CR>
@@ -417,6 +413,22 @@
             function! FirenvimMappings()
                 inoremap <CR> <Esc>:w<CR>:call firenvim#press_keys("<LT>CR>")<CR>ggdGa
             endfunction
+
+        " any-jump
+            " Normal mode: Jump to definition under cursore
+            nnoremap <leader>f :AnyJump<CR>
+
+            " Normal mode: Jump to definition under cursore
+            nnoremap <leader>F :call AnyJumpUserArg()<CR>
+
+            " Visual mode: jump to selected text in visual mode
+            xnoremap <leader>f :AnyJumpVisual<CR>
+
+            " Normal mode: open previous opened file (after jump)
+            " nnoremap <leader>ab :AnyJumpBack<CR>
+
+            " Normal mode: open last closed search window again
+            nnoremap <A-f>:AnyJumpLastResults<CR>
 
         " ctrlp -- Fuzzy search engine
             nmap <C-p> <Plug>(ctrlp)

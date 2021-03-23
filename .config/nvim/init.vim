@@ -401,6 +401,9 @@
             " comfortable-motion -- Smooth scrolling
             call dein#add('yuttie/comfortable-motion.vim')
 
+            " any-jump -- grep in project
+            call dein#add('pechorin/any-jump.vim')
+
             " firenvim -- Use nvim in browser
             call dein#add('glacambre/firenvim', {
                          \'hook_post_update': 'call firenvim#install(0)'})
@@ -439,11 +442,6 @@
     endif
     filetype plugin indent on
     syntax enable
-
-    " Install not installed plugins on startup
-    if dein#check_install()
-        call dein#install()
-    endif
 
 " PLUGIN CONFIGURATION
     " Configure all installed plugins
@@ -806,7 +804,7 @@
             function! VimspectorInputBreakpointCondition()
                 " Get variable
                 let l:condition = PromptGetUserInput('Condition: ', 'customlist,CompleteWords')
-                if empty(l:var) | return | endif
+                if empty(l:condition) | return | endif
                 let l:condition = expand('<cword>')
 
                 exe "call vimspector#ToggleBreakpoint({'condition': '" . l:condition . "'}) "
@@ -1018,9 +1016,6 @@
             " gitgutter -- Show git diff in gutter
                 " Update in real time
                 let g:gitgutter_realtime = 1
-
-            " git-messenger -- reveal git message under the cursor
-                let g:git_messenger_include_diff = 1
 
             " ConflictMotions -- Resolve conflict easier
                 " Disable mappings
@@ -1329,6 +1324,18 @@
                 endif
             endfunction
 
+        " any-jump -- grep in project
+            let g:any_jump_disable_default_keybindings = 1
+            let g:any_jump_ignored_files = ['*.tmp', '*.temp', &wildignore]
+
+            " Get argument with completion
+            function! AnyJumpUserArg()
+                let l:arg = PromptGetUserInput('Grep: ', 'customlist,CompleteWords')
+                if empty(l:arg) | return | endif
+                exe 'AnyJumpArg '. l:arg
+            endfunction
+
+
         " Firenvim
             let g:firenvim_config = {
                 \ 'globalSettings': {
@@ -1548,7 +1555,7 @@
                 exe 'hi TSTitle guifg=' . g:terminal_color_5
 
                 " Literal text.
-                exe 'hi TSLiteral guifg=' . g:terminal_color_7
+                exe 'hi TSLiteral guifg=' . g:terminal_color_2
 
                 " Any URI like a link or email.
                 exe 'hi TSURI guifg=' . g:terminal_color_4
