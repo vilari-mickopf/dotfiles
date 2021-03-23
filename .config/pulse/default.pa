@@ -83,7 +83,7 @@ load-module module-native-protocol-unix
 #load-module module-rtp-recv
 
 ### Load the RTP sender module (also configured via paprefs, see above)
-load-module module-null-sink sink_name=rtp sink_properties="device.description='RTP Multicast Sink'"
+load-module module-null-sink sink_name=rtp format=s16le rate=48000 channels=2 sink_properties="device.description='RTP Multicast Sink'"
 # load-module module-rtp-send source=rtp.monitor mtu=320
 
 ### Load additional modules from GSettings. This can be configured with the paprefs tool.

@@ -296,10 +296,12 @@ bindsym $mod+Shift+d exec --no-startup-id ~/.config/i3/scripts/rofi_run ssh
 bindsym $mod+b exec chromium
 bindsym $mod+Shift+b workspace $ws2; exec chromium
 
-# Change audio sink
+# Change audio sink and toggle audiocast
 bindsym $mod+Shift+m exec --no-startup-id ~/.config/i3/scripts/changesink && \
-                                          pkill -RTMIN+1 i3blocks
-bindsym $mod+Ctrl+m exec --no-startup-id audiocast restart
+                                          pkill -RTMIN+1 i3blocks && audiocast
+
+# Restart audiocast
+bindsym $mod+Ctrl+m exec --no-startup-id audiocast
 
 # Sound
 bindsym $mod+m exec --no-startup-id ~/.config/i3/scripts/audioselect

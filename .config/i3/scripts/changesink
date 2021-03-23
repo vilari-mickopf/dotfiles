@@ -1,18 +1,8 @@
 #!/bin/bash
 
-current_sink=$(pacmd list-sinks | grep index | tee /dev/stdout \
-                                | grep -m1 '* index' \
-                                | cut -c12-)
-
 new_sink=$(pacmd list-sinks | grep index | tee /dev/stdout \
                             | grep -m1 -A1 '* index' \
                             | tail -1 | cut -c12-)
-
-rtp_sink=$(pacmd list-sinks | grep -C 1 rtp \
-                            | grep index \
-                            | awk 'NF>1{print $NF}')
-
-[[ $new_sink == $rtp_sink ]] && audiocast restart || audiocast stop
 
 pacmd set-default-sink $new_sink
 pacmd list-sink-inputs | grep index | while read line; do
