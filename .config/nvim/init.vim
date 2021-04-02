@@ -4,12 +4,6 @@
     " Set default clipboard to system clipboard
     set clipboard=unnamedplus
 
-    " Turn on syntax
-    syntax on
-
-    " Enable syntax highlighting
-    syntax enable
-
     " Show command on last line of the screen
     set showcmd
 
@@ -428,6 +422,9 @@
             " Tree-sitter stuff
                 " treesitter -- Highlighting
                 call dein#add('nvim-treesitter/nvim-treesitter')
+
+                " treesitter-context
+                call dein#add('romgrk/nvim-treesitter-context')
 
                 " treesitter-refactor -- Refactor modules for nvim-treesitter
                 call dein#add('nvim-treesitter/nvim-treesitter-refactor', {
@@ -1335,7 +1332,6 @@
                 exe 'AnyJumpArg '. l:arg
             endfunction
 
-
         " Firenvim
             let g:firenvim_config = {
                 \ 'globalSettings': {
@@ -1415,215 +1411,215 @@
                 \ ['red', g:terminal_color_5]]
 
         " nvim-treesitter
-                set foldexpr=nvim_treesitter#foldexpr()
+            set foldexpr=nvim_treesitter#foldexpr()
 
-                "Syntax/parser errors.
-                exe 'hi TSError guifg=' . g:terminal_color_1
+            "Syntax/parser errors.
+            exe 'hi TSError guifg=' . g:terminal_color_1
 
-                " Delimiters ie: `.`
-                exe 'hi TSPunctDelimiter guifg=' . g:terminal_color_7
+            " Delimiters ie: `.`
+            exe 'hi TSPunctDelimiter guifg=' . g:terminal_color_7
 
-                " Brackets and parens.
-                exe 'hi TSPunctBracket guifg=' . g:terminal_color_7
+            " Brackets and parens.
+            exe 'hi TSPunctBracket guifg=' . g:terminal_color_7
 
-                " For special punctutation that does not fall in the catagories
-                " before.
-                exe 'hi TSPunctSpecial guifg=' . g:terminal_color_5
+            " For special punctutation that does not fall in the catagories
+            " before.
+            exe 'hi TSPunctSpecial guifg=' . g:terminal_color_5
 
-                " Tags like html tag names.
-                exe 'hi TSTag guifg=' . g:terminal_color_6
+            " Tags like html tag names.
+            exe 'hi TSTag guifg=' . g:terminal_color_6
 
-                " Tag delimiter like `<` `>` `/`
-                exe 'hi TSTagDelimiter guifg=' . g:terminal_color_9
+            " Tag delimiter like `<` `>` `/`
+            exe 'hi TSTagDelimiter guifg=' . g:terminal_color_9
 
-                " For constants
-                exe 'hi TSConstant guifg=' . g:terminal_color_11
+            " For constants
+            exe 'hi TSConstant guifg=' . g:terminal_color_11
 
-                " For constant that are built in the language: `nil` in Lua.
-                exe 'hi TSConstBuiltin guifg=' . g:terminal_color_11
+            " For constant that are built in the language: `nil` in Lua.
+            exe 'hi TSConstBuiltin guifg=' . g:terminal_color_11
 
-                " For constants that are defined by macros: `NULL` in C.
-                exe 'hi TSConstMacro guifg=' . g:terminal_color_13
+            " For constants that are defined by macros: `NULL` in C.
+            exe 'hi TSConstMacro guifg=' . g:terminal_color_13
 
-                " For strings.
-                exe 'hi TSString guifg=' . g:terminal_color_2
+            " For strings.
+            exe 'hi TSString guifg=' . g:terminal_color_2
 
-                " For regexes.
-                exe 'hi TSStringRegex guifg=' . g:terminal_color_6
+            " For regexes.
+            exe 'hi TSStringRegex guifg=' . g:terminal_color_6
 
-                " For escape characters within a string.
-                exe 'hi TSStringEscape guifg=' . g:terminal_color_4
+            " For escape characters within a string.
+            exe 'hi TSStringEscape guifg=' . g:terminal_color_4
 
-                " For characters.
-                exe 'hi TSCharacter guifg=' . g:terminal_color_11
+            " For characters.
+            exe 'hi TSCharacter guifg=' . g:terminal_color_11
 
-                " For integers.
-                exe 'hi TSNumber guifg=' . g:terminal_color_11
+            " For integers.
+            exe 'hi TSNumber guifg=' . g:terminal_color_11
 
-                " For booleans.
-                exe 'hi TSBoolean guifg=' . g:terminal_color_11
+            " For booleans.
+            exe 'hi TSBoolean guifg=' . g:terminal_color_11
 
-                " TSFloat
-                exe 'hi TSFloat guifg=' . g:terminal_color_11
+            " TSFloat
+            exe 'hi TSFloat guifg=' . g:terminal_color_11
 
-                " For function (calls and definitions).
-                exe 'hi TSFunction guifg=' . g:terminal_color_4
+            " For function (calls and definitions).
+            exe 'hi TSFunction guifg=' . g:terminal_color_4
 
-                " For builtin functions: `table.insert` in Lua.
-                exe 'hi TSFuncBuiltin guifg=' . g:terminal_color_5
+            " For builtin functions: `table.insert` in Lua.
+            exe 'hi TSFuncBuiltin guifg=' . g:terminal_color_5
 
-                " For macro defined fuctions (calls and definitions): each
-                " `macro_rules` in Rust.
-                exe 'hi TSFuncMacro guifg=' . g:terminal_color_5
+            " For macro defined fuctions (calls and definitions): each
+            " `macro_rules` in Rust.
+            exe 'hi TSFuncMacro guifg=' . g:terminal_color_5
 
-                " For references to parameters of a function.
-                exe 'hi TSParameterReference guifg=' . g:terminal_color_5
+            " For references to parameters of a function.
+            exe 'hi TSParameterReference guifg=' . g:terminal_color_5
 
-                " For parameters of a function.
-                exe 'hi TSParameter guifg=' . g:terminal_color_3
+            " For parameters of a function.
+            exe 'hi TSParameter guifg=' . g:terminal_color_3
 
-                " For method calls and definitions.
-                exe 'hi TSMethod guifg=' . g:terminal_color_4
+            " For method calls and definitions.
+            exe 'hi TSMethod guifg=' . g:terminal_color_4
 
-                " For fields.
-                exe 'hi TSField guifg=' . g:terminal_color_7
+            " For fields.
+            exe 'hi TSField guifg=' . g:terminal_color_7
 
-                " Same as `TSField`.
-                exe 'hi TSProperty guifg=' . g:terminal_color_4
+            " Same as `TSField`.
+            exe 'hi TSProperty guifg=' . g:terminal_color_4
 
-                " For constructor calls and definitions: `{}` in Lua, and Java
-                " constructors.
-                exe 'hi TSConstructor guifg=' . g:terminal_color_4
+            " For constructor calls and definitions: `{}` in Lua, and Java
+            " constructors.
+            exe 'hi TSConstructor guifg=' . g:terminal_color_4
 
-                " For keywords related to conditionnals.
-                exe 'hi TSConditional guifg=' . g:terminal_color_5
+            " For keywords related to conditionnals.
+            exe 'hi TSConditional guifg=' . g:terminal_color_5
 
-                " For keywords related to loops.
-                exe 'hi TSRepeat guifg=' . g:terminal_color_5
+            " For keywords related to loops.
+            exe 'hi TSRepeat guifg=' . g:terminal_color_5
 
-                " For labels: `label:` in C and `:label:` in Lua.
-                exe 'hi TSLabel guifg=' . g:terminal_color_5
+            " For labels: `label:` in C and `:label:` in Lua.
+            exe 'hi TSLabel guifg=' . g:terminal_color_5
 
-                " For any operator: `+`, but also `->` and `*` in C.
-                exe 'hi TSOperator guifg=' . g:terminal_color_5
+            " For any operator: `+`, but also `->` and `*` in C.
+            exe 'hi TSOperator guifg=' . g:terminal_color_5
 
-                " For keywords that don't fall in previous categories.
-                exe 'hi TSKeyword guifg=' . g:terminal_color_5
+            " For keywords that don't fall in previous categories.
+            exe 'hi TSKeyword guifg=' . g:terminal_color_5
 
-                " For keywords used to define a fuction.
-                exe 'hi TSKeywordFunction guifg=' . g:terminal_color_4
+            " For keywords used to define a fuction.
+            exe 'hi TSKeywordFunction guifg=' . g:terminal_color_4
 
-                " For exception related keywords.
-                exe 'hi TSException guifg=' . g:terminal_color_5
+            " For exception related keywords.
+            exe 'hi TSException guifg=' . g:terminal_color_5
 
-                " For types.
-                exe 'hi TSType guifg=' . g:terminal_color_6
+            " For types.
+            exe 'hi TSType guifg=' . g:terminal_color_6
 
-                " For builtin types (you guessed it, right ?).
-                exe 'hi TSTypeBuiltin guifg=' . g:terminal_color_3
+            " For builtin types (you guessed it, right ?).
+            exe 'hi TSTypeBuiltin guifg=' . g:terminal_color_3
 
-                " For identifiers referring to modules and namespaces.
-                exe 'hi TSNamespace guifg=' . g:terminal_color_6
+            " For identifiers referring to modules and namespaces.
+            exe 'hi TSNamespace guifg=' . g:terminal_color_6
 
-                " None
-                exe 'hi TSNone guifg=' . g:terminal_color_11
+            " None
+            exe 'hi TSNone guifg=' . g:terminal_color_11
 
-                " For includes: `#include` in C, `use` or `extern crate` in
-                " Rust, or `require` in Lua.
-                exe 'hi TSInclude guifg=' . g:terminal_color_5
+            " For includes: `#include` in C, `use` or `extern crate` in
+            " Rust, or `require` in Lua.
+            exe 'hi TSInclude guifg=' . g:terminal_color_5
 
-                " For C++/Dart attributes, annotations that can be attached to
-                " the code to denote some kind of meta information.
-                exe 'hi TSAnnotation guifg=' . g:terminal_color_6
+            " For C++/Dart attributes, annotations that can be attached to
+            " the code to denote some kind of meta information.
+            exe 'hi TSAnnotation guifg=' . g:terminal_color_6
 
-                " For comment blocks.
-                exe 'hi TSComment guifg=' . g:terminal_color_15
+            " For comment blocks.
+            exe 'hi TSComment guifg=' . g:terminal_color_15
 
-                " For strings considered text in a markup language.
-                exe 'hi TSText guifg=' . g:terminal_color_7
+            " For strings considered text in a markup language.
+            exe 'hi TSText guifg=' . g:terminal_color_7
 
-                " For text to be represented with strong.
-                exe 'hi TSStrong guifg=' . g:terminal_color_7
+            " For text to be represented with strong.
+            exe 'hi TSStrong guifg=' . g:terminal_color_7
 
-                " For text to be represented with emphasis.
-                exe 'hi TSEmphasis guifg=' . g:terminal_color_11
+            " For text to be represented with emphasis.
+            exe 'hi TSEmphasis guifg=' . g:terminal_color_11
 
-                " For text to be represented with an underline.
-                exe 'hi TSUnderline guifg=' . g:terminal_color_7
+            " For text to be represented with an underline.
+            exe 'hi TSUnderline guifg=' . g:terminal_color_7
 
-                " Text that is part of a title.
-                exe 'hi TSTitle guifg=' . g:terminal_color_5
+            " Text that is part of a title.
+            exe 'hi TSTitle guifg=' . g:terminal_color_5
 
-                " Literal text.
-                exe 'hi TSLiteral guifg=' . g:terminal_color_2
+            " Literal text.
+            exe 'hi TSLiteral guifg=' . g:terminal_color_2
 
-                " Any URI like a link or email.
-                exe 'hi TSURI guifg=' . g:terminal_color_4
+            " Any URI like a link or email.
+            exe 'hi TSURI guifg=' . g:terminal_color_4
 
-                " Any variable name that does not have another highlight.
-                exe 'hi TSVariable guifg=' . g:terminal_color_7
+            " Any variable name that does not have another highlight.
+            exe 'hi TSVariable guifg=' . g:terminal_color_7
 
-                " Variable names that are defined by the languages, like
-                " `this` or `self`.
-                exe 'hi TSVariableBuiltin guifg=' . g:terminal_color_5
+            " Variable names that are defined by the languages, like
+            " `this` or `self`.
+            exe 'hi TSVariableBuiltin guifg=' . g:terminal_color_5
 
-                " Refactor
-                " Used by refactor.highlight_definitions to highlight the
-                " definition of the symbol under the cursor.
-                exe 'hi TSDefinition guifg=' . g:terminal_color_3
-                ". ' gui=underline'
-                " Used by refactor.highlight_definitions to highlight usages
-                " of the symbol under the cursor.
-                exe 'hi TSDefinitionUsage guibg=' . g:terminal_color_8
+            " Refactor
+            " Used by refactor.highlight_definitions to highlight the
+            " definition of the symbol under the cursor.
+            exe 'hi TSDefinition guifg=' . g:terminal_color_3
+            ". ' gui=underline'
+            " Used by refactor.highlight_definitions to highlight usages
+            " of the symbol under the cursor.
+            exe 'hi TSDefinitionUsage guibg=' . g:terminal_color_8
 
-                " Used by refactor.highlight_current_scope to highlight the
-                " current scope.
-                exe 'hi TSCurrentScope guibg=' . g:terminal_color_8
+            " Used by refactor.highlight_current_scope to highlight the
+            " current scope.
+            exe 'hi TSCurrentScope guibg=' . g:terminal_color_8
 
-                lua << EOF
-                require'nvim-treesitter.configs'.setup {
-                    ensure_installed = {
-                        'c', 'cpp', 'python'
+            lua << EOF
+            require'nvim-treesitter.configs'.setup {
+                ensure_installed = {
+                    'c', 'cpp', 'python'
+                },
+                highlight = {
+                    enable = true,
+                    use_languagetree = true, -- Use this to enable language injection
+                },
+                incremental_selection = {
+                    enable = true,
+                    keymaps = {
+                        init_selection = "gnn",
+                        node_incremental = "grn",
+                        scope_incremental = "grc",
+                        node_decremental = "grm",
                     },
-                    highlight = {
+                },
+                refactor = {
+                    highlight_definitions = {
                         enable = true,
-                        use_languagetree = true, -- Use this to enable language injection
+                        disable = { 'markdown' }
                     },
-                    incremental_selection = {
+                },
+                textobjects = {
+                    select = {
                         enable = true,
                         keymaps = {
-                            init_selection = "gnn",
-                            node_incremental = "grn",
-                            scope_incremental = "grc",
-                            node_decremental = "grm",
-                        },
-                    },
-                    refactor = {
-                        highlight_definitions = {
-                            enable = true,
-                            disable = { 'markdown' }
-                        },
-                    },
-                    textobjects = {
-                        select = {
-                            enable = true,
-                            keymaps = {
-                                -- You can use the capture groups defined in textobjects.scm
-                                ["af"] = "@function.outer",
-                                ["if"] = "@function.inner",
-                                ["ac"] = "@class.outer",
-                                ["ic"] = "@class.inner",
+                            -- You can use the capture groups defined in textobjects.scm
+                            ["af"] = "@function.outer",
+                            ["if"] = "@function.inner",
+                            ["ac"] = "@class.outer",
+                            ["ic"] = "@class.inner",
 
-                                -- Or you can define your own textobjects like this
-                                ["iF"] = {
-                                  python = "(function_definition) @function",
-                                  cpp = "(function_definition) @function",
-                                  c = "(function_definition) @function",
-                                  java = "(method_declaration) @function",
-                                },
+                            -- Or you can define your own textobjects like this
+                            ["iF"] = {
+                              python = "(function_definition) @function",
+                              cpp = "(function_definition) @function",
+                              c = "(function_definition) @function",
+                              java = "(method_declaration) @function",
                             },
                         },
                     },
-                }
+                },
+            }
 EOF
 " endfunction

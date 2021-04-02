@@ -430,6 +430,10 @@
             " Normal mode: open last closed search window again
             nnoremap <A-f>:AnyJumpLastResults<CR>
 
+        " context
+            nmap <leader>s :TSContextEnable<CR>
+            nmap <leader>S :TSContextDisable<CR>
+
         " ctrlp -- Fuzzy search engine
             nmap <C-p> <Plug>(ctrlp)
 
