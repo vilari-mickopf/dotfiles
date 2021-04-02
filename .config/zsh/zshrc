@@ -1,214 +1,45 @@
-# if you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-# Path to your oh-my-zsh installation.
-export ZSH="$HOME/.config/zsh/oh-my-zsh"
-fpath=($HOME/.config/zsh/completion/git/ $fpath)
+#!/bin/zsh
 
-# Path to fzf
-export FZF="/usr/share/fzf"
-# Solarized colors
-export FZF_DEFAULT_OPTS='
+################################################################################
+#   General
+################################################################################
+
+autoload -Uz compinit && compinit -i
+autoload -U colors && colors
+
+export EDITOR='nvim'
+
+# Proper less config
+LESS='--quit-if-one-screen --ignore-case --status-column --LONG-PROMPT'
+LESS="$LESS --RAW-CONTROL-CHARS --HILITE-UNREAD --tabs=4 --no-init --window=-4"
+LESS="$LESS --mouse --wheel-lines=1"
+export LESS=$LESS
+
+
+################################################################################
+#   Completions
+################################################################################
+
+fpath=($ZDOTDIR/completion/git/ $fpath)
+
+
+################################################################################
+#   Global plugins
+################################################################################
+
+GLOBAL_PLUGINS=/usr/share/
+
+# fzf
+FZF_DEFAULT_OPTS='
   --color=bg+:#282c34,bg:#282c34,spinner:#c678dd,hl:#be5046
   --color=fg:#abb2bf,header:#586e75,info:#d19a66,pointer:#98c379
   --color=marker:#e5c07b,fg+:#abb2bf,prompt:#d19a66,hl+:#be5046
 '
-# export TERMCMD="st"
+source $GLOBAL_PLUGINS/fzf/completion.zsh
+source $GLOBAL_PLUGINS/fzf/key-bindings.zsh
 
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-#ZSH_THEME="robbyrussell"
-ZSH_THEME="bloodhail"
-
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
-
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
-
-# Uncomment the following line to use hyphen-insensitive completion.
-# Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
-
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
-HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-ZSH_CUSTOM=$HOME/.config/zsh/themes
-
-# User configuration
-#
-# Disable unnecessary prompt when enter root with user's settings
-ZSH_DISABLE_COMPFIX="true"
-
-# Default end of line mark is highlighted %, which is weird and ugly
-PROMPT_EOL_MARK=''
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-    export EDITOR='nvim'
-else
-    export EDITOR='nvim'
-fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# ssh
-export SSH_KEY_PATH="~/.ssh/rsa_id"
-export TMP="/tmp"
-
-# Which plugins would you like to load?
-# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-
-export HISTFILE=$HOME/.config/zsh/.zsh_history
-source $ZSH/oh-my-zsh.sh
-source $ZSH/plugins/git/git.plugin.zsh
-source $ZSH/plugins/colored-man-pages/colored-man-pages.plugin.zsh
-source $ZSH/plugins/compleat/compleat.plugin.zsh
-source $FZF/completion.zsh
-source $FZF/key-bindings.zsh
-plugins=(
-    git
-    zsh-completions
-)
-autoload -Uz compinit && compinit
-
-# Vi Mode
-bindkey -v
-
-# bindkey '^P' up-history
-# bindkey '^N' down-history
-# bindkey '^?' backward-delete-char
-# bindkey '^h' backward-delete-char
-# bindkey '^w' backward-kill-word
-# bindkey '^r' history-incremental-search-backward
-bindkey '^R' fzf-history-widget
-bindkey '^[[Z' reverse-menu-complete
-bindkey -v '^?' backward-delete-char
-
-zle-keymap-select () {
-    if [ $KEYMAP = vicmd ]; then
-        printf "\033[4 q"
-    else
-        printf "\033[2 q"
-    fi
-}
-
-zle -N zle-keymap-select
-zle-line-init () {
-    zle -K viins
-    printf "\033[2 q"
-}
-zle -N zle-line-init
-
-export KEYTIMEOUT=1
-
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-
-# Comes handy after writting command only to find out you have left the sudo part
-alias fuck='sudo $(fc -ln -1)'
-# I can't write for shit
-alias fcuk='fuck'
-
-# Avoid overwriting with windows-like 'Are you sure?' prompt
-alias cp='cp -i'
-
-# Make your life easier, type less
-alias c='clear'
-
-# alias ls='ls --color=auto --group-directories-first'
-# ls dir's content every time you do cd
-cdls(){cd "$@" && ls;}
-alias cd='cdls'
-alias cd.='cdls'
-alias cd..='cdls ..'
-alias cd,,='cdls ..'
-
-alias pg='ps aux | grep'
-alias lg='ls | grep'
-
-alias mkdir='mkdir -p'
-
-alias ccat='highlight --out-format=ansi --force'
-
-alias memfree='free && sync && echo "echo 3 > /proc/sys/vm/drop_caches" | sudo sh && free'
-
-alias vim='nvim'
-alias v='nvim'
-alias vimdiff='nvim -d'
-alias vd='nvim -d'
-
-# Exiting from ranger keeps terminal in last location
-alias ranger='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd "$LASTDIR"'
-alias r='ranger'
-
-alias wifi-list='nmcli dev wifi list'
-alias wifi-connect='nmcli dev wifi connect "$@" -a'
-alias wifi-disconnect='nmcli dev disconnect wlp4s0'
-
-alias y='yay'
-alias p='pacman'
-
-yay_update(){yay "$@" -Syu --devel --timeupdate --noconfirm --overwrite "*"; pkill -RTMIN+2 i3blocks}
-alias yu='yay_update'
-
-# Auto open with default apps
-function open () { mimeopen "$@" 2>/dev/null }
-alias o='open'
-
-# dotfiles
-alias config='git --git-dir=$HOME/.dotfiles/.git/ --work-tree=$HOME/'
-
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# syntax-highlighting
+source $GLOBAL_PLUGINS/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 ZSH_HIGHLIGHT_STYLES[suffix-alias]=fg=white
 ZSH_HIGHLIGHT_STYLES[precommand]=fg=white
 ZSH_HIGHLIGHT_STYLES[arg0]=fg=white
@@ -219,10 +50,30 @@ ZSH_HIGHLIGHT_STYLES[double-hyphen-option]=fg=yellow
 ZSH_HIGHLIGHT_STYLES[single-quoted-argument]=fg=green
 ZSH_HIGHLIGHT_STYLES[double-quoted-argument]=fg=green
 
-# QT bug with HiDPI
-export QT_AUTO_SCREEN_SCALE_FACTOR=1
+# auto-suggest
+source $GLOBAL_PLUGINS/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#5c6370"
+ZSH_AUTOSUGGEST_USE_ASYNC=1
 
-export HISTSIZE=100000000
-export SAVEHIST=$HISTSIZE
-setopt EXTENDED_HISTORY
-ulimit -s unlimited
+
+################################################################################
+#   Local plugins
+################################################################################
+
+LOCAL_PLUGINS=$ZDOTDIR/plugins/
+
+source $LOCAL_PLUGINS/history.zsh
+source $LOCAL_PLUGINS/autocomplete.zsh
+source $LOCAL_PLUGINS/vimode.zsh
+source $LOCAL_PLUGINS/keybindings.zsh
+source $LOCAL_PLUGINS/aliases.zsh
+source $LOCAL_PLUGINS/colored-man-pages.zsh
+source $LOCAL_PLUGINS/gitstatus.zsh
+
+
+################################################################################
+#   Theme
+################################################################################
+
+THEMES=$ZDOTDIR/themes
+source $THEMES/bloodhail.zsh-theme

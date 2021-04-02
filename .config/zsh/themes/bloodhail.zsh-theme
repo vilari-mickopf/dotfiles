@@ -1,29 +1,23 @@
-# /bin/zsh
+#!/bin/zsh
 
 autoload -U promptinit; promptinit
-autoload -U colors && colors
-
-ZSH_THEME_GIT_PROMPT_PREFIX="[git:"
-ZSH_THEME_GIT_PROMPT_SUFFIX="]%}%{$reset_color%}"
-ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[red]+"
-ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[green]"
 
 function get_pwd() {
-  echo "${PWD/$HOME/~}"
+    echo "${PWD/$HOME/~}"
 }
 
-function git_prompt_info() {
-  ref=$(git symbolic-ref HEAD 2> /dev/null) || return
-  echo "$(parse_git_dirty)$ZSH_THEME_GIT_PROMPT_PREFIX$(current_branch)$ZSH_THEME_GIT_PROMPT_SUFFIX"
+ret_status="%(?:%{$terminfo[bold]$fg[yellow]%} :%{$terminfo[bold]$fg[red]%} )"
+# ret_status="%(?:%{$terminfo[bold]$fg[yellow]%} :%{$terminfo[bold]$fg[red]%} )"
+
+user="%{$terminfo[bold]$fg[magenta]%}%n%{$reset_color%}"
+at="%{$terminfo[bold]$fg[blue]@%}%{$reset_color%}"
+host="%{$terminfo[bold]$fg[magenta]%m%}%{$reset_color%}"
+colon="%{$terminfo[bold]$fg[white]%}:%{$reset_color%}"
+
+set_prompt () {
+PROMPT="$user$at$host$colon %{$terminfo[bold]$fg[yellow]$(get_pwd)%}%{$reset_color%} $(git_status)
+$ret_status%{$reset_color%}"
 }
 
-local ret_status="%(?:%{$terminfo[bold]$fg[yellow]%} :%{$terminfo[bold]$fg[red]%} )"
-# local ret_status="%(?:%{$terminfo[bold]$fg[yellow]%} :%{$terminfo[bold]$fg[red]%} )"
-
-local user="%{$terminfo[bold]$fg[magenta]%}%n%{$reset_color%}"
-local at="%{$terminfo[bold]$fg[blue]@%}%{$reset_color%}"
-local host="%{$terminfo[bold]$fg[magenta]%m%}%{$reset_color%}"
-local colon="%{$terminfo[bold]$fg[white]%}:%{$reset_color%}"
-
-PROMPT='${user}${at}${host}${colon} %{$terminfo[bold]$fg[yellow]$(get_pwd)%}%{$reset_color%} $(git_prompt_info)
-${ret_status}%{$reset_color%}'
+precmd_functions+=set_prompt
+set_prompt
