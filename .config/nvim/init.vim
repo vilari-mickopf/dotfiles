@@ -473,7 +473,10 @@
 
     " Theme and status line
         " onedark -- A dark color scheme inspired by theme for the Atom
-            colorscheme onedark
+            silent! colorscheme onedark
+            if exists('terminal_color_0') == 0
+                finish
+            endif
 
             " |     Variable                |   Color                        |
             " | :-------------------------: | :----------------------------: |

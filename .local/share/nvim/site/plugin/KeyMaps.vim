@@ -428,7 +428,7 @@
             " nnoremap <leader>ab :AnyJumpBack<CR>
 
             " Normal mode: open last closed search window again
-            nnoremap <A-f>:AnyJumpLastResults<CR>
+            nnoremap <A-f> :AnyJumpLastResults<CR>
 
         " context
             nmap <leader>s :TSContextEnable<CR>
