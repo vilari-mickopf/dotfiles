@@ -301,7 +301,7 @@ bindsym $mod+Shift+m exec --no-startup-id ~/.config/i3/scripts/changesink && \
                                           pkill -RTMIN+1 i3blocks && audiocast
 
 # Restart audiocast
-bindsym $mod+Ctrl+m exec --no-startup-id audiocast
+bindsym $mod+Ctrl+m exec --no-startup-id audiocast restart
 
 # Sound
 bindsym $mod+m exec --no-startup-id ~/.config/i3/scripts/audioselect
