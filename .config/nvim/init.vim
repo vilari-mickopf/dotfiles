@@ -50,7 +50,7 @@
     if !isdirectory("/tmp/.vim-undo")
         call mkdir("/tmp/.vim-undo", "", 0700)
     endif
-    set undodir=/tmp/.vim-undo-dir
+    set undodir=/tmp/.vim-undo
     set undofile
 
     " Make backspace work like most other programs
@@ -147,9 +147,6 @@
             " dein -- Dark powered plugin manager
             call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
 
-            " dein-ui -- UI when updating plugins
-            call dein#add('wsdjeg/dein-ui.vim')
-
         " Theme and status line
             " onedark -- A dark color scheme inspired by theme for the Atom
             call dein#add('joshdick/onedark.vim')
@@ -228,11 +225,13 @@
 
             " Tex/Pandoc/Markdown/RMarkdown
                 " vimwiki -- Notes/org-mode like
-                call dein#add('vimwiki/vimwiki')
+                call dein#add('vimwiki/vimwiki', {
+                             \'on_cmd': 'VimwikiIndex'})
 
                 " vimtex -- Plugin for improved LaTeX
                 call dein#add('lervag/vimtex', {
-                             \'on_ft': 'tex'})
+                             \'on_ft': 'tex',
+                             \'merged': 0})
 
                 " markdown-preview -- Preview markdown in browser
                 call dein#add('iamcco/markdown-preview.nvim', {
@@ -261,7 +260,7 @@
 
             " MatchTagAlways -- Match html tags
             call dein#add('Valloric/MatchTagAlways', {
-                         \'on_ft': 'html'})
+                         \'on_ft': ['html', 'xml', 'xhtml', 'jinja']})
 
             " Git
                 " gitgutter -- Show git diff in gutter
@@ -272,10 +271,8 @@
 
                 " git-messenger -- reveal git message under the cursor
                 call dein#add('rhysd/git-messenger.vim', {
-                              \'lazy' : 1,
                               \'on_cmd' : 'GitMessenger',
-                              \'on_map' : '<Plug>(git-messenger',
-                              \})
+                              \'on_map' : '<Plug>(git-messenger'})
 
                 " gv -- Commit search
                 call dein#add('junegunn/gv.vim', {
@@ -342,20 +339,22 @@
 
             " schlepp -- Move a highlighted text around
             call dein#add('zirrostig/vim-schlepp', {
-                         \'on_map': ['<Plug>Schlepp']})
+                         \'on_map': '<Plug>Schlepp'})
 
             " exchange -- Easier word exchange
             call dein#add('tommcdo/vim-exchange', {
-                         \'on_map': ['<Plug>(Exchange']})
+                         \'on_map': '<Plug>(Exchange'})
 
             " multiple-cursors -- Multi cursor support
             call dein#add('terryma/vim-multiple-cursors')
 
             " easy-align -- easy align mode
-            call dein#add('junegunn/vim-easy-align')
+            call dein#add('junegunn/vim-easy-align', {
+                         \'on_map': ['<Plug>(EasyAlign', '<Plug>(LiveEasyAlign']})
 
             " switch -- Substitute word under the cursor
-            call dein#add('AndrewRadev/switch.vim')
+            call dein#add('AndrewRadev/switch.vim', {
+                         \'on_map': '<Plug>Switc'})
 
             " yankstack -- Cycle through yank stack
             call dein#add('maxbrunsfeld/vim-yankstack')
@@ -364,7 +363,8 @@
             call dein#add('tpope/vim-repeat')
 
             " indentLine -- Show indentation
-            call dein#add('Yggdroot/indentLine')
+            call dein#add('Yggdroot/indentLine', {
+                         \'on_cmd': 'IndentLinesToggle'})
 
             " signature - Show marks
             call dein#add('kshenoy/vim-signature')
@@ -396,7 +396,12 @@
             call dein#add('yuttie/comfortable-motion.vim')
 
             " any-jump -- grep in project
-            call dein#add('pechorin/any-jump.vim')
+            call dein#add('pechorin/any-jump.vim', {
+                         \'on_cmd:': ['AnyJump', 'AnyJumpVisual', 'AnyJumpUserArg']})
+
+            " undotree -- visualize undo history
+            call dein#add('mbbill/undotree', {
+                         \'on_cmd:': 'UndotreeToggle'})
 
             " firenvim -- Use nvim in browser
             call dein#add('glacambre/firenvim', {
@@ -410,7 +415,8 @@
             call dein#add('vim-scripts/CursorLineCurrentWindow')
 
             " search-pulse -- Pulse on search
-            call dein#add('inside/vim-search-pulse')
+            call dein#add('inside/vim-search-pulse', {
+                         \'on_map:': '<Plug>Pulse'})
 
             " rainbow_parentheses.vim -- rainbow parentheses
             call dein#add('kien/rainbow_parentheses.vim')
@@ -445,13 +451,13 @@
     "
     " Plugin manager
         " dein -- Dark powered plugin manager
+            command! DeinUpdate call dein#update()
+
             " Install plugins
             command! DeinInstall call DeinInstall()
             function! DeinInstall()
                 if dein#check_install()
-                    echo 'Installing...'
                     call dein#install()
-                    echo 'Done.'
                 else
                     echo 'All plugins are already installed.'
                 endif
