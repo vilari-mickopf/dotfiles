@@ -55,10 +55,10 @@ font xft:Ubuntu 10
 
 
 ################################################################################
-# Colours
+# Colors
 ################################################################################
 
-# Colours from OneDark theme: https://github.com/joshdick/onedark.vim
+# Colors from OneDark theme: https://github.com/joshdick/onedark.vim
 # +---------------------------------------------+
 # | Colour Name  |         RGB        |   Hex   |
 # |--------------+--------------------+---------|
@@ -371,6 +371,10 @@ bindsym XF86AudioMicMute exec --no-startup-id amixer set Capture toggle
 # Screen brightness
 bindsym XF86MonBrightnessUp exec --no-startup-id light -A 10
 bindsym XF86MonBrightnessDown exec --no-startup-id light -U 10
+
+# Dunst
+bindsym Ctrl+space exec --no-startup-id dunstctl close-all
+bindsym Ctrl+Shift+space exec --no-startup-id dunstctl history-pop
 
 
 ################################################################################
