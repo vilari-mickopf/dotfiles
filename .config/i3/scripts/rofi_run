@@ -1,6 +1,6 @@
 #!/bin/sh
 
-[[ -z $1 ]] && type=run || type=$1
+[ -z "$1" ] && type=run || type=$1
 
 rofi -show $type -theme-str \
     'entry { placeholder: ""; } inputbar { children: [prompt, textbox-prompt-colon, entry]; }'

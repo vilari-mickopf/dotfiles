@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 new_sink=$(pacmd list-sinks | grep index | tee /dev/stdout \
                             | grep -m1 -A1 '* index' \

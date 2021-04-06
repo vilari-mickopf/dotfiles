@@ -1,7 +1,7 @@
 #!/bin/bash
 
 case "$BLOCK_BUTTON" in
-    1|2|3) ~/.config/i3/scripts/i3blocks/interactivebar updates-bar ;
+    1|2|3) ~/.config/i3/scripts/i3blocks/interactivebar updates-bar </dev/null &>/dev/null &
           echo $icon && echo && echo $color ;
           exit ;;
 esac

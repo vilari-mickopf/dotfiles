@@ -1,17 +1,15 @@
-#! /bin/bash
+#!/bin/sh
 
-[[ $1 == '' ]] && exit
+[ "$1" = '' ] && exit
 
-[[ $1 == "on" ]] && echo 2 | tee /sys/class/leds/tpacpi::kbd_backlight/brightness && exit
-[[ $1 == "off" ]] && echo 0 | tee /sys/class/leds/tpacpi::kbd_backlight/brightness && exit
-
-[[ $1 =~ '^[0-9]+$' ]] && exit
+[ "$1" = 'on' ] && echo 2 | tee /sys/class/leds/tpacpi::kbd_backlight/brightness && exit
+[ "$1" = 'off' ] && echo 0 | tee /sys/class/leds/tpacpi::kbd_backlight/brightness && exit
 
 # cnt=$1
 cnt=$((2*$1))
-while [[ $cnt -gt 0 ]]; do
+while [ "$cnt" -gt 0 ]; do
     light=$((2*($cnt % 2)))
-    echo $light | tee /sys/class/leds/tpacpi::kbd_backlight/brightness
+    echo $light | tee /sys/class/leds/tpacpi::kbd_backlight/brightness > /dev/null
     cnt=$(($cnt - 1))
     sleep 0.5
 done

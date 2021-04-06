@@ -1,16 +1,16 @@
-#!/bin/bash
+#!/bin/sh
 
 TMP_FILE=/tmp/.blinkscreen
-[[ -f $TMP_FILE ]] && exit
+[ -f "$TMP_FILE" ] && exit
 
 touch $TMP_FILE
 light -O
-for i in {1..5}; do
+for i in `seq 2 7`; do
     light -T 0.8
     sleep 0.03
 done
 
-for i in {1..5}; do
+for i in `seq 2 7`; do
     light -T 1.25
     sleep 0.03
 done
