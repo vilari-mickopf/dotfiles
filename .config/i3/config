@@ -342,7 +342,7 @@ bindsym $mod+Ctrl+Shift+Print exec --no-startup-id \
 
 # Picom
 bindsym $mod+Shift+p exec --no-startup-id pkill picom
-bindsym $mod+p exec --no-startup-id picom -b
+bindsym $mod+p exec --no-startup-id picom --experimental-backends -b
 
 # Lock screen
 bindsym $mod+Ctrl+l exec --no-startup-id ~/.config/i3/scripts/lock
@@ -390,7 +390,7 @@ exec --no-startup-id timedatectl set-ntp true
 exec --no-startup-id srandrd ~/.config/i3/scripts/displayhandler
 
 # Alternating layout
-exec --no-startup-id alternating_layouts.py
+exec_always --no-startup-id alternating_layouts.py
 
 # Set right audio output
 exec --no-startup-id pacmd set-card-profile 0 "output:analog-stereo+input:analog-stereo"
@@ -399,7 +399,7 @@ exec --no-startup-id pacmd set-card-profile 0 "output:analog-stereo+input:analog
 exec --no-startup-id amixer set Capture nocap
 
 # Set desktop picture
-exec_always --no-startup-id feh --bg-scale ~/Pictures/wallpaper.jpg
+exec_always --no-startup-id feh --bg-scale ~/Pictures/wallpaper.jpg --no-fehbg
 
 # Turn on num keyboard
 # exec_always --no-startup-id numlockx on
@@ -461,7 +461,7 @@ exec --no-startup-id xidlehook --not-when-fullscreen \
 exec --no-startup-id xsetroot -cursor_name left_ptr
 
 # Start compton
-exec --no-startup-id picom -b
+exec --no-startup-id picom --experimental-backends -b
 
 # Start disk automount
 exec --no-startup-id udiskie
