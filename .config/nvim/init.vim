@@ -125,6 +125,9 @@
     " (also needed for some plugins like vim-wiki, dein...)
     set nocompatible
 
+    " viminfo file loc
+    set viminfo+=n~/.cache/nvim/viminfo
+
     " Speed up startup
     let g:python_host_prog = '/bin/python2'
     let g:python3_host_prog = '/bin/python3'
@@ -394,6 +397,8 @@
 
             " comfortable-motion -- Smooth scrolling
             call dein#add('yuttie/comfortable-motion.vim')
+
+            call dein#add('tyru/open-browser.vim')
 
             " any-jump -- grep in project
             call dein#add('pechorin/any-jump.vim', {
@@ -1088,6 +1093,10 @@
             " Disable line numbering
             let g:NERDTreeShowLineNumbers=0
 
+            " Bookmark file
+            let g:NERDTreeBookmarksFile=expand('$HOME') . '/.cache/nvim/NERDTreeBookmarks'
+
+
         " tagbar -- Class/function viewer
             let g:tagbar_iconchars =  ['▸','▾']
             let g:tagbar_previewwin_pow = 'rightbelow'
@@ -1225,6 +1234,8 @@
         " easymotion -- Easier navigation
             " Disable default mappings
             let g:EasyMotion_do_mapping = 0
+
+            command! OpenBrowserUnderCursor exe 'OpenBrowser ' . expand("<cWORD>")
 
         " comfortable-motion -- Smooth scrolling
             " Disable mappings

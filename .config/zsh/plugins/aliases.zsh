@@ -44,7 +44,7 @@ alias vimdiff='v -d'
 alias vd='v -d'
 
 # Exiting from ranger keeps terminal in last location
-alias ranger='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd "$LASTDIR"'
+alias ranger='ranger --choosedir=$HOME/.cache/ranger/rangerdir; LASTDIR=`cat $HOME/.cache/ranger/rangerdir`; cd "$LASTDIR"'
 alias r='ranger'
 
 # Fancy highlight
