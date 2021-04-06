@@ -61,7 +61,7 @@ yay_update(){yay "$@" -Syu --devel --timeupdate --noconfirm --overwrite "*"; pki
 alias yu='yay_update'
 
 # Open with default apps
-function open () { mimeopen "$@" 2>/dev/null }
+function open () { i3-swallow mimeopen "$@" 2>/dev/null }
 alias o='open'
 
 # dotfiles
