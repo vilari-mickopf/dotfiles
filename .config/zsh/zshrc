@@ -30,11 +30,15 @@ fpath=($ZDOTDIR/completion/git/ $fpath)
 
 GLOBAL_PLUGINS=/usr/share/
 
+# vi-mode
 source $GLOBAL_PLUGINS/zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 ZVM_VI_HIGHLIGHT_BACKGROUND=fg=white
 ZVM_VI_SURROUND_BINDKEY="s-prefix"
 ZVM_INSERT_MODE_CURSOR="\033[2 q"
 ZVM_NORMAL_MODE_CURSOR="\033[4 q"
+ZVM_NORMAL_MODE_CURSOR="\033[4 q"
+ZVM_KEYTIMEOUT=0
+ZVM_ESCAPE_KEYTIMEOUT=0
 
 # fzf
 FZF_DEFAULT_OPTS='
@@ -63,6 +67,9 @@ source $GLOBAL_PLUGINS/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#5c6370"
 ZSH_AUTOSUGGEST_USE_ASYNC=1
 
+# git-status
+source $GLOBAL_PLUGINS/gitstatus/gitstatus.plugin.zsh
+
 
 ################################################################################
 #   Local plugins
@@ -82,6 +89,5 @@ source $LOCAL_PLUGINS/colored-man-pages.zsh
 #   Theme
 ################################################################################
 
-source $GLOBAL_PLUGINS/gitstatus/gitstatus.plugin.zsh
 THEMES=$ZDOTDIR/themes
 source $THEMES/bloodhail.zsh-theme
