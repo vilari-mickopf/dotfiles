@@ -318,19 +318,18 @@ bindsym $mod+v exec --no-startup-id pkill -RTMIN+4 i3blocks
 # Printscreen (whole screen)
 bindsym $mod+Print exec --no-startup-id pkill -RTMIN+5 i3blocks && \
                                         ~/.config/i3/scripts/blinkscreen && \
-                                        maim | xclip -selection clipboard -t image/png && \
+                                        ~/.config/i3/scripts/screenshot && \
                                         pkill -RTMIN+5 i3blocks
 
 # Printscreen (focused window)
 bindsym $mod+Shift+Print exec --no-startup-id pkill -RTMIN+5 i3blocks && \
                                               ~/.config/i3/scripts/blinkscreen && \
-                                              maim -i $(xdotool getactivewindow) | \
-                                                xclip -selection clipboard -t image/png && \
+                                              ~/.config/i3/scripts/screenshot -i $(xdotool getactivewindow) && \
                                               pkill -RTMIN+5 i3blocks
 
 # Printscreen (select what you want)
 bindsym --release $mod+Ctrl+Print exec --no-startup-id pkill -RTMIN+5 i3blocks && \
-                                                       maim -s | xclip -selection clipboard -t image/png && \
+                                                       ~/.config/i3/scripts/screenshot -s && \
                                                        ~/.config/i3/scripts/blinkscreen && \
                                                        pkill -RTMIN+5 i3blocks
 

@@ -1,0 +1,5 @@
+#!/bin/sh
+
+filename=/tmp/Screenshots/screenshot-$(date +%H:%M:%S).png
+maim "$@" $filename
+cat $filename | xclip -selection clipboard -t image/png -i
