@@ -8,6 +8,7 @@ autoload -Uz compinit && compinit -i
 autoload -U colors && colors
 
 export EDITOR='nvim'
+export ATHAME_ENABLED=0
 
 # Proper less config
 LESS='--quit-if-one-screen --ignore-case --status-column --LONG-PROMPT'
@@ -29,14 +30,21 @@ fpath=($ZDOTDIR/completion/git/ $fpath)
 
 GLOBAL_PLUGINS=/usr/share/
 
+source $GLOBAL_PLUGINS/zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+ZVM_VI_HIGHLIGHT_BACKGROUND=fg=white
+ZVM_VI_SURROUND_BINDKEY="s-prefix"
+ZVM_INSERT_MODE_CURSOR="\033[2 q"
+ZVM_NORMAL_MODE_CURSOR="\033[4 q"
+
 # fzf
 FZF_DEFAULT_OPTS='
-  --color=bg+:#282c34,bg:#282c34,spinner:#c678dd,hl:#be5046
-  --color=fg:#abb2bf,header:#586e75,info:#d19a66,pointer:#98c379
-  --color=marker:#e5c07b,fg+:#abb2bf,prompt:#d19a66,hl+:#be5046
+    --color=bg+:#282c34,bg:#282c34,spinner:#c678dd,hl:#be5046
+    --color=fg:#abb2bf,header:#586e75,info:#d19a66,pointer:#98c379
+    --color=marker:#e5c07b,fg+:#abb2bf,prompt:#d19a66,hl+:#be5046
 '
 source $GLOBAL_PLUGINS/fzf/completion.zsh
 source $GLOBAL_PLUGINS/fzf/key-bindings.zsh
+zvm_after_init_commands+=("source $GLOBAL_PLUGINS/fzf/key-bindings.zsh")
 
 # syntax-highlighting
 source $GLOBAL_PLUGINS/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
@@ -64,16 +72,16 @@ LOCAL_PLUGINS=$ZDOTDIR/plugins/
 
 source $LOCAL_PLUGINS/history.zsh
 source $LOCAL_PLUGINS/autocomplete.zsh
-source $LOCAL_PLUGINS/vimode.zsh
 source $LOCAL_PLUGINS/keybindings.zsh
+zvm_after_init_commands+=("source $LOCAL_PLUGINS/keybindings.zsh")
 source $LOCAL_PLUGINS/aliases.zsh
 source $LOCAL_PLUGINS/colored-man-pages.zsh
-source $LOCAL_PLUGINS/gitstatus.zsh
 
 
 ################################################################################
 #   Theme
 ################################################################################
 
+source $GLOBAL_PLUGINS/gitstatus/gitstatus.plugin.zsh
 THEMES=$ZDOTDIR/themes
 source $THEMES/bloodhail.zsh-theme
