@@ -1,0 +1,18 @@
+rofi.color-enabled: true
+! format: <background>, <border>, <separator>
+rofi.color-window: BLACK, GUTTER_GRAY, GUTTER_GRAY
+
+! format: <bg>, <fg>, <bgalt>, <hlbg>, <hlfg> !
+rofi.color-normal: BLACK, GUTTER_GRAY, BLACK, BLACK, GREEN
+rofi.color-active: BLACK, GUTTER_GRAY, BLACK, BLACK, WHITE
+rofi.color-urgent: BLACK, GUTTER_GRAY, BLACK, BLACK, WHITE
+
+rofi.separator-style: solid
+rofi.sidebar-mode: false
+rofi.lines: 5
+rofi.font: Ubuntu 15
+rofi.bw: 1
+rofi.columns: 2
+rofi.padding: 5
+rofi.fixed-num-lines: true
+rofi.hide-scrollbar: true

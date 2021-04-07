@@ -13,9 +13,9 @@ names=$(pacmd list-cards | grep 'output:' \
                          | sed "s/([^)]*)//g")
 
 choices="$names\nManual selection"
-chosen=$(echo -e "$choices" | dmenu -i -b -nb '#282C34' \
-                                          -nf '#ABB2BF' \
-                                          -sb '#98c379' \
+chosen=$(echo -e "$choices" | dmenu -i -b -nb '#282c34' \
+                                          -nf '#abb2bF' \
+                                          -sb '#98C379' \
                                           -sf '#191919' \
                                           -fn 'Ubuntu:pixelsize=17')
 

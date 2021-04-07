@@ -1,5 +1,5 @@
-#include "colors.Xresources"
-#include "rofi.Xresources"
+#include "colors"
+#include "rofi"
 
 Xft.dpi: 120
 Xft.autohint: 0
