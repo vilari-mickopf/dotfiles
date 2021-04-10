@@ -1,7 +1,7 @@
 [global]
     monitor = 0
     follow = mouse
-    geometry = "320x5-15+15"
+    geometry = "320x5-25+25"
     progress_bar = false
     indicate_hidden = yes
     shrink = no

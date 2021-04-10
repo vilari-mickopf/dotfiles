@@ -442,7 +442,7 @@ exec --no-startup-id parcellite
 exec --no-startup-id ~/.config/i3/scripts/backlight on
 
 # Low battery popup
-exec --no-startup-id i3-battery-popup -n
+exec --no-startup-id i3-battery-popup -n -L 6 -t 2m
 
 
 ################################################################################
