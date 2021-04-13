@@ -8,6 +8,7 @@ autoload -Uz compinit && compinit -i
 autoload -U colors && colors
 
 export EDITOR='nvim'
+export TERM='st'
 export ATHAME_ENABLED=0
 
 # Proper less config
@@ -37,8 +38,6 @@ ZVM_VI_SURROUND_BINDKEY="s-prefix"
 ZVM_INSERT_MODE_CURSOR="\033[2 q"
 ZVM_NORMAL_MODE_CURSOR="\033[4 q"
 ZVM_NORMAL_MODE_CURSOR="\033[4 q"
-ZVM_KEYTIMEOUT=0
-ZVM_ESCAPE_KEYTIMEOUT=0
 
 # fzf
 FZF_DEFAULT_OPTS='
