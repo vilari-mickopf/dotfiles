@@ -398,6 +398,7 @@
             " comfortable-motion -- Smooth scrolling
             call dein#add('yuttie/comfortable-motion.vim')
 
+            " open-browser -- Open link under cursor in browser
             call dein#add('tyru/open-browser.vim')
 
             " any-jump -- grep in project
@@ -415,6 +416,9 @@
         " Highlights and sytnax
             " highlightyank -- Highlight yanked lines
             call dein#add('machakann/vim-highlightedyank')
+
+            " hexokinase -- color hex codes
+            call dein#add('rrethy/vim-hexokinase', { 'build': 'make hexokinase' })
 
             " CursorLineCurrentWindow -- Show cursor line only on focused window
             call dein#add('vim-scripts/CursorLineCurrentWindow')
@@ -1095,7 +1099,6 @@
 
             " Bookmark file
             let g:NERDTreeBookmarksFile=expand('$HOME') . '/.cache/nvim/NERDTreeBookmarks'
-
 
         " tagbar -- Class/function viewer
             let g:tagbar_iconchars =  ['▸','▾']
