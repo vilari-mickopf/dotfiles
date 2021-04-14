@@ -11,7 +11,7 @@ bar_func() {
     [[ $bar_type != $bar_name ]] && return
 
     # Close other bars
-    for bar in ${bar_list[@]}; do [[ $bar != $bar_name ]] && pkill -f $bar; done
+    for bar in ${bar_list[@]}; do [[ $bar != $bar_name ]] && pkill $bar; done
 
     # Close the bar if it's already opened, otherwise open the bar
     current_bar_id=$(~/.config/i3/scripts/i3get -i $bar_name -r d)
