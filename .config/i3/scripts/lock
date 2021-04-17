@@ -7,6 +7,8 @@ TEXT='#abb2bfff'
 WRONG='#be5046ff'
 VERIFYING='#c678ddff'
 
+[ -n "$(pgrep i3lock)" ] && exit
+
 i3lock --color=$BLANK \
        --insidevercolor=$CLEAR \
        --ringvercolor=$VERIFYING \
