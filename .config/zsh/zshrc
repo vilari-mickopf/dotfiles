@@ -75,6 +75,7 @@ source $LOCAL_PLUGINS/keybindings.zsh
 zvm_after_init_commands+=("source $LOCAL_PLUGINS/keybindings.zsh")
 source $LOCAL_PLUGINS/aliases.zsh
 source $LOCAL_PLUGINS/colored-man-pages.zsh
+source $LOCAL_PLUGINS/termtitle.zsh
 
 
 ################################################################################
