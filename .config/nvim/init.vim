@@ -200,6 +200,7 @@
             " vimspector -- Multi language graphical debugger
             call dein#add('puremourning/vimspector', {
                          \'on_cmd': 'VimspectorInstall',
+                         \'on_map': '<Plug>Vimspector',
                          \'hook_post_update': 'VimspectorUpdate'})
 
             " fswitch -- Switching between .c and .h files
@@ -218,9 +219,6 @@
                 " python-pep8-indent -- Better python indentation
                 call dein#add('Vimjas/vim-python-pep8-indent', {
                              \'on_ft': 'python'})
-
-            " Nvim-R -- R for vim
-            " call dein#add('jalvesaq/Nvim-R')
 
             " octave -- Octave/Matlab syntax
             call dein#add('jvirtanen/vim-octave', {
@@ -290,9 +288,6 @@
                                          \'vim-ingo-library',
                                          \'vim-visualrepeat']})
 
-                " conflict-marker -- Highlight conflict sections
-                call dein#add('rhysd/conflict-marker.vim')
-
                 " gist -- Share on gist
                 call dein#add('mattn/webapi-vim')
                 call dein#add('mattn/vim-gist', {
@@ -320,16 +315,13 @@
 
             " ctrlp -- Fuzzy search engine
             call dein#add('ctrlpvim/ctrlp.vim', {
+                         \'on_cmd': 'CtrlPBuffer',
                          \'on_map': '<Plug>(ctrlp)'})
 
             " nerdtree -- When ctrlp is not enough
             call dein#add('scrooloose/nerdtree', {
                          \'on_cmd:': ['NERDTree', 'NERDTreeToggle',
                                      \'NERDTreeFromBookmark', 'NERDTreeFocus']})
-
-            " tagbar -- Class/function viewer
-            call dein#add('majutsushi/tagbar', {
-                         \'on_cmd:': 'Tagbar'})
 
             " auto-pairs -- Auto pair parentheses and quotes
             call dein#add('jiangmiao/auto-pairs')
@@ -348,12 +340,13 @@
             call dein#add('tommcdo/vim-exchange', {
                          \'on_map': '<Plug>(Exchange'})
 
-            " multiple-cursors -- Multi cursor support
-            call dein#add('terryma/vim-multiple-cursors')
+            " visual-multi -- Multi cursor support
+            call dein#add('mg979/vim-visual-multi')
 
             " easy-align -- easy align mode
             call dein#add('junegunn/vim-easy-align', {
-                         \'on_map': ['<Plug>(EasyAlign', '<Plug>(LiveEasyAlign']})
+                         \'on_map': ['<Plug>(EasyAlign',
+                                    \'<Plug>(LiveEasyAlign']})
 
             " switch -- Substitute word under the cursor
             call dein#add('AndrewRadev/switch.vim', {
@@ -395,6 +388,10 @@
             call dein#add('easymotion/vim-easymotion', {
                          \'on_map': '<Plug>(easymotion-'})
 
+            " asterisk -- proper */# commands
+            call dein#add('haya14busa/vim-asterisk', {
+                         \'on_map:': '<Plug>(asterisk-'})
+
             " comfortable-motion -- Smooth scrolling
             call dein#add('yuttie/comfortable-motion.vim')
 
@@ -403,7 +400,9 @@
 
             " any-jump -- grep in project
             call dein#add('pechorin/any-jump.vim', {
-                         \'on_cmd:': ['AnyJump', 'AnyJumpVisual', 'AnyJumpUserArg']})
+                         \'on_cmd:': ['AnyJump',
+                                     \'AnyJumpVisual',
+                                     \'AnyJumpUserArg']})
 
             " undotree -- visualize undo history
             call dein#add('mbbill/undotree', {
@@ -414,11 +413,9 @@
                          \'hook_post_update': 'call firenvim#install(0)'})
 
         " Highlights and sytnax
-            " highlightyank -- Highlight yanked lines
-            call dein#add('machakann/vim-highlightedyank')
-
             " hexokinase -- color hex codes
-            call dein#add('rrethy/vim-hexokinase', { 'build': 'make hexokinase' })
+            call dein#add('rrethy/vim-hexokinase', {
+                         \'build': 'make hexokinase' })
 
             " CursorLineCurrentWindow -- Show cursor line only on focused window
             call dein#add('vim-scripts/CursorLineCurrentWindow')
@@ -426,6 +423,12 @@
             " search-pulse -- Pulse on search
             call dein#add('inside/vim-search-pulse', {
                          \'on_map:': '<Plug>Pulse'})
+
+            " hlslens -- show search count
+            call dein#add('kevinhwang91/nvim-hlslens')
+
+            " conflict-marker -- Highlight conflict sections
+            call dein#add('rhysd/conflict-marker.vim')
 
             " rainbow_parentheses.vim -- rainbow parentheses
             call dein#add('kien/rainbow_parentheses.vim')
@@ -498,7 +501,7 @@
             " | g:terminal_color_6          | cyan                           |
             " | g:terminal_color_7          | white                          |
             " | g:terminal_color_8          | visual grey                    |
-            " | g:terminal_color_9          | dark_red                       |
+            " | g:terminal_color_9          | dark red                       |
             " | g:terminal_color_10         | green        - No dark version |
             " | g:terminal_color_11         | dark yellow                    |
             " | g:terminal_color_12         | blue         - No dark version |
@@ -587,7 +590,7 @@
 
             " Display brach name
                 function! LightlineCustomBranch()
-                    if &filetype == 'tagbar' || &filetype == 'nerdtree'
+                    if &filetype == 'nerdtree'
                         return ''
                     endif
 
@@ -605,10 +608,6 @@
                 function! LightlineCustomFilename()
                     if &filetype == 'nerdtree'
                         return 'NERDTree'
-                    endif
-
-                    if &filetype == 'tagbar'
-                        return 'Tagbar'
                     endif
 
                     let l:fname = expand('%:t')
@@ -684,12 +683,11 @@
 
             " Readonly status
                 function! LightlineReadonly()
-                    return &readonly && &filetype !~# '\v(help|nerdtree|tagbar)' ? 'RO' : ''
+                    return &readonly && &filetype !~# '\v(help|nerdtree)' ? 'RO' : ''
                 endfunction
 
             " Lightline status variables
                 let g:nerdtree_force_overwrite_statusline = 0
-                let g:tagbar_force_overwrite_statusline = 0
 
             " Ale status
                 function! LightlineCustomAleStatus() abort
@@ -990,9 +988,6 @@
                     let ret = system("kill $(screen -ls | grep jupyter_session | cut -f1 -d'.')")
                 endfunction
 
-        " Nvim-R -- R for vim
-            " let R_user_maps_only = 1
-
         " Tex/Pandoc/Markdown/RMarkdown
             " vimwiki -- Notes/org-mode like
                 " Wiki files location
@@ -1036,13 +1031,6 @@
                 " Disable mappings
                 let g:ConflictMotions_TakeMappingPrefix = ''
 
-            " conflict-marker -- Highlight conflict sections
-                let g:conflict_marker_highlight_group = ''
-                highlight ConflictMarkerTheirs guibg=#35374A
-
-                let g:conflict_marker_enable_mappings = 0
-                let g:conflict_marker_enable_matchit = 0
-
             " gist -- Share on gist
                 " Private only
                 let g:gist_post_private = 1
@@ -1062,15 +1050,6 @@
 
             " Disable maps
             let g:NERDCreateDefaultMappings = 0
-
-        " Stackoverflow
-            " Better prompt
-            command! AskStackOverflow call s:AskStackOverflow()
-            function! s:AskStackOverflow()
-                let l:msg = PromptGetUserInput('Question: ', 'custom,ListUsers')
-                if empty(l:msg) | return | endif
-                execute 'StackOverflow ' . msg
-            endfunction
 
     " Utilities
         " startify -- Fancy startup page
@@ -1100,15 +1079,6 @@
             " Bookmark file
             let g:NERDTreeBookmarksFile=expand('$HOME') . '/.cache/nvim/NERDTreeBookmarks'
 
-        " tagbar -- Class/function viewer
-            let g:tagbar_iconchars =  ['▸','▾']
-            let g:tagbar_previewwin_pow = 'rightbelow'
-
-            exe 'hi TagbarFoldIcon guifg=' . g:terminal_color_5
-            exe 'hi TagbarHighlight guifg=' . g:terminal_color_4
-            exe 'hi TagbarKind guifg=' . g:terminal_color_5
-            exe 'hi TagbarSignature guifg=' . g:terminal_color_15
-
         " auto-pairs -- Auto pair parentheses and quotes
             " Disable multiline pairs
             let g:AutoPairsMultilineClose = 0
@@ -1121,28 +1091,11 @@
             " Disable mappings
             let g:exchange_no_mappings=1
 
-        " multiple-cursors -- Multi cursor support
-            " Disable defult mappings
-            let g:multi_cursor_use_default_mapping=0
+        " visual-multi -- Multi cursor support
+            let g:VM_theme = 'nord'
 
-            " Disable deoplete/ale when in cursor mode
-            function! Multiple_cursors_before()
-                if deoplete#is_enabled()
-                    call deoplete#disable()
-                    ALEDisable
-                    let g:deoplete_is_enable_before_multi_cursors = 1
-                else
-                    let g:deoplete_is_enable_before_multi_cursors = 0
-                endif
-            endfunc
-
-            " Enable deoplete/ale when not in cursor mode
-            function! Multiple_cursors_after()
-                if g:deoplete_is_enable_before_multi_cursors
-                    call deoplete#enable()
-                    ALEEnable
-                endif
-            endfunc
+            let g:VM_default_mappings = 0
+            let g:VM_mouse_mappings = 0
 
         " switch -- Substitute word under the cursor
             " Disable default mappings
@@ -1400,14 +1353,26 @@
             endfunction
 
     " Themes and colors
-        " highlightyank -- Highlight yanked lines
-            " Set highlight color
-            exe 'hi HighlightedyankRegion ctermbg=237 guibg=' . g:terminal_color_8
+        " on_yank
+            exe 'hi HighlightOnYank ctermbg=237 guibg=' . g:terminal_color_8
 
-            " Set duration
-            let g:highlightedyank_highlight_duration = 1000
+        " hexokinase
+            let g:Hexokinase_optInPatterns = 'full_hex,triple_hex,rgb,rgba,hsl,hsla'
+
+        " conflict-marker -- Highlight conflict sections
+            let g:conflict_marker_highlight_group = ''
+
+            highlight ConflictMarkerBegin guibg=#2B3840
+            highlight ConflictMarkerOurs guibg=#2B3840
+            highlight ConflictMarkerTheirs guibg=#35374A
+            highlight ConflictMarkerEnd guibg=#35374A
+            highlight ConflictMarkerCommonAncestorsHunk guibg=#35374A
+
+            let g:conflict_marker_enable_mappings = 0
+            let g:conflict_marker_enable_matchit = 0
 
         " search-pulse -- Pulse on search
+            let g:vim_search_pulse_disable_auto_mappings = 1
             let g:terminal_color_8_dark_shade_2 = '#2B2F38'
             let g:terminal_color_8_dark_shade_1 = '#3E4452'
             let g:terminal_color_8_light_shade_1 = '#515A6B'
@@ -1646,3 +1611,4 @@
             }
 EOF
 " endfunction
+

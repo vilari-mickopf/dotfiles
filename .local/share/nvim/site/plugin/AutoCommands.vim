@@ -15,6 +15,12 @@
             au BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu | set nornu | endif
         augroup END
 
+    " Highlight yank
+        augroup highlight_yank
+            autocmd!
+            au TextYankPost * silent! lua vim.highlight.on_yank{higroup="HighlightOnYank", timeout=700}
+        augroup END
+
     " Disable numbering in terminal
         augroup TerminalNumbering
             au!

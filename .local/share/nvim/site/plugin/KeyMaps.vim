@@ -44,9 +44,6 @@
     " This is more vim-like than default, because of D and C commands
     nnoremap Y y$
 
-    " Better x
-    " nnoremap x "_x
-
     " Spell check
     nmap <silent> <leader>sc :setlocal spell! spelllang=en_us \|
                             \ echo('Spell check toggled')<CR>
@@ -54,26 +51,9 @@
     " Spell suggest
     nnoremap <leader>ss hea<C-X><C-S>
 
-    "Visual search with * and #
-        " Forward
-        vnoremap <silent> * :<C-U>
-            \ let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
-            \ gvy/<C-R><C-R>=substitute(
-            \   escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
-            \ gV:call setreg('"', old_reg, old_regtype)<CR>
-
-        " Backward
-        vnoremap <silent> # :<C-U>
-            \ let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
-            \ gvy?<C-R><C-R>=substitute(
-            \   escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
-            \ gV:call setreg('"', old_reg, old_regtype)<CR>
-
     " Fold toggling
         nnoremap <space> za
         nnoremap <leader><space> zO
-        " nnoremap <space> zR
-        " nnoremap <space> zM
 
     " Easy window navigation
         nnoremap <C-j> <C-w><C-j>
@@ -87,9 +67,9 @@
         nmap <silent> <leader>T :vsplit \| terminal<CR>a
 
     " Close terminal
-    function! TerminalMappings()
-        nmap <silent><buffer> <CR> :q! \| echo('Terminal closed')<CR>
-    endfunction
+        function! TerminalMappings()
+            nmap <silent><buffer> <CR> :q! \| echo('Terminal closed')<CR>
+        endfunction
 
     " Go to normal mode
         tnoremap <Esc> <C-\><C-n>
@@ -396,7 +376,7 @@
 
             " ConflictMotions -- Resolve conflict easier
                 nmap <silent> <leader>gt :ConflictTake this<CR>
-                nmap <silent> <leader>gT :ConflictTake<space>
+                nmap <silent> <leader>gT :ConflictTake both<CR>
 
             " conflict-marker -- Highlight conflict sections
                 nmap <silent> <leader>gg :ConflictMarkerNextHunk<CR>
@@ -435,7 +415,9 @@
             nmap <leader>S :TSContextDisable<CR>
 
         " ctrlp -- Fuzzy search engine
-            nmap <C-p> <Plug>(ctrlp)
+            nmap <C-p>p <Plug>(ctrlp)
+            nmap <C-p><C-p> <Plug>(ctrlp)
+            nmap <C-p>P :CtrlPBuffer<CR>
 
         " nerdtree -- When ctrlp is not enough
             map <silent> <C-n> :NERDTreeToggle<CR>
@@ -448,9 +430,6 @@
 
             " Open with space
             let NERDTreeMapActivateNode='<Space>'
-
-        " tagbar -- Class/function viewer
-            nmap <silent> <A-t> :TagbarToggle<CR>
 
         " auto-pairs -- Auto pair parentheses and quotes
             " Togle autopairs
@@ -511,15 +490,12 @@
             nmap cxc <Plug>(ExchangeClear)
             nmap cxx <Plug>(ExchangeLine)
 
-        " multiple-cursors -- Multi cursor support
-            let g:multi_cursor_start_word_key      = '<C-z>'
-            let g:multi_cursor_select_all_word_key = '<C-q>q'
-            let g:multi_cursor_start_key           = 'g<C-z>'
-            let g:multi_cursor_select_all_key      = 'g<C-q>q'
-            let g:multi_cursor_next_key            = '<C-z>'
-            let g:multi_cursor_prev_key            = '<C-s>'
-            let g:multi_cursor_skip_key            = '<C-x>'
-            let g:multi_cursor_quit_key            = '<Esc>'
+        " visual-multi -- Multi cursor support
+            let g:VM_maps = {}
+            let g:VM_maps['Find Under']         = '<C-z>'
+            let g:VM_maps['Find Subword Under'] = '<C-z>'
+            let g:VM_maps["Select Cursor Down"] = '<M-C-j>'
+            let g:VM_maps["Select Cursor Up"]   = '<M-C-k>'
 
         " easy-align -- easy align mode
             " Start interactive EasyAlign in visual mode (e.g. vipga)
@@ -575,8 +551,45 @@
             nmap <silent> zz :call ComforableMotionCenter()<CR>
             nmap <silent> zt :call ComforableMotionTop()<CR>
             nmap <silent> zb :call ComforableMotionBottom()<CR>
-            nmap <silent> {  {:call ComforableMotionCenter('up')<CR>
-            nmap <silent> }  }:call ComforableMotionCenter('down')<CR>
+            nmap <silent> { {:call ComforableMotionCenter('up')<CR>
+            nmap <silent> } }:call ComforableMotionCenter('down')<CR>
+
+        " asterisk
+            map * <Plug>(asterisk-*)
+            map # <Plug>(asterisk-#)
+            map g* <Plug>(asterisk-g*)
+            map g# <Plug>(asterisk-g#)
+            map z* <Plug>(asterisk-z*)
+            map gz* <Plug>(asterisk-gz*)
+            map z# <Plug>(asterisk-z#)
+            map gz# <Plug>(asterisk-gz#)
+
+        " Undotree
+            map U :UndotreeToggle<CR>
+
+    " Highlights
+        " hlslens
+            noremap <silent> n <Cmd>execute('normal! ' . v:count1 . 'n')<CR>
+                              \<Cmd>lua require('hlslens').start()<CR>
+            noremap <silent> N <Cmd>execute('normal! ' . v:count1 . 'N')<CR>
+                              \<Cmd>lua require('hlslens').start()<CR>
+
+            map <silent> * *<Cmd>lua require('hlslens').start()<CR>
+            map <silent> # #<Cmd>lua require('hlslens').start()<CR>
+            map <silent> g* g*<Cmd>lua require('hlslens').start()<CR>
+            map <silent> g# g#<Cmd>lua require('hlslens').start()<CR>
+            map <silent> z* z*<Cmd>lua require('hlslens').start()<CR>
+            map <silent> gz* gz*<Cmd>lua require('hlslens').start()<CR>
+            map <silent> z# z#<Cmd>lua require('hlslens').start()<CR>
+            map <silent> gz# gz#<Cmd>lua require('hlslens').start()<CR>
+
+        " pulse
+            map n n<Plug>Pulse
+            map N N<Plug>Pulse
+
+            " Pulses cursor line on first match
+            " when doing search with / or ?
+            cmap <silent> <expr> <enter> search_pulse#PulseFirst()
 
 " LANGUAGE SPECIFIC MAPPINGS
     " Bash
