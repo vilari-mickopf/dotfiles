@@ -430,9 +430,6 @@
             " conflict-marker -- Highlight conflict sections
             call dein#add('rhysd/conflict-marker.vim')
 
-            " rainbow_parentheses.vim -- rainbow parentheses
-            call dein#add('kien/rainbow_parentheses.vim')
-
             " i3-vim-syntax -- Syntax for i3 config
             call dein#add('PotatoesMaster/i3-vim-syntax', {
                          \'on_ft': 'i3'})
@@ -1191,6 +1188,7 @@
             " Disable default mappings
             let g:EasyMotion_do_mapping = 0
 
+        " OpenBrowser
             command! OpenBrowserUnderCursor exe 'OpenBrowser ' . expand("<cWORD>")
 
         " comfortable-motion -- Smooth scrolling
@@ -1354,7 +1352,7 @@
 
     " Themes and colors
         " on_yank
-            exe 'hi HighlightOnYank ctermbg=237 guibg=' . g:terminal_color_8
+            exe 'hi HighlightOnYank guibg=' . g:terminal_color_8
 
         " hexokinase
             let g:Hexokinase_optInPatterns = 'full_hex,triple_hex,rgb,rgba,hsl,hsla'
@@ -1384,19 +1382,6 @@
                 \ g:terminal_color_8_light_shade_1,
                 \ g:terminal_color_8_light_shade_2
                 \ ]
-
-        " rainbow_parentheses.vim -- rainbow parentheses
-            let g:rbpt_max = 9
-            let g:rbpt_colorpairs = [
-                \ ['red', g:terminal_color_11],
-                \ ['red', g:terminal_color_7],
-                \ ['red', g:terminal_color_9],
-                \ ['red', g:terminal_color_3],
-                \ ['red', g:terminal_color_4],
-                \ ['red', g:terminal_color_2],
-                \ ['red', g:terminal_color_6],
-                \ ['red', g:terminal_color_1],
-                \ ['red', g:terminal_color_5]]
 
         " nvim-treesitter
             set foldexpr=nvim_treesitter#foldexpr()
@@ -1610,5 +1595,3 @@
                 },
             }
 EOF
-" endfunction
-
