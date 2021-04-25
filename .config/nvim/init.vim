@@ -155,8 +155,11 @@
             call dein#add('joshdick/onedark.vim')
 
             " lightline -- A light and configurable statusline/tabline
-            call dein#add('itchyny/vim-gitbranch')
             call dein#add('itchyny/lightline.vim')
+            call dein#add('itchyny/vim-gitbranch', {
+                         \'depends': 'lightline.vim'})
+            call dein#add('maximbaz/lightline-ale',{
+                         \'depends': ['ale', 'lightline.vim']})
 
         " Coding stuff
             " Auto-completion
@@ -513,25 +516,24 @@
                 let g:lightline = {
                     \ 'colorscheme': 'onedark',
                     \ 'tabline': {
-                        \ 'right': [[]]
-                        \ },
+                        \ 'right': [[]]},
                     \ 'component_expand': {
                         \ 'tabs': 'LightlineCustomTabs',
-                        \ },
+                        \ 'ale_checking': 'lightline#ale#checking',
+                        \ 'ale_infos': 'lightline#ale#infos',
+                        \ 'ale_warnings': 'lightline#ale#warnings',
+                        \ 'ale_errors': 'lightline#ale#errors'},
                     \ 'active': {
                         \ 'left': [
                             \ ['mode'],
                             \ ['readonly', 'gitbranch', 'filename', 'gitversion'],
-                            \ ['ctrlpmark']
-                            \ ],
+                            \ ['ctrlpmark']],
                         \ 'right': [
                             \ ['lineinfo'],
                             \ ['percent'],
-                            \ ['ale', 'fileformat', 'fileencoding', 'filetype']
-                            \ ]
-                            \ },
+                            \ ['ale_checking', 'ale_errors', 'ale_warnings', 'ale_infos',
+                            \  'fileformat', 'fileencoding', 'filetype']]},
                     \ 'component_function': {
-                        \ 'ale':          'LightlineCustomAleStatus',
                         \ 'mode':         'LightlineCustomMode',
                         \ 'ro':           'LightlineCustomReadonly',
                         \ 'fugitive':     'LightlineCustomFugitive',
@@ -541,9 +543,14 @@
                         \ 'ctrlp':        'LightlineCustomCtrlP',
                         \ 'fileformat':   'LightlineCustomFileformat',
                         \ 'fileencoding': 'LightlineCustomFileEncoding',
-                        \ 'filetype':     'LightLineCustomFiletype'
-                        \ },
+                        \ 'filetype':     'LightlineCustomFiletype'},
                     \ }
+
+            " Ale indicator icons
+                let g:lightline#ale#indicator_checking = "\uf110"
+                let g:lightline#ale#indicator_infos = "\uf129"
+                let g:lightline#ale#indicator_warnings = "\uf071"
+                let g:lightline#ale#indicator_errors = "\uf05e"
 
             " Tab colors
                 let s:palette = g:lightline#colorscheme#onedark#palette
