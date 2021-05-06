@@ -5,8 +5,8 @@
 "
 " Usage:
 "
-" :call ProjectOpenConfig('c')
-" :call ProjectOpenConfig('py')
+" call ProjectOpenConfig('c')
+" call ProjectOpenConfig('py')
 "
 function! ProjectOpenConfig(lang)
     let l:filename = expand('%:p')
@@ -22,8 +22,8 @@ endfunction
 "
 " Usage:
 "
-" :call ProjectRun('c')
-" :call ProjectRun('py')
+" call ProjectRun('c')
+" call ProjectRun('py')
 "
 function! ProjectRun(lang)
     let l:filename = expand('%:p')
@@ -42,8 +42,8 @@ endfunction
 "
 " Usage:
 "
-" :call ProjectRunWithArgs('c')
-" :call ProjectRunWithArgs('py')
+" call ProjectRunWithArgs('c')
+" call ProjectRunWithArgs('py')
 "
 function! ProjectRunWithArgs(lang)
     let l:args = PromptGetUserInput('args: ')
@@ -70,8 +70,8 @@ endfunction
 "
 " Usage:
 "
-" :call ProjectOpenDebugConfig('c', 0)
-" :call ProjectOpenDebugConfig('py', 1)
+" call ProjectOpenDebugConfig('c', 0)
+" call ProjectOpenDebugConfig('py', 1)
 "
 function! ProjectOpenDebugConfig(lang, reset_file)
     let l:filename = expand('%:p')

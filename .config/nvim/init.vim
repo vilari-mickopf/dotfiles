@@ -103,6 +103,12 @@
     " Turn on search highlighting
     set hlsearch
 
+    " startofline
+    set sol
+
+    " traces like preview
+    set inccommand=nosplit
+
     " Enable 24-bit color
     set termguicolors
 
@@ -152,161 +158,159 @@
 
         " Theme and status line
             " onedark -- A dark color scheme inspired by theme for the Atom
-            call dein#add('joshdick/onedark.vim')
+             call dein#add('joshdick/onedark.vim')
 
-            " lightline -- A light and configurable statusline/tabline
-            call dein#add('itchyny/lightline.vim')
-            call dein#add('itchyny/vim-gitbranch', {
-                         \'depends': 'lightline.vim'})
-            call dein#add('maximbaz/lightline-ale',{
-                         \'depends': ['ale', 'lightline.vim']})
+            " lualine -- Configurable statusline
+            call dein#add('hoob3rt/lualine.nvim')
+            call dein#add('arkav/lualine-lsp-progress', {
+                        \ 'depends': 'lualine.nvim'})
+
+            " bufferline -- Configurable bufferlineline
+            call dein#add('akinsho/nvim-bufferline.lua')
+            call dein#add('nvim-lua/lsp-status.nvim')
 
         " Coding stuff
             " Auto-completion
                 " deoplete -- Dark powered asynchronous completion
                 " UpdateRemotePlugins
                 call dein#add('Shougo/deoplete.nvim', {
-                             \'hook_post_update': 'call dein#remote_plugins()',
-                             \'lazy' : 1,
-                             \'on_event': 'InsertEnter'})
+                            \ 'hook_post_update': 'call dein#remote_plugins()',
+                            \ 'lazy' : 1,
+                            \ 'on_event': 'InsertEnter'})
 
-                " deoplete-jedi -- Deoplete source for jedi(python)
-                call dein#add('deoplete-plugins/deoplete-jedi', {
-                             \'build': 'git submodule update --init',
-                             \'depends': 'deoplete.nvim',
-                             \'on_ft': 'python'})
+                call dein#add('deoplete-plugins/deoplete-lsp', {
+                            \ 'depends': 'deoplete.nvim',
+                            \ 'on_event': 'InsertEnter'})
 
                 " deoplete-terminal -- Terminal completion for deoplete.nvim
                 call dein#add('Shougo/deoplete-terminal', {
-                             \'depends': 'deoplete.nvim',
-                             \'on_event': 'InsertEnter'})
+                            \ 'depends': 'deoplete.nvim',
+                            \ 'on_event': 'InsertEnter'})
 
                 " neosnippet-snippets -- standard snippets for neosnippet
                 call dein#add('Shougo/neosnippet-snippets', {
-                             \'depends': 'deoplete.nvim',
-                             \'on_event': 'InsertEnter'})
+                            \ 'depends': 'deoplete.nvim',
+                            \ 'on_event': 'InsertEnter'})
 
                 " neosnippet -- Snippet support
                 call dein#add('Shougo/neosnippet.vim', {
-                             \'depends': ['deoplete.nvim', 'neosnippet-snippets'],
-                             \'on_event': 'InsertEnter'})
+                            \ 'depends': ['deoplete.nvim', 'neosnippet-snippets'],
+                            \ 'on_event': 'InsertEnter'})
 
             " echodoc -- Display function signatures on the fly
-            call dein#add('Shougo/echodoc.vim', {
-                         \'on_ft': ['c', 'cpp', 'python']})
+            call dein#add('Shougo/echodoc.vim')
 
-            " ale -- Asynchronous lint engine
-            call dein#add('w0rp/ale', {
-                         \'on_ft': ['c', 'cpp', 'python', 'bash', 'tex',
-                                   \'markdown', 'r', 'vim']})
+            " lsp
+                " lspconifg -- language server protocol
+                call dein#add('neovim/nvim-lspconfig')
+
+                " lsp-smag -- smart tags for lsp
+                call dein#add('weilbith/nvim-lsp-smag')
+
+            " symbols-outline -- lsp tagbar
+            call dein#add('simrat39/symbols-outline.nvim')
 
             " vimspector -- Multi language graphical debugger
             call dein#add('puremourning/vimspector', {
-                         \'on_cmd': 'VimspectorInstall',
-                         \'on_map': '<Plug>Vimspector',
-                         \'hook_post_update': 'VimspectorUpdate'})
+                        \ 'on_cmd': 'VimspectorInstall',
+                        \ 'on_map': '<Plug>Vimspector',
+                        \ 'hook_post_update': 'VimspectorUpdate'})
 
             " fswitch -- Switching between .c and .h files
             call dein#add('derekwyatt/vim-fswitch', {
-                         \'on_ft': ['c', 'cpp']})
+                        \ 'on_ft': ['c', 'cpp']})
 
             " Python
                 " jedi -- Python doc and refactoring
                 call dein#add('davidhalter/jedi-vim', {
-                             \'on_ft': 'python'})
+                            \ 'on_ft': 'python'})
 
                 " jupyter -- Jupyter console supports
                 call dein#add('jupyter-vim/jupyter-vim', {
-                             \'on_ft': 'python'})
+                            \ 'on_ft': 'python'})
 
                 " python-pep8-indent -- Better python indentation
                 call dein#add('Vimjas/vim-python-pep8-indent', {
-                             \'on_ft': 'python'})
+                            \ 'on_ft': 'python'})
 
             " octave -- Octave/Matlab syntax
             call dein#add('jvirtanen/vim-octave', {
-                         \'on_ft': 'matlab'})
+                        \ 'on_ft': 'matlab'})
 
             " Tex/Pandoc/Markdown/RMarkdown
                 " vimwiki -- Notes/org-mode like
                 call dein#add('vimwiki/vimwiki', {
-                             \'on_cmd': 'VimwikiIndex'})
-
-                " vimtex -- Plugin for improved LaTeX
-                call dein#add('lervag/vimtex', {
-                             \'on_ft': 'tex',
-                             \'merged': 0})
+                            \ 'on_cmd': 'VimwikiIndex'})
 
                 " markdown-preview -- Preview markdown in browser
                 call dein#add('iamcco/markdown-preview.nvim', {
-                             \'build': 'cd app & yarn install',
-                             \'on_ft': ['markdown', 'pandoc.markdown',
-                                       \'rmarkdown']})
+                            \ 'build': 'cd app & yarn install',
+                            \ 'on_ft': ['markdown', 'pandoc.markdown', 'rmarkdown']})
 
                 " pandoc -- Pandoc integration
                 call dein#add('vim-pandoc/vim-pandoc', {
-                             \'on_ft': ['markdown', 'pandoc.markdown',
-                                       \'rmarkdown']})
+                            \ 'on_ft': ['markdown', 'pandoc.markdown','rmarkdown']})
 
                 " pandoc-syntax -- Syntax for pandoc
                 call dein#add('vim-pandoc/vim-pandoc-syntax', {
-                             \'on_ft': ['markdown', 'pandoc.markdown',
-                                       \'rmarkdown']})
+                            \ 'on_ft': ['markdown', 'pandoc.markdown', 'rmarkdown']})
 
                 " rmarkdown -- RMarkdown support
                 call dein#add('vim-pandoc/vim-rmarkdown', {
-                             \'on_ft': ['markdown', 'pandoc.markdown',
-                                       \'rmarkdown']})
+                            \ 'on_ft': ['markdown', 'pandoc.markdown', 'rmarkdown']})
 
                 " table-mode -- Table mode
                 call dein#add('dhruvasagar/vim-table-mode', {
-                              \'on_ft': ['rmd', 'markdown']})
+                            \ 'on_ft': ['markdown', 'pandoc.markdown', 'markdown']})
 
             " MatchTagAlways -- Match html tags
             call dein#add('Valloric/MatchTagAlways', {
-                         \'on_ft': ['html', 'xml', 'xhtml', 'jinja']})
+                        \ 'on_ft': ['html', 'xml', 'xhtml', 'jinja']})
 
             " Git
-                " gitgutter -- Show git diff in gutter
-                call dein#add('airblade/vim-gitgutter')
+                " gitsigns -- Show git diff in gutter
+                call dein#add('nvim-lua/plenary.nvim')
+                call dein#add('lewis6991/gitsigns.nvim', {
+                            \ 'depends': 'plenary.nvim'})
+                call dein#add('lewis6991/foldsigns.nvim')
 
                 " fugitive -- Git from vim
                 call dein#add('tpope/vim-fugitive')
 
                 " git-messenger -- reveal git message under the cursor
                 call dein#add('rhysd/git-messenger.vim', {
-                              \'on_cmd' : 'GitMessenger',
-                              \'on_map' : '<Plug>(git-messenger'})
+                            \ 'on_cmd' : 'GitMessenger',
+                            \ 'on_map' : '<Plug>(git-messenger'})
 
                 " gv -- Commit search
                 call dein#add('junegunn/gv.vim', {
-                             \'depends': 'vim-fugitive'})
+                            \ 'depends': 'vim-fugitive'})
 
                 " ConflictMotions -- Resolve conflict easier
                 call dein#add('inkarkat/vim-CountJump')
                 call dein#add('inkarkat/vim-ingo-library')
                 call dein#add('inkarkat/vim-visualrepeat')
                 call dein#add('inkarkat/vim-ConflictMotions', {
-                             \'depends': ['vim-CountJump',
-                                         \'vim-ingo-library',
-                                         \'vim-visualrepeat']})
+                            \ 'depends': ['vim-CountJump',
+                                        \ 'vim-ingo-library',
+                                        \ 'vim-visualrepeat']})
 
                 " gist -- Share on gist
                 call dein#add('mattn/webapi-vim')
                 call dein#add('mattn/vim-gist', {
-                             \'depends': 'webapi-vim'})
+                            \ 'depends': 'webapi-vim'})
 
             " autoformat -- Auto format code
             call dein#add('Chiel92/vim-autoformat', {
-                         \'on_cmd:': 'Autoformat'})
+                        \ 'on_cmd:': 'Autoformat'})
 
             " nerdcommenter - Toggling comments
             call dein#add('preservim/nerdcommenter', {
-                         \'on_map:': '<Plug>NERDCommenter'})
+                        \ 'on_map': '<Plug>NERDCommenter'})
 
             " stackoverflow -- Ask stack overflow for help
             call dein#add('mickaobrien/vim-stackoverflow', {
-                         \'on_cmd:': 'StackOverflow'})
+                        \ 'on_cmd:': 'StackOverflow'})
 
         " Utilities
             " startify -- Fancy startup page
@@ -314,46 +318,49 @@
 
             " startuptime -- Display startup time of each plugin
             call dein#add('dstein64/vim-startuptime', {
-                         \'on_cmd:': 'StartupTime'})
+                        \ 'on_cmd:': 'StartupTime'})
 
             " ctrlp -- Fuzzy search engine
-            call dein#add('ctrlpvim/ctrlp.vim', {
-                         \'on_cmd': 'CtrlPBuffer',
-                         \'on_map': '<Plug>(ctrlp)'})
+            call dein#add('junegunn/fzf', {
+                        \ 'build': './install --all', 'merged': 0})
+            call dein#add('junegunn/fzf.vim', {
+                        \ 'depends': 'fzf'})
+            call dein#add('ojroques/nvim-lspfuzzy', {
+                        \ 'depends': ['fzf', 'fzf.vim']})
 
-            " nerdtree -- When ctrlp is not enough
-            call dein#add('scrooloose/nerdtree', {
-                         \'on_cmd:': ['NERDTree', 'NERDTreeToggle',
-                                     \'NERDTreeFromBookmark', 'NERDTreeFocus']})
+            " nvim-tree -- When ctrlp is not enough
+            call dein#add('kyazdani42/nvim-tree.lua', {
+                        \ 'on_cmd:': ['NvimTreeToggle', 'NvimTreeRefresh',
+                                    \ 'NvimTreeFindFile']})
 
             " auto-pairs -- Auto pair parentheses and quotes
             call dein#add('jiangmiao/auto-pairs')
 
             " sandwich -- Surround like, but better
             call dein#add('machakann/vim-sandwich', {
-                         \'on_map': ['<Plug>(operator-sandwich-',
-                                    \'<Plug>(textobj-sandwich-',
-                                    \'<Plug>(sandwich-']})
+                        \ 'on_map': ['<plug>(operator-sandwich-',
+                                   \ '<plug>(textobj-sandwich-',
+                                   \ '<plug>(sandwich-']})
 
             " schlepp -- Move a highlighted text around
             call dein#add('zirrostig/vim-schlepp', {
-                         \'on_map': '<Plug>Schlepp'})
+                        \ 'on_map': '<plug>Schlepp'})
 
             " exchange -- Easier word exchange
             call dein#add('tommcdo/vim-exchange', {
-                         \'on_map': '<Plug>(Exchange'})
+                        \ 'on_map': '<plug>(Exchange'})
 
             " visual-multi -- Multi cursor support
             call dein#add('mg979/vim-visual-multi')
 
             " easy-align -- easy align mode
             call dein#add('junegunn/vim-easy-align', {
-                         \'on_map': ['<Plug>(EasyAlign',
-                                    \'<Plug>(LiveEasyAlign']})
+                        \ 'on_map': ['<plug>(EasyAlign',
+                                   \ '<plug>(LiveEasyAlign']})
 
             " switch -- Substitute word under the cursor
             call dein#add('AndrewRadev/switch.vim', {
-                         \'on_map': '<Plug>Switc'})
+                        \ 'on_map': '<plug>Switc'})
 
             " yankstack -- Cycle through yank stack
             call dein#add('maxbrunsfeld/vim-yankstack')
@@ -363,7 +370,7 @@
 
             " indentLine -- Show indentation
             call dein#add('Yggdroot/indentLine', {
-                         \'on_cmd': 'IndentLinesToggle'})
+                        \ 'on_cmd': 'IndentLinesToggle'})
 
             " signature - Show marks
             call dein#add('kshenoy/vim-signature')
@@ -377,23 +384,20 @@
             " lastplace -- Open files at last edit position
             call dein#add('farmergreg/vim-lastplace')
 
-            " traces -- Substitute preview
-            call dein#add('markonm/traces.vim')
-
             " goyo -- Put page on center, nice when reading stuff
             call dein#add('junegunn/goyo.vim', {
-                         \'on_cmd': 'Goyo'})
+                        \ 'on_cmd': 'Goyo'})
 
             " suda -- Sudo write
             call dein#add('lambdalisue/suda.vim')
 
             " easymotion -- Easier navigation
             call dein#add('easymotion/vim-easymotion', {
-                         \'on_map': '<Plug>(easymotion-'})
+                        \ 'on_map': '<Plug>(easymotion-'})
 
             " asterisk -- proper */# commands
             call dein#add('haya14busa/vim-asterisk', {
-                         \'on_map:': '<Plug>(asterisk-'})
+                        \ 'on_map': '<Plug>(asterisk-'})
 
             " comfortable-motion -- Smooth scrolling
             call dein#add('yuttie/comfortable-motion.vim')
@@ -403,29 +407,28 @@
 
             " any-jump -- grep in project
             call dein#add('pechorin/any-jump.vim', {
-                         \'on_cmd:': ['AnyJump',
-                                     \'AnyJumpVisual',
-                                     \'AnyJumpUserArg']})
+                        \ 'on_cmd:': ['AnyJump',
+                                    \ 'AnyJumpVisual',
+                                    \ 'AnyJumpUserArg']})
 
             " undotree -- visualize undo history
             call dein#add('mbbill/undotree', {
-                         \'on_cmd:': 'UndotreeToggle'})
+                        \ 'on_cmd:': 'UndotreeToggle'})
 
             " firenvim -- Use nvim in browser
             call dein#add('glacambre/firenvim', {
-                         \'hook_post_update': 'call firenvim#install(0)'})
+                        \ 'hook_post_update': 'call firenvim#install(0)'})
 
         " Highlights and sytnax
             " hexokinase -- color hex codes
             call dein#add('rrethy/vim-hexokinase', {
-                         \'build': 'make hexokinase' })
+                        \ 'build': 'make hexokinase'})
 
             " CursorLineCurrentWindow -- Show cursor line only on focused window
             call dein#add('vim-scripts/CursorLineCurrentWindow')
 
             " search-pulse -- Pulse on search
-            call dein#add('inside/vim-search-pulse', {
-                         \'on_map:': '<Plug>Pulse'})
+            call dein#add('inside/vim-search-pulse')
 
             " hlslens -- show search count
             call dein#add('kevinhwang91/nvim-hlslens')
@@ -435,22 +438,23 @@
 
             " i3-vim-syntax -- Syntax for i3 config
             call dein#add('PotatoesMaster/i3-vim-syntax', {
-                         \'on_ft': 'i3'})
+                        \ 'on_ft': 'i3'})
 
             " Tree-sitter stuff
                 " treesitter -- Highlighting
                 call dein#add('nvim-treesitter/nvim-treesitter')
 
                 " treesitter-context
-                call dein#add('romgrk/nvim-treesitter-context')
+                call dein#add('romgrk/nvim-treesitter-context', {
+                            \ 'depends': 'nvim-treesitter'})
 
                 " treesitter-refactor -- Refactor modules for nvim-treesitter
                 call dein#add('nvim-treesitter/nvim-treesitter-refactor', {
-                             \'depends': 'nvim-treesitter'})
+                            \ 'depends': 'nvim-treesitter'})
 
                 " treesitter-textobjects -- textobjects using treesitter queries
                 call dein#add('nvim-treesitter/nvim-treesitter-textobjects', {
-                             \'depends': 'nvim-treesitter'})
+                            \ 'depends': 'nvim-treesitter'})
 
         call dein#end()
         call dein#save_state()
@@ -486,224 +490,12 @@
     " Theme and status line
         " onedark -- A dark color scheme inspired by theme for the Atom
             silent! colorscheme onedark
-            if exists('terminal_color_0') == 0
-                finish
-            endif
+            let s:colors = exists("*onedark#GetColors") ? onedark#GetColors() : {}
+            if s:colors == {} | finish | endif
 
-            " |     Variable                |   Color                        |
-            " | :-------------------------: | :----------------------------: |
-            " | g:terminal_color_0          | black                          |
-            " | g:terminal_color_1          | red                            |
-            " | g:terminal_color_2          | green                          |
-            " | g:terminal_color_3          | yellow                         |
-            " | g:terminal_color_4          | blue                           |
-            " | g:terminal_color_5          | purple                         |
-            " | g:terminal_color_6          | cyan                           |
-            " | g:terminal_color_7          | white                          |
-            " | g:terminal_color_8          | visual grey                    |
-            " | g:terminal_color_9          | dark red                       |
-            " | g:terminal_color_10         | green        - No dark version |
-            " | g:terminal_color_11         | dark yellow                    |
-            " | g:terminal_color_12         | blue         - No dark version |
-            " | g:terminal_color_13         | purple       - No dark version |
-            " | g:terminal_color_14         | cyan         - No dark version |
-            " | g:terminal_color_15         | comment grey                   |
-            " | g:terminal_color_background | black                          |
-            " | g:terminal_color_foreground | white                          |
-
-        " lightline -- A light and configurable statusline/tabline
-            " Lightline definition
-                let g:lightline = {
-                    \ 'colorscheme': 'onedark',
-                    \ 'tabline': {
-                        \ 'right': [[]]},
-                    \ 'component_expand': {
-                        \ 'tabs': 'LightlineCustomTabs',
-                        \ 'ale_checking': 'lightline#ale#checking',
-                        \ 'ale_infos': 'lightline#ale#infos',
-                        \ 'ale_warnings': 'lightline#ale#warnings',
-                        \ 'ale_errors': 'lightline#ale#errors'},
-                    \ 'active': {
-                        \ 'left': [
-                            \ ['mode'],
-                            \ ['readonly', 'gitbranch', 'filename', 'gitversion'],
-                            \ ['ctrlpmark']],
-                        \ 'right': [
-                            \ ['lineinfo'],
-                            \ ['percent'],
-                            \ ['ale_checking', 'ale_errors', 'ale_warnings', 'ale_infos',
-                            \  'fileformat', 'fileencoding', 'filetype']]},
-                    \ 'component_function': {
-                        \ 'mode':         'LightlineCustomMode',
-                        \ 'ro':           'LightlineCustomReadonly',
-                        \ 'fugitive':     'LightlineCustomFugitive',
-                        \ 'gitbranch':    'gitbranch#name',
-                        \ 'filename':     'LightlineCustomFilename',
-                        \ 'gitversion':   'LightlineCustomGitversion',
-                        \ 'ctrlp':        'LightlineCustomCtrlP',
-                        \ 'fileformat':   'LightlineCustomFileformat',
-                        \ 'fileencoding': 'LightlineCustomFileEncoding',
-                        \ 'filetype':     'LightlineCustomFiletype'},
-                    \ }
-
-            " Ale indicator icons
-                let g:lightline#ale#indicator_checking = "\uf110"
-                let g:lightline#ale#indicator_infos = "\uf129"
-                let g:lightline#ale#indicator_warnings = "\uf071"
-                let g:lightline#ale#indicator_errors = "\uf05e"
-
-            " Tab colors
-                let s:palette = g:lightline#colorscheme#onedark#palette
-                let s:palette.tabline.tabsel = [[
-                    \ g:terminal_color_0,
-                    \ g:terminal_color_2,
-                    \ 252,
-                    \ 66,
-                    \ 'None']]
-                unlet s:palette
-
-            " Better displaying when a lot of tabs are opened
-                function! LightlineCustomTabs() abort
-                    let [x, y, z] = [[], [], []]
-                    let nr = tabpagenr()
-                    let cnt = tabpagenr('$')
-                    for i in range(1, cnt)
-                        call add(i < nr ? x : i == nr ? y : z,
-                        \ '%' . i . '%%{lightline#onetab(' . i . ',' . (i == nr) . ')}'
-                        \ . (i == cnt ? '%T' : ''))
-                    endfor
-
-                    if len(x) > 3
-                        let x = x[len(x)-3:]
-                        let x[0] = '<' . x[0]
-                    endif
-
-                    if len(z) > 3
-                        let z = z[:2]
-                        let z[len(z)-1] = z[len(z)-1] . '>'
-                    endif
-                    return [x, y, z]
-                endfunction
-
-            " Adding CtrlP to original mods
-                function! LightlineCustomMode()
-                    let l:fname = expand('%:t')
-                    return l:fname == 'ControlP' ? 'CtrlP' :
-                        \ winwidth(0) > 60 ? lightline#mode() : ''
-                endfunction
-
-            " Display brach name
-                function! LightlineCustomBranch()
-                    if &filetype == 'nerdtree'
-                        return ''
-                    endif
-
-                    let l:branch = fugitive#head()
-                        return strlen(l:branch) ? l:branch : ''
-                endfunction
-
-            " Display if file is modified
-                function! s:LightlineCustomModified()
-                    return &ft =~ 'help' ?
-                        \ '' : &modified ? '+' : &modifiable ? '' : '-'
-                endfunction
-
-            " Display file name with modification
-                function! LightlineCustomFilename()
-                    if &filetype == 'nerdtree'
-                        return 'NERDTree'
-                    endif
-
-                    let l:fname = expand('%:t')
-                    return l:fname == 'ControlP' ? g:lightline.ctrlp_item :
-                        \ ('' != l:fname ? l:fname : '[No Name]') .
-                        \ ('' != s:LightlineCustomModified() ? ' ' .
-                                    \ s:LightlineCustomModified() : '')
-                endfunction
-
-            " Get git index files names when diffing
-                function! LightlineCustomGitversion()
-                    let fullname = expand('%')
-                    let gitversion = ''
-
-                    if fullname =~? 'fugitive://.*/\.git//0/.*'
-                        let gitversion = 'git index'
-                    elseif fullname =~? 'fugitive://.*/\.git//2/.*'
-                        let gitversion = 'git target'
-                    elseif fullname =~? 'fugitive://.*/\.git//3/.*'
-                        let gitversion = 'git merge'
-                    elseif &diff == 1
-                        let gitversion = 'working copy'
-                    endif
-
-                    return gitversion
-                endfunction
-
-            " Remove fileformat on small windows
-                function! LightlineCustomFileformat()
-                    return winwidth(0) > 70 ? &fileformat : ''
-                endfunction
-
-            " Remove fileencoding on small windows
-                function! LightlineCustomFileEncoding()
-                    return winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
-                endfunction
-
-            " Remove filetype on small windows
-                function! LightlineCustomFiletype()
-                    return winwidth(0) > 70 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
-                endfunction
-
-            " Proper CtrlP status
-                function! LightlineCustomCtrlP()
-                    if expand('%:t') =~ 'ControlP'
-                        call lightline#link('iR'[g:lightline.ctrlp_regex])
-                        return lightline#concatenate([g:lightline.ctrlp_prev,
-                                                    \ g:lightline.ctrlp_item,
-                                                    \ g:lightline.ctrlp_next], 0)
-                    else
-                        return ''
-                    endif
-                endfunction
-
-            " CtrlP status functions
-                let g:ctrlp_status_func = {
-                    \ 'main': 'LightlineCustomCtrlPStatusMain',
-                    \ 'prog': 'LightlineCustomCtrlPStatusProg' }
-
-            " Focused status
-                function! LightlineCustomCtrlPStatusMain(focus, byfname, regex, prev, item, next, marked)
-                    let g:lightline.ctrlp_regex = a:regex
-                    let g:lightline.ctrlp_prev = a:prev
-                    let g:lightline.ctrlp_item = a:item
-                    let g:lightline.ctrlp_next = a:next
-                    return lightline#statusline(0)
-                endfunction
-
-            " Unfocused status
-                function! LightlineCustomCtrlPStatusProg(str)
-                    return lightline#statusline(0)
-                endfunction
-
-            " Readonly status
-                function! LightlineReadonly()
-                    return &readonly && &filetype !~# '\v(help|nerdtree)' ? 'RO' : ''
-                endfunction
-
-            " Lightline status variables
-                let g:nerdtree_force_overwrite_statusline = 0
-
-            " Ale status
-                function! LightlineCustomAleStatus() abort
-                    let l:counts = ale#statusline#Count(bufnr(''))
-
-                    let l:all_errors = l:counts.error + l:counts.style_error
-                    let l:all_non_errors = l:counts.total - l:all_errors
-
-                    return l:counts.total == 0 ? '' : printf('%dW %dE',
-                                                           \ all_non_errors,
-                                                           \ all_errors)
-                endfunction
+        " lualine/bufferline
+            " Lua script
+            lua require('config-line')
 
     " Coding stuff
         " Auto-completion
@@ -712,40 +504,20 @@
                 call dein#set_hook('deoplete.nvim', 'hook_source', 'call DeopleteInit()')
                 function! DeopleteInit()
                     let g:deoplete#enable_at_startup = 1
-                    " call deoplete#custom#option({
-                    " \ 'smart_case': v:true,
-                    " \ 'max_list': 100,
-                    " \ 'num_processes': 2,
-                    " \ })
-
-                    " Completion triggers may block semshi from highlighting
-                    " instantly, so add some delay
-                    " call deoplete#custom#option({'auto_complete_delay': 100,})
 
                     " deoplete-terminal
                     call deoplete#custom#var('terminal', 'require_same_tab', v:false)
                     call deoplete#custom#source('_', 'converters', ['converter_auto_paren'])
 
-                    " If it slows cpu too much
-                    " let g:deoplete#max_processes = 1
+                    " lsp
+                    let g:deoplete#lsp#handler_enabled = 1
 
                     " Debug mode
                     " let g:deoplete#enable_debug = 1
                 endfunction
 
-            " deoplete-jedi -- Deoplete source for jedi(python)
-                " Type info for completions
-                let g:deoplete#sources#jedi#enable_typeinfo = 1
-                " Cache cache cache
-                let g:deoplete#sources#jedi#enable_cache = 1
-                " Show docstrings
-                let g:deoplete#sources#jedi#show_docstring = 1
-                " Ignore useless stuff
-                let g:deoplete#sources#jedi#ignore_private_members = 1
-                let g:deoplete#sources#jedi#ignore_errors = 1
-
             " neosnippet -- Snippet support
-                " let g:neosnippet#enable_completed_snippet = 1
+                let g:neosnippet#enable_completed_snippet = 1
                 let g:neosnippet#enable_complete_done = 1
                 let g:neosnippet#enable_auto_clear_markers = 1
 
@@ -753,48 +525,33 @@
             " Enable at start
             let g:echodoc_enable_at_startup = 1
 
-        " ale -- Asynchronous lint engine
-            " Ale signs
-            let g:ale_sign_error = '>>'
-            let g:ale_sign_warning = '>>'
+        " lspconfig
+            exe 'hi LspDiagnosticsDefaultHint guibg=' . s:colors.black.gui
+            exe 'hi LspDiagnosticsDefaultHint guifg=' . s:colors.cyan.gui
+            exe 'hi LspDiagnosticsUnderlineHint guifg=None'
 
-            " Color warnings in yellow (by default they are red)
-            exe 'hi ALEWarningSign guifg=' . g:terminal_color_3
-            hi ALEWarning guifg=None
+            sign define LspDiagnosticsSignError text=>>
+                                              \ texthl=LspDiagnosticsSignError
+                                              \ linehl= numhl=
 
-            let g:ale_c_parse_compile_commands = 1
-            let g:ale_c_parse_makefile = 1
-            let g:ale_completion_enabled = 0
-            let g:ale_completion_autoimport = 1
-            " let g:ale_lint_on_text_changed = 'always'
-            let g:ale_linters_explicit=1
+            sign define LspDiagnosticsSignWarning text=>>
+                                                \ texthl=LspDiagnosticsSignWarning
+                                                \ linehl= numhl=
 
-            let g:ale_linters = {
-                \ 'c': ['ccls'],
-                \ 'cpp': ['ccls'],
-                \ 'python': ['pyls'],
-                \ 'vim': ['vimls'],
-                \ 'sh': ['language_server', 'shell'],
-                \}
+            sign define LspDiagnosticsSignInformation text=>>
+                                                    \ texthl=LspDiagnosticsSignInformation
+                                                    \ linehl= numhl=
 
-            let g:ale_fixers = {
-                \ 'c': ['astyle'],
-                \ 'cpp': ['astyle']
-                \}
+            sign define LspDiagnosticsSignHint text=>>
+                                             \ texthl=LspDiagnosticsSignHint
+                                             \ linehl= numhl=
 
-            let g:ale_python_pyls_config = {
-                \ 'pyls': {
-                    \ 'configurationSources': ['flake8'],
-                    \ 'plugins': {
-                        \ 'pycodestyle': {
-                            \ 'enabled': v:false
-                            \},
-                        \ 'flake8': {
-                            \ 'enabled': v:false
-                            \}
-                        \}
-                    \}
-                \}
+            " Lua script
+            lua require('config-lsp')
+
+        " symbols-outlne
+            lua require('symbols-outline').setup(opts)
+            exe 'hi FocusedSymbol guibg=' . s:colors.visual_grey.gui
 
         " vimspector
             let g:vimspector_enable_mappings = ''
@@ -827,9 +584,9 @@
                 exe "call vimspector#ToggleBreakpoint({'condition': '" . l:condition . "'}) "
             endfunction
 
-            exe 'hi BreakSign guifg=' . g:terminal_color_1 . ' ' . ' gui=bold'
-            exe 'hi DebugSign guifg=' . g:terminal_color_5 . ' ' . ' gui=bold'
-            " exe 'hi DebugLine guibg=' . g:terminal_color_8 . ' ' . ' gui=bold'
+            exe 'hi BreakSign guifg=' . s:colors.red.gui . ' ' . ' gui=bold'
+            exe 'hi DebugSign guifg=' . s:colors.purple.gui . ' ' . ' gui=bold'
+            " exe 'hi DebugLine guibg=' . s:colors.visual_grey.gui . ' ' . ' gui=bold'
             exe 'hi DebugLine gui=bold'
 
             sign define vimspectorBP         text=●  texthl=BreakSign
@@ -1003,7 +760,7 @@
                     \ '.md' : 'markdown',
                     \ '.mdown' : 'markdown',
                     \ '.markdown' : 'markdown'
-                    \}
+                    \ }
 
             " vimtex -- Plugin for improved LaTeX
                 " interpret .tex files as latex
@@ -1027,9 +784,9 @@
                  let g:pandoc#spell#enabled = 0
 
         " Git
-            " gitgutter -- Show git diff in gutter
-                " Update in real time
-                let g:gitgutter_realtime = 1
+            " gitsigns -- Show git diff in gutter
+                lua require('config-gitsigns')
+                lua require('foldsigns').setup()
 
             " ConflictMotions -- Resolve conflict easier
                 " Disable mappings
@@ -1060,28 +817,62 @@
             " Disable header
             let g:startify_custom_header = []
 
-        " ctrlp -- Fuzzy search engine
-            " Set local working directory (r - nearest ancestor, a - current)
-            let g:ctrlp_working_path_mode = 'ra'
+        " fzf -- Fuzzy search engine
+            exe 'hi FzfBorder guifg=' . s:colors.black.gui
+            let g:fzf_colors = {'border':  ['fg', 'FzfBorder']}
 
-            " Exclude files and directories
-            let g:ctrlp_root_markers = ['.cproject', '.pyproject']
+            let g:fzf_layout = { 'down': '40%' }
 
-            " Cache dir
-            let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp'
+            lua require('lspfuzzy').setup{  methods = 'all'}
 
-            " Leave caches on exit
-            let g:ctrlp_clear_cache_on_exit = 0
+        " nvim-tree -- When ctrlp is not enough
+            exe 'hi NvimTreeFolderIcon guifg=' . s:colors.blue.gui
+            exe 'hi NvimTreeGitDirty guifg=' . s:colors.green.gui
+            exe 'hi NvimTreeGitNew guifg=' . s:colors.green.gui
+            exe 'hi NvimTreeGitStaged guifg=' . s:colors.cyan.gui
+            exe 'hi NvimTreeGitMerge guifg=' . s:colors.red.gui
+            exe 'hi NvimTreeGitDeleted guifg=' . s:colors.dark_red.gui
+            exe 'hi NvimTreeGitRenamed guifg=' . s:colors.yellow.gui
+            exe 'hi NvimTreeSpecialFile guifg=' s:colors.white.gui
 
-        " nerdtree -- When ctrlp is not enough
-            " NerdTree bug Quick-fix
-            hi NERDTreeFile ctermfg=251
-
-            " Disable line numbering
-            let g:NERDTreeShowLineNumbers=0
-
-            " Bookmark file
-            let g:NERDTreeBookmarksFile=expand('$HOME') . '/.cache/nvim/NERDTreeBookmarks'
+            let g:nvim_tree_disable_keybindings = 0
+            let g:nvim_tree_auto_open = 1
+            let g:nvim_tree_width = 40
+            let g:nvim_tree_gitignore = 1
+            let g:nvim_tree_indent_markers = 1
+            let g:nvim_tree_hide_dotfiles = 1
+            let g:nvim_tree_git_hl = 1
+            let g:nvim_tree_tab_open = 0
+            let g:nvim_tree_width_allow_resize = 0
+            let g:nvim_tree_auto_close = 1
+            let g:nvim_tree_lsp_diagnostics = 1
+            let g:nvim_tree_auto_ignore_ft = ['startify']
+            let g:nvim_tree_show_icons = { 'git': 1, 'folders': 1, 'files': 1}
+            let g:nvim_tree_git_hl = ''
+            let g:nvim_tree_icons = {
+                \ 'default': '',
+                \ 'symlink': '',
+                \ 'git': {
+                    \ 'unstaged': "",
+                    \ 'staged': "",
+                    \ 'unmerged': "",
+                    \ 'renamed': "",
+                    \ 'untracked': "",
+                    \ 'deleted': "",
+                    \ 'ignored': ""},
+                \ 'folder': {
+                    \ 'default': "",
+                    \ 'open': "",
+                    \ 'empty': "",
+                    \ 'empty_open': "",
+                    \ 'symlink': "",
+                    \ 'symlink_open': ""},
+                \ 'lsp': {
+                    \ 'hint': "",
+                    \ 'info': "",
+                    \ 'warning': "",
+                    \ 'error': ""}
+                \ }
 
         " auto-pairs -- Auto pair parentheses and quotes
             " Disable multiline pairs
@@ -1107,17 +898,19 @@
 
             " General definitions
             let g:switch_custom_definitions = [
-                \   ['true', 'false'],
-                \   ['on', 'off'],
-                \   ['yes', 'no'],
-                \   ['get', 'set'],
-                \   ['enable', 'disable'],
-                \   ['zero', 'one', 'two', 'three', 'four', 'five', 'six',
-                    \'seven', 'eight', 'nine', 'ten'],
-                \   ['sunday', 'monday', 'tuesday', 'wensday', 'thursday',
-                    \'friday', 'saturday'],
-                \   ['sun', 'mon', 'tue', 'wen', 'thu', 'fri', 'sat'],
-                \   ['return', 'break', 'continue' ]]
+                \ ['true', 'false'],
+                \ ['on', 'off'],
+                \ ['yes', 'no'],
+                \ ['get', 'set'],
+                \ ['enable', 'disable'],
+                \ ['black', 'red', 'yellow', 'green', 'blue', 'magenta',
+                \  'cyan', 'white'],
+                \ ['zero', 'one', 'two', 'three', 'four', 'five', 'six',
+                \  'seven', 'eight', 'nine', 'ten'],
+                \ ['sunday', 'monday', 'tuesday', 'wensday', 'thursday',
+                \  'friday', 'saturday'],
+                \ ['sun', 'mon', 'tue', 'wen', 'thu', 'fri', 'sat'],
+                \ ['return', 'break', 'continue' ]]
 
             function! SwitchCustomForward()
                 if !switch#Switch()
@@ -1135,21 +928,15 @@
 
             " Language specific definitions
                 " Python
-                let g:python_switch_custom_definitions = [
-                    \ ['elif, else']]
+                let g:python_switch_custom_definitions = [['elif, else']]
 
                 " C/C++
-                let g:cpp_switch_custom_definitions = [
-                    \ ['else if, else']]
+                let g:cpp_switch_custom_definitions = [['else if, else']]
 
             let g:camelcase_switch_definitions = [{
-                \   '\<[a-z0-9]\+_\k\+\>': {
-                    \   '_\(.\)': '\U\1'
-                    \},
-                \   '\<[a-z0-9]\+[A-Z]\k\+\>': {
-                    \   '\([A-Z]\)': '_\l\1'
-                    \},
-                \}]
+                \ '\<[a-z0-9]\+_\k\+\>': {'_\(.\)': '\U\1'},
+                \ '\<[a-z0-9]\+[A-Z]\k\+\>': {'\([A-Z]\)': '_\l\1'},
+                \ }]
 
         " yankstack -- Cycle through yank stack
             " Disable default mappings
@@ -1158,11 +945,11 @@
 
         " indentLine -- Show indentation
             let g:indentLine_enabled = 0
-            let g:indentLine_color_gui = g:terminal_color_15
+            let g:indentLine_color_gui = s:colors.comment_grey.gui
             let g:indentLine_char = '▏'
 
         " signature - Show marks
-            exe 'hi SignatureMarkText guifg=' . g:terminal_color_11
+            exe 'hi SignatureMarkText guifg=' . s:colors.dark_yellow.gui
             let g:SignatureForceRemoveGlobal = 1
 
         " template -- Template files
@@ -1206,12 +993,12 @@
             " Find impulse for given amount of lines
             function! ComforableMotionFindImpulse(diff)
                 let l:X = pow(abs(a:diff), 0.5)
-                let l:impulse =  0.7642497185838693
-                              \+11.916201835589376*l:X
-                              \ +1.4842847475051253*(pow(l:X, 2))
-                              \ +0.01733669295908215*(pow(l:X, 3))
-                              \ -0.00034498320824916107*(pow(l:X, 4))
-                              \ +2.941264385825093e-06*(pow(l:X, 5))
+                let l:impulse = 0.7642497185838693
+                             \ +11.916201835589376*l:X
+                             \  +1.4842847475051253*(pow(l:X, 2))
+                             \  +0.01733669295908215*(pow(l:X, 3))
+                             \  -0.00034498320824916107*(pow(l:X, 4))
+                             \  +2.941264385825093e-06*(pow(l:X, 5))
                 return l:impulse
             endfunction
 
@@ -1304,11 +1091,11 @@
 
         " any-jump -- grep in project
             let g:any_jump_disable_default_keybindings = 1
-            let g:any_jump_ignored_files = ['*.tmp', '*.temp', &wildignore]
+            let g:any_jump_ignored_files = [ &wildignore ]
 
             " Get argument with completion
             function! AnyJumpUserArg()
-                let l:arg = PromptGetUserInput('Grep: ', 'customlist,CompleteWords')
+                let l:arg = PromptGetUserInput('Find: ', 'customlist,CompleteWords')
                 if empty(l:arg) | return | endif
                 exe 'AnyJumpArg '. l:arg
             endfunction
@@ -1316,13 +1103,11 @@
         " Firenvim
             let g:firenvim_config = {
                 \ 'globalSettings': {
-                        \ 'alt': 'all',
-                        \ },
+                    \ 'alt': 'all' },
                 \ 'localSettings': {
                     \ '.*': {
                         \ 'priority': 0,
-                        \ 'takeover': 'always',
-                        \ },
+                        \ 'takeover': 'always' },
                     \ }
                 \ }
 
@@ -1359,7 +1144,7 @@
 
     " Themes and colors
         " on_yank
-            exe 'hi HighlightOnYank guibg=' . g:terminal_color_8
+            exe 'hi HighlightOnYank guibg=' . s:colors.visual_grey.gui
 
         " hexokinase
             let g:Hexokinase_optInPatterns = 'full_hex,triple_hex,rgb,rgba,hsl,hsla'
@@ -1367,238 +1152,188 @@
         " conflict-marker -- Highlight conflict sections
             let g:conflict_marker_highlight_group = ''
 
-            highlight ConflictMarkerBegin guibg=#2B3840
-            highlight ConflictMarkerOurs guibg=#2B3840
-            highlight ConflictMarkerTheirs guibg=#35374A
-            highlight ConflictMarkerEnd guibg=#35374A
-            highlight ConflictMarkerCommonAncestorsHunk guibg=#35374A
+            let s:conflict_color_ours = '#2B3840'
+            let s:conflict_color_theirs = '#35374A'
+            exe 'hi ConflictMarkerBegin guibg=' . s:conflict_color_ours
+            exe 'hi ConflictMarkerOurs guibg=' . s:conflict_color_ours
+            exe 'hi ConflictMarkerTheirs guibg=' . s:conflict_color_theirs
+            exe 'hi ConflictMarkerEnd guibg=' . s:conflict_color_theirs
+            exe 'hi ConflictMarkerCommonAncestorsHunk guibg=' . s:conflict_color_theirs
 
             let g:conflict_marker_enable_mappings = 0
             let g:conflict_marker_enable_matchit = 0
 
         " search-pulse -- Pulse on search
             let g:vim_search_pulse_disable_auto_mappings = 1
-            let g:terminal_color_8_dark_shade_2 = '#2B2F38'
-            let g:terminal_color_8_dark_shade_1 = '#3E4452'
-            let g:terminal_color_8_light_shade_1 = '#515A6B'
-            let g:terminal_color_8_light_shade_2 = '#656F85'
+
             let g:vim_search_pulse_color_list = [
-                \ g:terminal_color_8_dark_shade_2,
-                \ g:terminal_color_8_dark_shade_1,
-                \ g:terminal_color_8,
-                \ g:terminal_color_8_light_shade_1,
-                \ g:terminal_color_8_light_shade_2
-                \ ]
+                \ '#2B2F38', '#3E4452', s:colors.visual_grey.gui, '#515A6B', '#656F85']
 
         " nvim-treesitter
             set foldexpr=nvim_treesitter#foldexpr()
 
-            "Syntax/parser errors.
-            exe 'hi TSError guifg=' . g:terminal_color_1
+            "Syntax/parser errors
+            exe 'hi TSError guifg=' . s:colors.red.gui
 
             " Delimiters ie: `.`
-            exe 'hi TSPunctDelimiter guifg=' . g:terminal_color_7
+            exe 'hi TSPunctDelimiter guifg=' . s:colors.white.gui
 
-            " Brackets and parens.
-            exe 'hi TSPunctBracket guifg=' . g:terminal_color_7
+            " Brackets and parens
+            exe 'hi TSPunctBracket guifg=' . s:colors.white.gui
 
             " For special punctutation that does not fall in the catagories
-            " before.
-            exe 'hi TSPunctSpecial guifg=' . g:terminal_color_5
+            " before
+            exe 'hi TSPunctSpecial guifg=' . s:colors.purple.gui
 
-            " Tags like html tag names.
-            exe 'hi TSTag guifg=' . g:terminal_color_6
+            " Tags like html tag names
+            exe 'hi TSTag guifg=' . s:colors.cyan.gui
 
             " Tag delimiter like `<` `>` `/`
-            exe 'hi TSTagDelimiter guifg=' . g:terminal_color_9
+            exe 'hi TSTagDelimiter guifg=' . s:colors.dark_red.gui
 
             " For constants
-            exe 'hi TSConstant guifg=' . g:terminal_color_11
+            exe 'hi TSConstant guifg=' . s:colors.dark_yellow.gui
 
-            " For constant that are built in the language: `nil` in Lua.
-            exe 'hi TSConstBuiltin guifg=' . g:terminal_color_11
+            " For constant that are built in the language: `nil` in Lua
+            exe 'hi TSConstBuiltin guifg=' . s:colors.dark_yellow.gui
 
-            " For constants that are defined by macros: `NULL` in C.
-            exe 'hi TSConstMacro guifg=' . g:terminal_color_13
+            " For constants that are defined by macros: `NULL` in C
+            exe 'hi TSConstMacro guifg=' . s:colors.purple.gui
 
-            " For strings.
-            exe 'hi TSString guifg=' . g:terminal_color_2
+            " For strings
+            exe 'hi TSString guifg=' . s:colors.green.gui
 
-            " For regexes.
-            exe 'hi TSStringRegex guifg=' . g:terminal_color_6
+            " For regexes
+            exe 'hi TSStringRegex guifg=' . s:colors.cyan.gui
 
-            " For escape characters within a string.
-            exe 'hi TSStringEscape guifg=' . g:terminal_color_4
+            " For escape characters within a string
+            exe 'hi TSStringEscape guifg=' . s:colors.blue.gui
 
-            " For characters.
-            exe 'hi TSCharacter guifg=' . g:terminal_color_11
+            " For characters
+            exe 'hi TSCharacter guifg=' . s:colors.dark_yellow.gui
 
-            " For integers.
-            exe 'hi TSNumber guifg=' . g:terminal_color_11
+            " For integers
+            exe 'hi TSNumber guifg=' . s:colors.dark_yellow.gui
 
-            " For booleans.
-            exe 'hi TSBoolean guifg=' . g:terminal_color_11
+            " For booleans
+            exe 'hi TSBoolean guifg=' . s:colors.dark_yellow.gui
 
             " TSFloat
-            exe 'hi TSFloat guifg=' . g:terminal_color_11
+            exe 'hi TSFloat guifg=' . s:colors.dark_yellow.gui
 
-            " For function (calls and definitions).
-            exe 'hi TSFunction guifg=' . g:terminal_color_4
+            " For function (calls and definitions)
+            exe 'hi TSFunction guifg=' . s:colors.blue.gui
 
-            " For builtin functions: `table.insert` in Lua.
-            exe 'hi TSFuncBuiltin guifg=' . g:terminal_color_5
+            " For builtin functions: `table.insert` in Lua
+            exe 'hi TSFuncBuiltin guifg=' . s:colors.purple.gui
 
             " For macro defined fuctions (calls and definitions): each
-            " `macro_rules` in Rust.
-            exe 'hi TSFuncMacro guifg=' . g:terminal_color_5
+            " `macro_rules` in Rust
+            exe 'hi TSFuncMacro guifg=' . s:colors.purple.gui
 
-            " For references to parameters of a function.
-            exe 'hi TSParameterReference guifg=' . g:terminal_color_5
+            " For references to parameters of a function
+            exe 'hi TSParameterReference guifg=' . s:colors.purple.gui
 
-            " For parameters of a function.
-            exe 'hi TSParameter guifg=' . g:terminal_color_3
+            " For parameters of a function
+            exe 'hi TSParameter guifg=' . s:colors.yellow.gui
 
-            " For method calls and definitions.
-            exe 'hi TSMethod guifg=' . g:terminal_color_4
+            " For method calls and definitions
+            exe 'hi TSMethod guifg=' . s:colors.blue.gui
 
-            " For fields.
-            exe 'hi TSField guifg=' . g:terminal_color_7
+            " For fields
+            exe 'hi TSField guifg=' . s:colors.white.gui
 
-            " Same as `TSField`.
-            exe 'hi TSProperty guifg=' . g:terminal_color_4
+            " Same as `TSField`
+            exe 'hi TSProperty guifg=' . s:colors.blue.gui
 
             " For constructor calls and definitions: `{}` in Lua, and Java
-            " constructors.
-            exe 'hi TSConstructor guifg=' . g:terminal_color_4
+            " constructors
+            exe 'hi TSConstructor guifg=' . s:colors.blue.gui
 
-            " For keywords related to conditionnals.
-            exe 'hi TSConditional guifg=' . g:terminal_color_5
+            " For keywords related to conditionnals
+            exe 'hi TSConditional guifg=' . s:colors.purple.gui
 
-            " For keywords related to loops.
-            exe 'hi TSRepeat guifg=' . g:terminal_color_5
+            " For keywords related to loops
+            exe 'hi TSRepeat guifg=' . s:colors.purple.gui
 
-            " For labels: `label:` in C and `:label:` in Lua.
-            exe 'hi TSLabel guifg=' . g:terminal_color_5
+            " For labels: `label:` in C and `:label:` in Lua
+            exe 'hi TSLabel guifg=' . s:colors.purple.gui
 
-            " For any operator: `+`, but also `->` and `*` in C.
-            exe 'hi TSOperator guifg=' . g:terminal_color_5
+            " For any operator: `+`, but also `->` and `*` in C
+            exe 'hi TSOperator guifg=' . s:colors.purple.gui
 
-            " For keywords that don't fall in previous categories.
-            exe 'hi TSKeyword guifg=' . g:terminal_color_5
+            " For keywords that don't fall in previous categories
+            exe 'hi TSKeyword guifg=' . s:colors.purple.gui
 
-            " For keywords used to define a fuction.
-            exe 'hi TSKeywordFunction guifg=' . g:terminal_color_4
+            " For keywords used to define a fuction
+            exe 'hi TSKeywordFunction guifg=' . s:colors.blue.gui
 
-            " For exception related keywords.
-            exe 'hi TSException guifg=' . g:terminal_color_5
+            " For exception related keywords
+            exe 'hi TSException guifg=' . s:colors.purple.gui
 
-            " For types.
-            exe 'hi TSType guifg=' . g:terminal_color_6
+            " For types
+            exe 'hi TSType guifg=' . s:colors.yellow.gui
 
-            " For builtin types (you guessed it, right ?).
-            exe 'hi TSTypeBuiltin guifg=' . g:terminal_color_3
+            " For builtin types (you guessed it, right ?)
+            exe 'hi TSTypeBuiltin guifg=' . s:colors.yellow.gui
 
-            " For identifiers referring to modules and namespaces.
-            exe 'hi TSNamespace guifg=' . g:terminal_color_6
+            " For identifiers referring to modules and namespaces
+            exe 'hi TSNamespace guifg=' . s:colors.cyan.gui
 
             " None
-            exe 'hi TSNone guifg=' . g:terminal_color_11
+            exe 'hi TSNone guifg=' . s:colors.dark_yellow.gui
 
             " For includes: `#include` in C, `use` or `extern crate` in
-            " Rust, or `require` in Lua.
-            exe 'hi TSInclude guifg=' . g:terminal_color_5
+            " Rust, or `require` in Lua
+            exe 'hi TSInclude guifg=' . s:colors.purple.gui
 
             " For C++/Dart attributes, annotations that can be attached to
-            " the code to denote some kind of meta information.
-            exe 'hi TSAnnotation guifg=' . g:terminal_color_6
+            " the code to denote some kind of meta information
+            exe 'hi TSAnnotation guifg=' . s:colors.cyan.gui
 
-            " For comment blocks.
-            exe 'hi TSComment guifg=' . g:terminal_color_15
+            " For comment blocks
+            exe 'hi TSComment guifg=' . s:colors.comment_grey.gui
 
-            " For strings considered text in a markup language.
-            exe 'hi TSText guifg=' . g:terminal_color_7
+            " For strings considered text in a markup language
+            exe 'hi TSText guifg=' . s:colors.white.gui
 
-            " For text to be represented with strong.
-            exe 'hi TSStrong guifg=' . g:terminal_color_7
+            " For text to be represented with strong
+            exe 'hi TSStrong guifg=' . s:colors.white.gui
 
-            " For text to be represented with emphasis.
-            exe 'hi TSEmphasis guifg=' . g:terminal_color_11
+            " For text to be represented with emphasis
+            exe 'hi TSEmphasis guifg=' . s:colors.dark_yellow.gui
 
-            " For text to be represented with an underline.
-            exe 'hi TSUnderline guifg=' . g:terminal_color_7
+            " For text to be represented with an underline
+            exe 'hi TSUnderline guifg=' . s:colors.white.gui
 
-            " Text that is part of a title.
-            exe 'hi TSTitle guifg=' . g:terminal_color_5
+            " Text that is part of a title
+            exe 'hi TSTitle guifg=' . s:colors.purple.gui
 
-            " Literal text.
-            exe 'hi TSLiteral guifg=' . g:terminal_color_2
+            " Literal text
+            exe 'hi TSLiteral guifg=' . s:colors.green.gui
 
-            " Any URI like a link or email.
-            exe 'hi TSURI guifg=' . g:terminal_color_4
+            " Any URI like a link or email
+            exe 'hi TSURI guifg=' . s:colors.blue.gui
 
-            " Any variable name that does not have another highlight.
-            exe 'hi TSVariable guifg=' . g:terminal_color_7
+            " Any variable name that does not have another highlight
+            exe 'hi TSVariable guifg=' . s:colors.white.gui
 
             " Variable names that are defined by the languages, like
-            " `this` or `self`.
-            exe 'hi TSVariableBuiltin guifg=' . g:terminal_color_5
+            " `this` or `self`
+            exe 'hi TSVariableBuiltin guifg=' . s:colors.purple.gui
 
             " Refactor
-            " Used by refactor.highlight_definitions to highlight the
-            " definition of the symbol under the cursor.
-            exe 'hi TSDefinition guifg=' . g:terminal_color_3
-            ". ' gui=underline'
-            " Used by refactor.highlight_definitions to highlight usages
-            " of the symbol under the cursor.
-            exe 'hi TSDefinitionUsage guibg=' . g:terminal_color_8
+                " Used by refactor.highlight_definitions to highlight the
+                " definition of the symbol under the cursor
+                exe 'hi TSDefinition guifg=' . s:colors.yellow.gui
+                ". ' gui=underline'
+                " Used by refactor.highlight_definitions to highlight usages
+                " of the symbol under the cursor
+                exe 'hi TSDefinitionUsage guibg=' . s:colors.visual_grey.gui
 
-            " Used by refactor.highlight_current_scope to highlight the
-            " current scope.
-            exe 'hi TSCurrentScope guibg=' . g:terminal_color_8
+                " Used by refactor.highlight_current_scope to highlight the
+                " current scope
+                exe 'hi TSCurrentScope guibg=' . s:colors.visual_grey.gui
 
-            lua << EOF
-            require'nvim-treesitter.configs'.setup {
-                ensure_installed = {
-                    'c', 'cpp', 'python'
-                },
-                highlight = {
-                    enable = true,
-                    use_languagetree = true, -- Use this to enable language injection
-                },
-                incremental_selection = {
-                    enable = true,
-                    keymaps = {
-                        init_selection = "gnn",
-                        node_incremental = "grn",
-                        scope_incremental = "grc",
-                        node_decremental = "grm",
-                    },
-                },
-                refactor = {
-                    highlight_definitions = {
-                        enable = true,
-                        disable = { 'markdown' }
-                    },
-                },
-                textobjects = {
-                    select = {
-                        enable = true,
-                        keymaps = {
-                            -- You can use the capture groups defined in textobjects.scm
-                            ["af"] = "@function.outer",
-                            ["if"] = "@function.inner",
-                            ["ac"] = "@class.outer",
-                            ["ic"] = "@class.inner",
-
-                            -- Or you can define your own textobjects like this
-                            ["iF"] = {
-                              python = "(function_definition) @function",
-                              cpp = "(function_definition) @function",
-                              c = "(function_definition) @function",
-                              java = "(method_declaration) @function",
-                            },
-                        },
-                    },
-                },
-            }
-EOF
+            " lua setup
+            lua require('config-treesitter')

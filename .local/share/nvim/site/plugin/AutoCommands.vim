@@ -28,9 +28,17 @@
         augroup END
 
     " Auto-create all necessary dirs when saving newly created files
+        function! s:MkNonExDir(file, buf)
+            if empty(getbufvar(a:buf, '&buftype')) && a:file!~#'\v^\w+\:\/'
+                let l:dir = fnamemodify(a:file, ':h')
+                if !isdirectory(l:dir)
+                    call mkdir(l:dir, 'p')
+                endif
+            endif
+        endfunction
         augroup NonExDir
             au!
-            au BufWritePre * :call MkNonExDir(expand('<afile>'), +expand('<abuf>'))
+            au BufWritePre * :call s:MkNonExDir(expand('<afile>'), +expand('<abuf>'))
         augroup END
 
     " Strip all trailing spaces
@@ -40,12 +48,17 @@
         augroup END
 
     " Terminal
-        augroup TerminalMaps
+        augroup TerminalStuff
             au!
             au TermOpen * call TerminalMappings()
+            au TermOpen * setlocal nobuflisted
         augroup end
 
     " Clean your shit
+        function! CleanUp()
+            JupyterCustomTerminate
+        endfunction
+
         augroup CleanUp
             au!
             au VimLeave * call CleanUp()
@@ -58,21 +71,21 @@
             au InsertLeave,CompleteDone * if pumvisible() == 0 | silent! pclose | endif
         augroup END
 
-    " NERDTree
-        augroup NERDTreeSettings
-            au!
-            au FileType nerdtree setlocal nonu
-            au FileType taglist setlocal nonu
-            au FileType nerdtree call NerdtreeMappings()
-        augroup END
-
     " Templates
         augroup VimTemplates
             au!
             au BufEnter * silent! call TemplateEmptyFile()
         augroup END
 
+    " Fzf
+        augroup StatusDisable
+            au!
+            autocmd! FileType,BufEnter fzf,Outline set laststatus=0 noshowmode noruler
+                \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+        augroup END
+
     " firenvim
+        if !exists("*FirenvimOptions") | finish | endif
         augroup Firenvim
             au!
             autocmd UIEnter * call FirenvimOptions(deepcopy(v:event))
@@ -107,7 +120,6 @@
     " C/Cpp
         augroup C
             au!
-            au Filetype c,cpp,h,hpp call COptions()
             au Filetype c,cpp,h,hpp call CMappings()
             au Filetype cmake call CMappings()
         augroup END
@@ -136,7 +148,6 @@
         augroup Latex
             au!
             au Filetype tex call TexOptions()
-            " au Filetype tex call LatexMappings()
         augroup END
 
     " Markdown
@@ -157,7 +168,6 @@
     " Python
         augroup Python
             au!
-            au Filetype python call PythonOptions()
             au Filetype python call PythonMappings()
             au Filetype python call JupyterMappings()
         augroup END

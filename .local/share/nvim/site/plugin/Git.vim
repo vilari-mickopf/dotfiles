@@ -21,4 +21,3 @@ function! s:GitFix()
         endif
     endfor
 endfunction
-
