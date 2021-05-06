@@ -92,7 +92,26 @@
     set foldignore=
 
     " Set function for generating folding string
-    set foldlevelstart=0 foldtext=ProperTextFolding()
+    set foldlevelstart=0 foldtext=s:ProperTextFolding()
+    function! s:ProperTextFolding()
+        set l:fillchars="fold: "
+
+        let l:line = ' ' . substitute(getline(v:foldstart),
+                    \ '^\s*["''/\*]*\s*\|\s*"\?\s*{{' .
+                    \ '{\d*\s*' . '\|["''*/]*', '', 'g') .
+                    \ ' '
+
+        let l:lines_count = v:foldend - v:foldstart + 1
+        let l:lines_count_text = '| ' . printf('%7s', l:lines_count . ' lines') . ' |'
+        let l:foldchar = matchstr(&l:fillchars, 'fold:\zs.')
+
+        let l:foldtextstart = strpart('+' . repeat('-', v:foldlevel*2) . l:line[:60],
+                                     \ 0, (winwidth(0)*2)/3)
+        let foldtextend = l:lines_count_text . repeat(l:foldchar, 8)
+        let foldtextlength = strlen(substitute(
+                \ l:foldtextstart . l:foldtextend, '.', 'x', 'g')) + &l:foldcolumn
+        return l:foldtextstart . repeat('-', 80 - l:foldtextlength) . l:foldtextend
+    endfunction
 
     " Don't resize on new splits
     set noequalalways
@@ -158,7 +177,7 @@
 
         " Theme and status line
             " onedark -- A dark color scheme inspired by theme for the Atom
-             call dein#add('joshdick/onedark.vim')
+            call dein#add('joshdick/onedark.vim')
 
             " lualine -- Configurable statusline
             call dein#add('hoob3rt/lualine.nvim')
@@ -172,7 +191,6 @@
         " Coding stuff
             " Auto-completion
                 " deoplete -- Dark powered asynchronous completion
-                " UpdateRemotePlugins
                 call dein#add('Shougo/deoplete.nvim', {
                             \ 'hook_post_update': 'call dein#remote_plugins()',
                             \ 'lazy' : 1,
@@ -494,7 +512,6 @@
             if s:colors == {} | finish | endif
 
         " lualine/bufferline
-            " Lua script
             lua require('config-line')
 
     " Coding stuff
@@ -546,12 +563,11 @@
                                              \ texthl=LspDiagnosticsSignHint
                                              \ linehl= numhl=
 
-            " Lua script
             lua require('config-lsp')
 
         " symbols-outlne
-            lua require('symbols-outline').setup(opts)
             exe 'hi FocusedSymbol guibg=' . s:colors.visual_grey.gui
+            lua require('symbols-outline').setup(opts)
 
         " vimspector
             let g:vimspector_enable_mappings = ''
@@ -1335,5 +1351,4 @@
                 " current scope
                 exe 'hi TSCurrentScope guibg=' . s:colors.visual_grey.gui
 
-            " lua setup
             lua require('config-treesitter')
