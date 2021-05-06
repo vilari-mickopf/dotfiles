@@ -57,7 +57,7 @@ alias memfree='free && sync && echo "echo 3 > /proc/sys/vm/drop_caches" | sudo s
 alias y='yay'
 alias p='pacman'
 
-yay_update(){yay "$@" -Syu --devel --timeupdate --noconfirm --overwrite "*"; pkill -RTMIN+2 i3blocks}
+yay_update(){yay -Y --gendb && yay "$@" -Syu --devel --timeupdate --noconfirm --overwrite "*"; pkill -RTMIN+2 i3blocks}
 alias yu='yay_update'
 
 # Open with default apps

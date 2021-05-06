@@ -33,7 +33,7 @@ ZVM_NORMAL_MODE_CURSOR="\033[4 q"
 ZVM_NORMAL_MODE_CURSOR="\033[4 q"
 
 # fzf
-FZF_DEFAULT_OPTS='
+export FZF_DEFAULT_OPTS='
     --color=bg+:#282c34,bg:#282c34,spinner:#c678dd,hl:#be5046
     --color=fg:#abb2bf,header:#586e75,info:#d19a66,pointer:#98c379
     --color=marker:#e5c07b,fg+:#abb2bf,prompt:#d19a66,hl+:#be5046
@@ -84,3 +84,5 @@ source $LOCAL_PLUGINS/termtitle.zsh
 
 THEMES=$ZDOTDIR/themes
 source $THEMES/bloodhail.zsh-theme
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
