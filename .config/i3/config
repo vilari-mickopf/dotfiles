@@ -396,28 +396,28 @@ exec --no-startup-id mkdir -p /tmp/Screenrecords && \
 exec --no-startup-id xidlehook --not-when-fullscreen \
                                --not-when-audio \
                                --timer 600 \
-                                 'light -O && light -T 0.8' \
+                                 'light -O && $HOME/.config/i3/scripts/suspendcondition' \
                                  'light -I' \
                                --timer 1 \
-                                 'light -T 0.8' \
+                                 '$HOME/.config/i3/scripts/dim' \
                                  'light -I' \
                                --timer 1 \
-                                 'light -T 0.8' \
+                                 '$HOME/.config/i3/scripts/dim' \
                                  'light -I' \
                                --timer 1 \
-                                 'light -T 0.8' \
+                                 '$HOME/.config/i3/scripts/dim' \
                                  'light -I' \
                                --timer 1 \
-                                 'light -T 0.8' \
+                                 '$HOME/.config/i3/scripts/dim' \
                                  'light -I' \
                                --timer 1 \
-                                 'light -T 0.8' \
+                                 '$HOME/.config/i3/scripts/dim' \
                                  'light -I' \
                                --timer 1 \
-                                 'light -T 0.8' \
+                                 '$HOME/.config/i3/scripts/dim' \
                                  'light -I' \
                                --timer 1 \
-                                 'light -T 0.8' \
+                                 '$HOME/.config/i3/scripts/dim' \
                                  'light -I' \
                                --timer 1 \
                                  'light -I; $HOME/.config/i3/scripts/lock' \

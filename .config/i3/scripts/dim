@@ -1,0 +1,12 @@
+#!/bin/sh
+
+TMP_FILE=/tmp/.blinkscreen
+[ -f "$TMP_FILE" ] && exit
+
+touch $TMP_FILE
+for i in `seq 2 19`; do
+    light -T 0.98
+    sleep 0.05
+done
+
+rm $TMP_FILE
