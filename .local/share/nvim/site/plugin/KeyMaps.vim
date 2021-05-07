@@ -574,7 +574,7 @@
             nnoremap <silent> <leader>bb :BufferLinePick<Cr>
             nnoremap <silent> <leader>bl :BufferLineMoveNext<Cr>
             nnoremap <silent> <leader>bh :BufferLineMovePrev<Cr>
-            nnoremap <silent> <leader>bd :bd<Cr>
+            nnoremap <silent> <leader>bd :setlocal nobuflisted<Cr>:BufferLineCycleNext<Cr>
 
         " Undotree
             map U :UndotreeToggle<Cr>
