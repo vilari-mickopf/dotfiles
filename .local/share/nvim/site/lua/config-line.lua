@@ -6,31 +6,10 @@
 
 local colors = vim.fn['onedark#GetColors']()
 
-local function lsp_client()
-    local msg = ''
-    local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
-    local clients = vim.lsp.get_active_clients()
-    if next(clients) == nil then return msg end
-    for _, client in ipairs(clients) do
-        local filetypes = client.config.filetypes
-        if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-            return ' ' .. client.name
-        end
-    end
-    return msg
-end
-
 local filename = {
     'filename',
     file_status = true,
     symbols = {modified = ' ', readonly = ' '}
-}
-
-local diff = {
-    'diff',
-    color_added	= colors.green.gui,
-    color_modified = colors.yellow.gui,
-    color_removed = colors.red.gui
 }
 
 local diagnostics = {
@@ -65,6 +44,45 @@ local inactive_location = {
              bg = colors.menu_grey.gui}
 }
 
+local diff = {
+    'diff',
+    color_added	= colors.green.gui,
+    color_modified = colors.yellow.gui,
+    color_removed = colors.red.gui
+}
+
+local function encoding()
+    if vim.fn.winwidth(0) < 120 then
+        return ''
+    end
+    return vim.o.encoding
+end
+
+local function fileformat()
+    if vim.fn.winwidth(0) < 120 then
+        return ''
+    end
+    return vim.o.fileformat
+end
+
+local function lsp_client()
+    if vim.fn.winwidth(0) < 120 then
+        return ''
+    end
+
+    local msg = ''
+    local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
+    local clients = vim.lsp.get_active_clients()
+    if next(clients) == nil then return msg end
+    for _, client in ipairs(clients) do
+        local filetypes = client.config.filetypes
+        if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+            return ' ' .. client.name
+        end
+    end
+    return msg
+end
+
 
 --------------------------------------------------------------------------------
 --  lualine setup
@@ -81,7 +99,7 @@ require('lualine').setup{
         lualine_a = {'mode'},
         lualine_b = {'branch'},
         lualine_c = {filename, diff, lsp_progress},
-        lualine_x = {'encoding', 'fileformat', 'filetype', lsp_client},
+        lualine_x = {encoding, fileformat, 'filetype', lsp_client},
         lualine_y = {diagnostics, 'progress'},
         lualine_z = {'location'}
     },
@@ -99,6 +117,7 @@ require('lualine').setup{
 --------------------------------------------------------------------------------
 --  bufferline setup
 --------------------------------------------------------------------------------
+
 require('bufferline').setup{
     highlights = {
         fill = {

@@ -182,7 +182,7 @@
             " lualine -- Configurable statusline
             call dein#add('hoob3rt/lualine.nvim')
             call dein#add('arkav/lualine-lsp-progress', {
-                        \ 'depends': 'lualine.nvim'})
+                        \ 'depends': ['lualine.nvim']})
 
             " bufferline -- Configurable bufferlineline
             call dein#add('akinsho/nvim-bufferline.lua')

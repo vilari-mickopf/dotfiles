@@ -75,6 +75,9 @@
         tnoremap jj <C-\><C-n>
 
 " UNMAPPING STUFF
+    " Disable ctrl-c -- can break stuff like lualine
+    nnoremap <C-c> <Nop>
+
     " Disable arrow keys
         map <Down> <Nop>
         map <Up> <Nop>
