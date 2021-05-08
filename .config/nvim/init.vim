@@ -92,8 +92,8 @@
     set foldignore=
 
     " Set function for generating folding string
-    set foldlevelstart=0 foldtext=s:ProperTextFolding()
-    function! s:ProperTextFolding()
+    set foldlevelstart=0 foldtext=ProperTextFolding()
+    function! ProperTextFolding()
         set l:fillchars="fold: "
 
         let l:line = ' ' . substitute(getline(v:foldstart),
