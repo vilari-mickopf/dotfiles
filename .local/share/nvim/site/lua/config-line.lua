@@ -65,6 +65,13 @@ local function fileformat()
     return vim.o.fileformat
 end
 
+local function filetype()
+    if vim.fn.winwidth(0) < 120 then
+        return ''
+    end
+    return vim.o.filetype
+end
+
 local function lsp_client()
     if vim.fn.winwidth(0) < 120 then
         return ''
@@ -99,7 +106,7 @@ require('lualine').setup{
         lualine_a = {'mode'},
         lualine_b = {'branch'},
         lualine_c = {filename, diff, lsp_progress},
-        lualine_x = {encoding, fileformat, 'filetype', lsp_client},
+        lualine_x = {encoding, fileformat, filetype, lsp_client},
         lualine_y = {diagnostics, 'progress'},
         lualine_z = {'location'}
     },
@@ -107,7 +114,7 @@ require('lualine').setup{
         lualine_a = {},
         lualine_b = {inactive_branch},
         lualine_c = {filename},
-        lualine_x = {'filetype'},
+        lualine_x = {filetype},
         lualine_y = {inactive_progress},
         lualine_z = {inactive_location}
     },
