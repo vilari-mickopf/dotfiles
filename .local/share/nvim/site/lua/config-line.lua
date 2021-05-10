@@ -6,6 +6,14 @@
 
 local colors = vim.fn['onedark#GetColors']()
 
+local function hide()
+    return vim.fn.winwidth(0) > 120
+end
+
+local function hide_narrow()
+    return vim.fn.winwidth(0) > 60
+end
+
 local filename = {
     'filename',
     file_status = true,
@@ -23,13 +31,20 @@ local diagnostics = {
 
 local lsp_progress = {
     'lsp_progress',
-    color = {fg = colors.cyan.gui}
+    color = {fg = colors.cyan.gui},
+    condition = hide
+}
+
+local branch = {
+    'branch',
+    condition = hide_narrow
 }
 
 local inactive_branch = {
     'branch',
     color = {fg = colors.white.gui,
-             bg = colors.menu_grey.gui}
+             bg = colors.menu_grey.gui},
+    condition = hide_narrow
 }
 
 local inactive_progress = {
@@ -44,51 +59,95 @@ local inactive_location = {
              bg = colors.menu_grey.gui}
 }
 
-local diff = {
-    'diff',
-    color_added	= colors.green.gui,
-    color_modified = colors.yellow.gui,
-    color_removed = colors.red.gui
+local diff_pad = {
+    function()
+        local status = vim.b.gitsigns_status
+        if status == nil then return '' end
+        if string.len(status) > 0 then return ' ' end
+        return ''
+    end,
+    component_separators = {'', ''},
+    left_padding = 0,
+    right_padding = 0,
+    condition = hide
 }
 
-local function encoding()
-    if vim.fn.winwidth(0) < 120 then
-        return ''
-    end
-    return vim.o.encoding
-end
-
-local function fileformat()
-    if vim.fn.winwidth(0) < 120 then
-        return ''
-    end
-    return vim.o.fileformat
-end
-
-local function filetype()
-    if vim.fn.winwidth(0) < 120 then
-        return ''
-    end
-    return vim.o.filetype
-end
-
-local function lsp_client()
-    if vim.fn.winwidth(0) < 120 then
-        return ''
-    end
-
-    local msg = ''
-    local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
-    local clients = vim.lsp.get_active_clients()
-    if next(clients) == nil then return msg end
-    for _, client in ipairs(clients) do
-        local filetypes = client.config.filetypes
-        if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-            return ' ' .. client.name
+local diff_add = {
+    function()
+        local status = vim.b.gitsigns_status
+        if status == nil then return '' end
+        for word in string.gmatch(status, "+[^%s]+") do
+            return word
         end
-    end
-    return msg
-end
+        return ''
+    end,
+    color = {fg = colors.green.gui},
+    component_separators = {'', ''},
+    condition = hide,
+    left_padding = 0
+}
+
+local diff_mod = {
+    function()
+        local status = vim.b.gitsigns_status
+        if status == nil then return '' end
+        for word in string.gmatch(status, "~[^%s]+") do
+            return word
+        end
+        return ''
+    end,
+    color = {fg = colors.yellow.gui},
+    component_separators = {'', ''},
+    condition = hide,
+    left_padding = 0
+}
+
+local diff_rem = {
+    function()
+        local status = vim.b.gitsigns_status
+        if status == nil then return '' end
+        for word in string.gmatch(status, "-[^%s]+") do
+            return word
+        end
+        return ''
+    end,
+    color = {fg = colors.red.gui},
+    component_separators = {'', ''},
+    left_padding = 0,
+    condition = hide
+}
+
+local encoding = {
+    'encoding',
+    condition = hide,
+}
+
+local filetype = {
+    'filetype',
+    condition = hide,
+}
+
+local fileformat = {
+    'fileformat',
+    condition = hide,
+}
+
+local lsp_client = {
+    function()
+        local msg = ''
+        local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
+        local clients = vim.lsp.get_active_clients()
+        if next(clients) == nil then return msg end
+        for _, client in ipairs(clients) do
+            local filetypes = client.config.filetypes
+            if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+                return ' ' .. client.name
+            end
+        end
+        return msg
+    end,
+    condition = hide
+}
 
 
 --------------------------------------------------------------------------------
@@ -104,8 +163,8 @@ require('lualine').setup{
     },
     sections = {
         lualine_a = {'mode'},
-        lualine_b = {'branch'},
-        lualine_c = {filename, diff, lsp_progress},
+        lualine_b = {branch},
+        lualine_c = {filename, diff_pad, diff_add, diff_mod, diff_rem, lsp_progress},
         lualine_x = {encoding, fileformat, filetype, lsp_client},
         lualine_y = {diagnostics, 'progress'},
         lualine_z = {'location'}
