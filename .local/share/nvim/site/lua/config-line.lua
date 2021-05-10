@@ -32,6 +32,7 @@ local diagnostics = {
 local lsp_progress = {
     'lsp_progress',
     color = {fg = colors.cyan.gui},
+    left_padding = 0,
     condition = hide
 }
 
@@ -146,7 +147,8 @@ local lsp_client = {
         end
         return msg
     end,
-    condition = hide
+    condition = hide,
+    component_separators = {'', ''}
 }
 
 
@@ -164,8 +166,8 @@ require('lualine').setup{
     sections = {
         lualine_a = {'mode'},
         lualine_b = {branch},
-        lualine_c = {filename, diff_pad, diff_add, diff_mod, diff_rem, lsp_progress},
-        lualine_x = {encoding, fileformat, filetype, lsp_client},
+        lualine_c = {filename, diff_pad, diff_add, diff_mod, diff_rem},
+        lualine_x = {encoding, fileformat, filetype, lsp_client, lsp_progress},
         lualine_y = {diagnostics, 'progress'},
         lualine_z = {'location'}
     },
