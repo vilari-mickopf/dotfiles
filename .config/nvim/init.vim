@@ -959,6 +959,11 @@
             let g:yankstack_map_keys = 0
             call yankstack#setup()
 
+        " sandwich
+            let g:sandwich_no_default_key_mappings = 1
+            let g:operator_sandwich_no_default_key_mappings = 1
+            let g:textobj_sandwich_no_default_key_mappings = 1
+
         " indentLine -- Show indentation
             let g:indentLine_enabled = 0
             let g:indentLine_color_gui = s:colors.comment_grey.gui

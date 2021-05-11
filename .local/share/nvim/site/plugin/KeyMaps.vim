@@ -453,21 +453,21 @@
 
             " Delete
                 nmap <silent> sd <plug>(operator-sandwich-delete)
-                               \ <plug>(operator-sandwich-release-count)
-                               \ <plug>(textobj-sandwich-query-a)
+                                \<plug>(operator-sandwich-release-count)
+                                \<plug>(textobj-sandwich-query-a)
                 xmap <silent> sd <plug>(operator-sandwich-delete)
                 nmap <silent> sdb <plug>(operator-sandwich-delete)
-                                \ <plug>(operator-sandwich-release-count)
-                                \ <plug>(textobj-sandwich-auto-a)
+                                 \<plug>(operator-sandwich-release-count)
+                                 \<plug>(textobj-sandwich-auto-a)
 
             " Replace
                 nmap <silent> sr <plug>(operator-sandwich-replace)
-                               \ <plug>(operator-sandwich-release-count)
-                               \ <plug>(textobj-sandwich-query-a)
+                                \<plug>(operator-sandwich-release-count)
+                                \<plug>(textobj-sandwich-query-a)
                 xmap <silent> sr <plug>(operator-sandwich-replace)
                 nmap <silent> srb <plug>(operator-sandwich-replace)
-                                \ <plug>(operator-sandwich-release-count)
-                                \ <plug>(textobj-sandwich-auto-a)
+                                 \<plug>(operator-sandwich-release-count)
+                                 \<plug>(textobj-sandwich-auto-a)
 
             " Textobjs
                 omap ib <plug>(textobj-sandwich-auto-i)
