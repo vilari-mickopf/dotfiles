@@ -14,6 +14,24 @@ local function hide_narrow()
     return vim.fn.winwidth(0) > 60
 end
 
+local function GetLspClient()
+    local msg = ''
+    local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
+    local clients = vim.lsp.get_active_clients()
+    if next(clients) == nil then return msg end
+    for _, client in ipairs(clients) do
+        local filetypes = client.config.filetypes
+        if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+            return ' ' .. client.name
+        end
+    end
+    return msg
+end
+
+local function hide_nolsp()
+    return ( vim.fn.winwidth(0) > 120 and GetLspClient() ~= '')
+end
+
 local filename = {
     'filename',
     file_status = true,
@@ -33,7 +51,7 @@ local lsp_progress = {
     'lsp_progress',
     color = {fg = colors.cyan.gui},
     left_padding = 0,
-    condition = hide
+    condition = hide_nolsp
 }
 
 local branch = {
@@ -134,19 +152,7 @@ local fileformat = {
 }
 
 local lsp_client = {
-    function()
-        local msg = ''
-        local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
-        local clients = vim.lsp.get_active_clients()
-        if next(clients) == nil then return msg end
-        for _, client in ipairs(clients) do
-            local filetypes = client.config.filetypes
-            if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-                return ' ' .. client.name
-            end
-        end
-        return msg
-    end,
+    GetLspClient,
     condition = hide,
     component_separators = {'', ''}
 }
