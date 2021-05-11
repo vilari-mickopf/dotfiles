@@ -244,12 +244,12 @@ require('bufferline').setup{
 
         pick = {
             guifg = colors.green.gui,
-            guibg = colors.black.gui,
+            guibg = colors.cursor_grey.gui,
             gui = 'bold'
         },
         pick_visible = {
             guifg = colors.green.gui,
-            guibg = colors.black.gui,
+            guibg = colors.menu_grey.gui,
             gui = 'bold'
         },
         pick_selected = {
