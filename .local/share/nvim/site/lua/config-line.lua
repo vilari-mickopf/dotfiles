@@ -346,6 +346,21 @@ require('bufferline').setup{
             gui = "bold",
         },
 
+        duplicate_selected = {
+            guifg = colors.black.gui,
+            guibg = colors.green.gui,
+            gui = "bold",
+        },
+        duplicate_visible = {
+            guifg = colors.white.gui,
+            guibg = colors.menu_grey.gui,
+            gui = "bold",
+        },
+        duplicate = {
+            guifg = colors.comment_grey.gui,
+            guibg = colors.cursor_grey.gui,
+        },
+
         info = {
             guifg = colors.comment_grey.gui,
             guibg = colors.cursor_grey.gui,

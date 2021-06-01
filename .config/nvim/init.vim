@@ -859,7 +859,6 @@
             let g:nvim_tree_hide_dotfiles = 1
             let g:nvim_tree_git_hl = 1
             let g:nvim_tree_tab_open = 0
-            let g:nvim_tree_width_allow_resize = 0
             let g:nvim_tree_auto_close = 1
             let g:nvim_tree_lsp_diagnostics = 1
             let g:nvim_tree_auto_ignore_ft = ['startify']
@@ -1191,7 +1190,7 @@
                 \ '#2B2F38', '#3E4452', s:colors.visual_grey.gui, '#515A6B', '#656F85']
 
         " nvim-treesitter
-            set foldexpr=nvim_treesitter#foldexpr()
+            " set foldexpr=nvim_treesitter#foldexpr()
 
             "Syntax/parser errors
             exe 'hi TSError guifg=' . s:colors.red.gui
