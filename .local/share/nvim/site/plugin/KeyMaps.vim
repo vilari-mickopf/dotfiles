@@ -60,6 +60,21 @@
         nnoremap <C-l> <C-w><C-l>
         nnoremap <C-h> <C-w><C-h>
 
+    " Visual search with * and #
+        " Forward
+        vnoremap <silent> * :<C-U>
+            \ let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+            \ gvy/<C-R><C-R>=substitute(
+            \   escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+            \ gV:call setreg('"', old_reg, old_regtype)<CR>
+
+        " Backward
+        vnoremap <silent> # :<C-U>
+            \ let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+            \ gvy?<C-R><C-R>=substitute(
+            \   escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+            \ gV:call setreg('"', old_reg, old_regtype)<CR>
+
 " TERMINAL MAPPING
     " Open terminals
         nmap <silent> <leader>t :split \| terminal<Cr>a
@@ -561,14 +576,14 @@
             nmap <silent> } }:call ComforableMotionCenter('down')<Cr>
 
         " asterisk
-            map * <plug>(asterisk-*)
-            map # <plug>(asterisk-#)
-            map g* <plug>(asterisk-g*)
-            map g# <plug>(asterisk-g#)
-            map z* <plug>(asterisk-z*)
-            map gz* <plug>(asterisk-gz*)
-            map z# <plug>(asterisk-z#)
-            map gz# <plug>(asterisk-gz#)
+            nmap * <plug>(asterisk-*)
+            nmap # <plug>(asterisk-#)
+            nmap g* <plug>(asterisk-g*)
+            nmap g# <plug>(asterisk-g#)
+            nmap z* <plug>(asterisk-z*)
+            nmap gz* <plug>(asterisk-gz*)
+            nmap z# <plug>(asterisk-z#)
+            nmap gz# <plug>(asterisk-gz#)
 
         " Bufferline
             nnoremap <silent> gb :BufferLineCycleNext<Cr>
@@ -589,14 +604,14 @@
             noremap <silent> N <cmd>execute('normal! ' . v:count1 . 'N')<Cr>
                               \ <cmd>lua require('hlslens').start()<Cr>
 
-            map <silent> * *<cmd>lua require('hlslens').start()<Cr>
-            map <silent> # #<cmd>lua require('hlslens').start()<Cr>
-            map <silent> g* g*<cmd>lua require('hlslens').start()<Cr>
-            map <silent> g# g#<cmd>lua require('hlslens').start()<Cr>
-            map <silent> z* z*<cmd>lua require('hlslens').start()<Cr>
-            map <silent> gz* gz*<cmd>lua require('hlslens').start()<Cr>
-            map <silent> z# z#<cmd>lua require('hlslens').start()<Cr>
-            map <silent> gz# gz#<cmd>lua require('hlslens').start()<Cr>
+            nmap <silent> * *<cmd>lua require('hlslens').start()<Cr>
+            nmap <silent> # #<cmd>lua require('hlslens').start()<Cr>
+            nmap <silent> g* g*<cmd>lua require('hlslens').start()<Cr>
+            nmap <silent> g# g#<cmd>lua require('hlslens').start()<Cr>
+            nmap <silent> z* z*<cmd>lua require('hlslens').start()<Cr>
+            nmap <silent> gz* gz*<cmd>lua require('hlslens').start()<Cr>
+            nmap <silent> z# z#<cmd>lua require('hlslens').start()<Cr>
+            nmap <silent> gz# gz#<cmd>lua require('hlslens').start()<Cr>
 
         " pulse
             map n n<plug>Pulse
