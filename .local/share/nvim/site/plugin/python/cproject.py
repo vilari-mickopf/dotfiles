@@ -18,7 +18,7 @@ def run_c(project):
         if not os.path.isfile(os.path.join(build_dir, 'Makefile')):
             if not os.path.isdir(build_dir):
                 os.mkdir(build_dir)
-            cmd += 'cmake .. -Wno-dev ' + ' '.join(project.args) + ' && '
+            cmd += 'cmake .. -Wno-dev -Wno-deprecated' + ' '.join(project.args) + ' && '
 
         if os.path.isfile(os.path.join(build_dir, 'ninja.build')):
             cmd += 'ninja'
