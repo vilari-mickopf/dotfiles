@@ -447,14 +447,14 @@
 
         " nvim-tree -- When ctrlp is not enough
             nnoremap <silent> <C-n> :NvimTreeToggle<Cr>
-            let g:nvim_tree_bindings = {
-                \ '<space>': luaeval("require('nvim-tree.config').nvim_tree_callback('edit')"),
-                \ 's': luaeval("require('nvim-tree.config').nvim_tree_callback('vsplit')"),
-                \ 'i': luaeval("require('nvim-tree.config').nvim_tree_callback('split')"),
-                \ 't': luaeval("require('nvim-tree.config').nvim_tree_callback('tabnew')"),
-                \ ']g': luaeval("require('nvim-tree.config').nvim_tree_callback('next_git_item')"),
-                \ '[g': luaeval("require('nvim-tree.config').nvim_tree_callback('prev_git_item')"),
-            \ }
+            let g:nvim_tree_bindings = [
+                \ { 'key': '<space>', 'cb': luaeval("require('nvim-tree.config').nvim_tree_callback('edit')")},
+                \ { 'key':'s', 'cb':luaeval("require('nvim-tree.config').nvim_tree_callback('vsplit')")},
+                \ { 'key':'i', 'cb':luaeval("require('nvim-tree.config').nvim_tree_callback('split')")},
+                \ { 'key':'t', 'cb':luaeval("require('nvim-tree.config').nvim_tree_callback('tabnew')")},
+                \ { 'key':']g', 'cb':luaeval("require('nvim-tree.config').nvim_tree_callback('next_git_item')")},
+                \ { 'key':'[g', 'cb':luaeval("require('nvim-tree.config').nvim_tree_callback('prev_git_item')")},
+            \ ]
 
         " auto-pairs -- Auto pair parentheses and quotes
             " Togle autopairs
@@ -534,10 +534,10 @@
                     \ 'definitions': g:camelcase_switch_definitions})<Cr>
 
             nmap <silent> <plug>SwitchForwardMap :call SwitchCustomForward()<Cr>
-                    \ :silent! call repeat#set('\<plug>SwitchForwardMap', v:count)<Cr>
+                    " \ :silent! call repeat#set('\<plug>SwitchForwardMap', v:count)<Cr>
 
             nmap <silent> <plug>SwitcBackwardMap :call SwitchCustomBackward()<Cr>
-                    \ :silent! call repeat#set('\<plug>SwitcBackwardMap', v:count)<Cr>
+                    " \ :silent! call repeat#set('\<plug>SwitcBackwardMap', v:count)<Cr>
 
             " . command support
             nmap <C-a> <plug>SwitchForwardMap
