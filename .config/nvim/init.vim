@@ -283,7 +283,7 @@
 
             " MatchTagAlways -- Match html tags
             call dein#add('Valloric/MatchTagAlways', {
-                        \ 'on_ft': ['html', 'xml', 'xhtml', 'jinja']})
+                        \ 'on_ft': ['html', 'xhtml', 'jinja']})
 
             " Git
                 " gitsigns -- Show git diff in gutter
@@ -463,8 +463,8 @@
                 call dein#add('nvim-treesitter/nvim-treesitter')
 
                 " treesitter-context
-                call dein#add('romgrk/nvim-treesitter-context', {
-                            \ 'depends': 'nvim-treesitter'})
+                " call dein#add('romgrk/nvim-treesitter-context', {
+                            " \ 'depends': 'nvim-treesitter'})
 
                 " treesitter-refactor -- Refactor modules for nvim-treesitter
                 call dein#add('nvim-treesitter/nvim-treesitter-refactor', {
@@ -851,6 +851,7 @@
             exe 'hi NvimTreeGitRenamed guifg=' . s:colors.yellow.gui
             exe 'hi NvimTreeSpecialFile guifg=' s:colors.white.gui
 
+            let g:nvim_tree_auto_resize = 0
             let g:nvim_tree_disable_keybindings = 0
             let g:nvim_tree_auto_open = 1
             let g:nvim_tree_width = 40
@@ -1286,7 +1287,7 @@
             exe 'hi TSKeyword guifg=' . s:colors.purple.gui
 
             " For keywords used to define a fuction
-            exe 'hi TSKeywordFunction guifg=' . s:colors.blue.gui
+            exe 'hi TSKeywordFunction guifg=' . s:colors.purple.gui
 
             " For exception related keywords
             exe 'hi TSException guifg=' . s:colors.purple.gui
