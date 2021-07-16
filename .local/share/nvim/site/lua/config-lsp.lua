@@ -1,6 +1,7 @@
 #! /usr/bin/env lua
 
-local lsp = require 'lspconfig'
+local lsp = require('lspconfig')
+
 
 -- diagnostics
 vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
@@ -45,6 +46,7 @@ local on_attach = function(client, bufnr)
     end
 end
 
+
 -- bash
 lsp.bashls.setup{
     on_attach = on_attach;
@@ -66,10 +68,9 @@ lsp.cmake.setup{
 }
 
 -- python
---lsp.pyright.setup{
-lsp.pyls.setup{
-    settings = { pyls = { plugins = { pycodestyle = { enabled = false; } } } };
+lsp.pyright.setup{
     on_attach = on_attach;
+    settings = {python = {analysis = {typeCheckingMode = "off"}}};
 }
 
 -- latex
