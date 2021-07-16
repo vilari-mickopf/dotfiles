@@ -84,5 +84,3 @@ source $LOCAL_PLUGINS/termtitle.zsh
 
 THEMES=$ZDOTDIR/themes
 source $THEMES/bloodhail.zsh-theme
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
