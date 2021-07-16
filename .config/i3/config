@@ -89,8 +89,8 @@ set $ws4 "4: "
 set $ws5 "5: "
 set $ws6 "6: "
 set $ws7 "7: "
-set $ws8 "8: "
-set $ws9 "9: "
+set $ws8 "8: "
+set $ws9 "9: "
 set $ws10 "10: "
 
 # Dual monitor setup
@@ -116,16 +116,16 @@ for_window [class="Pavucontrol"] floating enable
 for_window [class="Oblogout"] fullscreen enable
 for_window [class="Arandr"] floating enable
 
-assign [class="Vlc"] $ws9
+assign [class="Vlc"] $ws8
 
 # Messengers
-assign [class="Skype"] $ws8
+assign [class="Skype"] $ws9
 for_window [class="Skype"] layout stacked
 
-assign [class="Slack"] $ws8
+assign [class="Slack"] $ws9
 for_window [class="Slack"] layout stacked
 
-assign [class="Viber"] $ws8
+assign [class="Viber"] $ws9
 for_window [class="Viber"] layout stacked
 
 # Bars for i3blocks
@@ -359,7 +359,7 @@ exec --no-startup-id timedatectl set-ntp true
 exec --no-startup-id srandrd ~/.config/i3/scripts/displayhandler
 
 # Alternating layout
-exec --no-startup-id alternating_layouts.py
+exec_always --no-startup-id alternating_layouts.py
 
 # Set right audio output
 exec --no-startup-id pacmd set-card-profile 0 "output:analog-stereo+input:analog-stereo"
@@ -442,7 +442,7 @@ exec --no-startup-id parcellite
 exec --no-startup-id ~/.config/i3/scripts/backlight on
 
 # Low battery popup
-exec --no-startup-id i3-battery-popup -n -L 6 -t 2m
+exec --no-startup-id i3-battery-popup -n -L 6 -t 1m
 
 
 ################################################################################
