@@ -41,17 +41,33 @@ local filename = {
 local diagnostics = {
     'diagnostics',
     sources = {'nvim_lsp'},
-    symbols = {error = ' ', warn = ' ', info= ' '},
+    symbols = {error = ' ', warn = ' ', info = ' ', hint = ' '},
     color_error = colors.red.gui,
     color_warn = colors.yellow.gui,
     color_info = colors.blue.gui
 }
 
+local lsp_client = {
+    GetLspClient,
+    condition = hide,
+    component_separators = {'', ''}
+}
+
 local lsp_progress = {
-    'lsp_progress',
-    color = {fg = colors.cyan.gui},
+	'lsp_progress',
+    display_components = { 'spinner', { 'title', 'percentage', 'message' }},
+    colors = {
+	    percentage = colors.white.gui,
+	    title = colors.yellow.gui,
+	    message = colors.white.gui,
+	    spinner = colors.green.gui,
+	    lsp_client_name = colors.purple.gui,
+	    use = true,
+	},
+	timer = { progress_enddelay = 100, spinner = 100, lsp_client_name_enddelay = 100 },
+    spinner_symbols = {'🌑', '🌒', '🌓', '🌔', '🌕', '🌖', '🌗', '🌘'},
+    condition = hide_nolsp,
     left_padding = 0,
-    condition = hide_nolsp
 }
 
 local branch = {
@@ -149,12 +165,6 @@ local filetype = {
 local fileformat = {
     'fileformat',
     condition = hide,
-}
-
-local lsp_client = {
-    GetLspClient,
-    condition = hide,
-    component_separators = {'', ''}
 }
 
 
