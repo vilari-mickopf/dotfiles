@@ -63,9 +63,6 @@
     " Update time (used for gitgutter)
     set updatetime=100
 
-    " Needed for lightline
-    set laststatus=2
-
     " Disable showmode alltogether (used for echodoc)
     set noshowmode
     set completeopt-=preview
@@ -460,7 +457,8 @@
 
             " Tree-sitter stuff
                 " treesitter -- Highlighting
-                call dein#add('nvim-treesitter/nvim-treesitter')
+                call dein#add('nvim-treesitter/nvim-treesitter', {
+                            \ 'hook_post_update': 'TSInstall all | TSUpdate'})
 
                 " treesitter-context
                 " call dein#add('romgrk/nvim-treesitter-context', {
@@ -854,7 +852,7 @@
             let g:nvim_tree_auto_resize = 0
             let g:nvim_tree_disable_keybindings = 0
             let g:nvim_tree_auto_open = 1
-            let g:nvim_tree_width = 40
+            let g:nvim_tree_width = 35
             let g:nvim_tree_gitignore = 1
             let g:nvim_tree_indent_markers = 1
             let g:nvim_tree_hide_dotfiles = 1

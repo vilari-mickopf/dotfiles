@@ -405,8 +405,6 @@ require('bufferline').setup{
     options = {
         view = 'default',
         numbers = 'none',
-        number_style = '',
-        mappings = false,
         modified_icon = '',
         left_trunc_marker = '',
         right_trunc_marker = '',

@@ -446,7 +446,7 @@
             nmap <C-p>c :Commits<Cr>
 
         " nvim-tree -- When ctrlp is not enough
-            nnoremap <silent> <C-n> :NvimTreeToggle<Cr>
+            nnoremap <silent> <C-n> :NvimTreeToggle<Cr>:wincmd =<Cr>
             let g:nvim_tree_bindings = [
                 \ { 'key': '<space>', 'cb': luaeval("require('nvim-tree.config').nvim_tree_callback('edit')")},
                 \ { 'key':'s', 'cb':luaeval("require('nvim-tree.config').nvim_tree_callback('vsplit')")},
