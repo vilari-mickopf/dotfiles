@@ -262,8 +262,8 @@ bindsym $mod+d exec --no-startup-id ~/.config/i3/scripts/rofi_run
 bindsym $mod+Shift+d exec --no-startup-id ~/.config/i3/scripts/rofi_run ssh
 
 # Browser
-bindsym $mod+b exec chromium
-bindsym $mod+Shift+b workspace $ws2; exec chromium
+bindsym $mod+b exec google-chrome-stable
+bindsym $mod+Shift+b workspace $ws2; exec google-chrome-stable
 
 # Change audio sink and toggle audiocast
 bindsym $mod+Shift+m exec --no-startup-id ~/.config/i3/scripts/changesink && \
@@ -383,7 +383,7 @@ exec_always --no-startup-id xset -dpms s off
 exec_always --no-startup-id xrdb ~/.config/Xresources.d/Xresources
 
 # Keyboard layouts
-exec_always --no-startup-id setxkbmap -layout us,si \
+exec_always --no-startup-id setxkbmap -layout us,si,rs -variant ,,yz \
                                       -option 'caps:escape'
 
 # Make tmp folders for screenshots and screenrecords
