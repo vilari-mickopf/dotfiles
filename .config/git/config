@@ -47,3 +47,8 @@
     unstage = reset HEAD --
     d = difftool
     fix = "!f() { nvim -p `git rev-parse --show-toplevel`/`git diff --name-only --relative --diff-filter=U | uniq`; }; f"
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
