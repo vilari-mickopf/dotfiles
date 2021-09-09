@@ -35,7 +35,7 @@ end
 local filename = {
     'filename',
     file_status = true,
-    symbols = {modified = ' ', readonly = ' '}
+    symbols = {modified = ' ', readonly = ''}
 }
 
 local diagnostics = {
@@ -413,7 +413,7 @@ require('bufferline').setup{
         tab_size = 25,
         diagnostics = 'nvim_lsp',
         diagnostics_indicator = function(_, _, diagnostics_dict)
-            local s = " "
+            local s = ""
             for e, n in pairs(diagnostics_dict) do
                 local sym = e == "error" and " " or (e == "warning" and " " or " " )
                 s = s .. n .. sym
