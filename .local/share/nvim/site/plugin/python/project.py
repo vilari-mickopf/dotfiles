@@ -62,7 +62,7 @@ class Project:
         os.chdir(os.path.dirname(self.current_file))
         try:
             while os.getcwd() != '/':
-                for root, dirs, files in os.walk(os.getcwd()):
+                for _, dirs, files in os.walk(os.getcwd()):
                     for file, project_file in product(files, project_files):
                         if re.match(project_file, os.path.basename(file)):
                             self.project_file = os.path.abspath(file)
@@ -83,7 +83,7 @@ class Project:
 
     def __parse_root(self, run_files):
         exclude = set(['\.git', '\.ccls_cache', '\.objs', '.*\.egg-info'])
-        for root, dirs, files in os.walk(self.root):
+        for _, dirs, files in os.walk(self.root):
             [dirs.remove(d) for d in list(dirs)
                 for e in exclude if re.match(e, os.path.basename(d))]
 

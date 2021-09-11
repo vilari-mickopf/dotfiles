@@ -14,8 +14,10 @@ def run_py(project):
          run_path = project.run_path
 
     cmd = ('cd ' + os.path.dirname(run_path) + ' && ' +
-           'python ' + os.path.basename(run_path) + ' ' +
-           ' '.join(project.args))
+           'python ' + os.path.basename(run_path))
+
+    if project.args != []:
+        cmd+= ' ' + ' '.join(project.args)
 
     for post in project.post:
         cmd += ';' + post

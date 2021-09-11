@@ -35,7 +35,7 @@ end
 local filename = {
     'filename',
     file_status = true,
-    symbols = {modified = ' ', readonly = ''}
+    symbols = {modified = ' ', readonly = ' '}
 }
 
 local diagnostics = {
