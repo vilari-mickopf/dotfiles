@@ -1,4 +1,4 @@
-#include "colors.Xresources"
+#include "colors"
 
 Xft.dpi: 120
 Xft.autohint: 0

@@ -380,7 +380,7 @@ exec_always --no-startup-id xset b off
 exec_always --no-startup-id xset -dpms s off
 
 # Set rofi
-exec_always --no-startup-id xrdb ~/.config/Xresources.d/Xresources
+exec_always --no-startup-id xrdb ~/.config/xorg/Xresources
 
 # Keyboard layouts
 exec_always --no-startup-id setxkbmap -layout us,si,rs -variant ,,yz \

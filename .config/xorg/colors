@@ -28,16 +28,20 @@
 ! | Comment Grey | rgb(92, 99, 112)   | #5c6370 | !
 ! +---------------------------------------------+ !
 
-#define WHITE           #abb2bf
 #define BLACK           #282c34
 #define LIGHT_RED       #e06c75
 #define DARK_RED        #be5046
-#define GREEN           #98c379
-#define LIGHT_YELLOW    #e5c07b
+#define LIGHT_GREEN     #98c379
+#define DARK_GREEN      #98c379
+#define LIGHT_YELLOW    #d19a66
 #define DARK_YELLOW     #d19a66
-#define BLUE            #61afef
-#define MAGENTA         #c678dd
-#define CYAN            #56b6c2
+#define LIGHT_BLUE      #3e5270
+#define DARK_BLUE       #3e5270
+#define LIGHT_MAGENTA   #c678dd
+#define DARK_MAGENTA    #c678dd
+#define LIGHT_CYAN      #56b6c2
+#define DARK_CYAN       #56b6c2
+#define WHITE           #abb2bf
 #define GUTTER_GRAY     #4b5263
 #define COMMENT_GRAY    #5c6370
 
@@ -47,18 +51,18 @@
 
 *.color0: BLACK
 *.color1: LIGHT_RED
-*.color2: GREEN
+*.color2: LIGHT_GREEN
 *.color3: LIGHT_YELLOW
-*.color4: BLUE
-*.color5: MAGENTA
-*.color6: CYAN
+*.color4: LIGHT_BLUE
+*.color5: LIGHT_MAGENTA
+*.color6: LIGHT_CYAN
 *.color7: COMMENT_GRAY
 
 *.color8:  GUTTER_GRAY
 *.color9:  DARK_RED
-*.color10: GREEN
+*.color10: DARK_GREEN
 *.color11: DARK_YELLOW
-*.color12: BLUE
-*.color13: MAGENTA
-*.color14: CYAN
+*.color12: DARK_BLUE
+*.color13: DARK_MAGENTA
+*.color14: DARK_CYAN
 *.color15: COMMENT_GRAY
