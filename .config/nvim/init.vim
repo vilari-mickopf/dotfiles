@@ -541,25 +541,36 @@
             let g:echodoc_enable_at_startup = 1
 
         " lspconfig
-            exe 'hi LspDiagnosticsDefaultHint guibg=' . s:colors.black.gui
-            exe 'hi LspDiagnosticsDefaultHint guifg=' . s:colors.cyan.gui
-            exe 'hi LspDiagnosticsUnderlineHint guifg=None'
+            exe 'hi DiagnosticError guifg=' . s:colors.red.gui
+            exe 'hi DiagnosticWarn guifg=' . s:colors.yellow.gui
+            exe 'hi DiagnosticHint guifg=' . s:colors.cyan.gui
+            exe 'hi DiagnosticInfo guifg=' . s:colors.blue.gui
 
-            sign define LspDiagnosticsSignError text=>>
-                                              \ texthl=LspDiagnosticsSignError
-                                              \ linehl= numhl=
+            " exe 'hi DiagnosticUnderlineError gui=underline cterm=underline guifg=' . s:colors.red.gui
+            " exe 'hi DiagnosticUnderlineWarn gui=underline cterm=underline guifg=' .  s:colors.yellow.gui
+            " exe 'hi DiagnosticUnderlineHint gui=underline cterm=underline guifg=' . s:colors.cyan.gui
+            " exe 'hi DiagnosticUnderlineInfo gui=underline cterm=underline guifg=' . s:colors.blue.gui
 
-            sign define LspDiagnosticsSignWarning text=>>
-                                                \ texthl=LspDiagnosticsSignWarning
-                                                \ linehl= numhl=
+            exe 'hi DiagnosticUnderlineError guifg=None'
+            exe 'hi DiagnosticUnderlineWarn guifg=None'
+            exe 'hi DiagnosticUnderlineHint guifg=None'
+            exe 'hi DiagnosticUnderlineInfo guifg=None'
 
-            sign define LspDiagnosticsSignInformation text=>>
-                                                    \ texthl=LspDiagnosticsSignInformation
-                                                    \ linehl= numhl=
+            sign define DiagnosticSignError text=>>
+                                           \ texthl=DiagnosticSignError
+                                           \ linehl= numhl=
 
-            sign define LspDiagnosticsSignHint text=>>
-                                             \ texthl=LspDiagnosticsSignHint
-                                             \ linehl= numhl=
+            sign define DiagnosticSignWarn text=>>
+                                         \ texthl=DiagnosticSignWarn
+                                         \ linehl= numhl=
+
+            sign define DiagnosticSignInfo text=>>
+                                          \ texthl=DiagnosticSignInfo
+                                          \ linehl= numhl=
+
+            sign define DiagnosticSignHint text=>>
+                                         \ texthl=DiagnosticSignHint
+                                         \ linehl= numhl=
 
             lua require('config-lsp')
 

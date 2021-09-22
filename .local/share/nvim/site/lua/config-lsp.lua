@@ -47,11 +47,6 @@ local on_attach = function(client, bufnr)
 end
 
 
--- bash
-lsp.bashls.setup{
-    on_attach = on_attach;
-}
-
 -- c/c++
 lsp.ccls.setup {
     init_options = {
@@ -62,30 +57,10 @@ lsp.ccls.setup {
     on_attach = on_attach;
 }
 
--- cmake
-lsp.cmake.setup{
-    on_attach = on_attach;
-}
-
 -- python
 lsp.pyright.setup{
     on_attach = on_attach;
     settings = {python = {analysis = {typeCheckingMode = "off"}}};
-}
-
--- latex
-lsp.texlab.setup{
-    on_attach = on_attach;
-}
-
--- vim
-lsp.vimls.setup{
-    on_attach = on_attach;
-}
-
--- docker
-lsp.dockerls.setup{
-    on_attach = on_attach;
 }
 
 -- lua
@@ -115,3 +90,11 @@ lsp.sumneko_lua.setup {
     };
     on_attach = on_attach;
 }
+
+-- Others
+local servers = {'bashls', 'cmake', 'texlab', 'vimls', 'dockerls'}
+for _, server in ipairs(servers) do
+    lsp[server].setup {
+        on_attach = on_attach
+  }
+end
