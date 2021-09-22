@@ -21,7 +21,7 @@ if [[ $eth_state == 'up' ]]; then
     echo $eth_icon && echo
 
     ipaddr=$(ip addr show $eth | perl -n -e'/inet (.+)\// && print $1')
-    [[ -z $ipaddr ]] && echo "$eth_connected_color" || echo "$eth_not_connected_color"
+    [[ -n $ipaddr ]] && echo "$eth_connected_color" || echo "$eth_not_connected_color"
 else
     echo $wifi_icon && echo
 
