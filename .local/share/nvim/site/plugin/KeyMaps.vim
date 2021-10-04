@@ -415,7 +415,7 @@
     " Utilities
         " Firenvim
             function! FirenvimMappings()
-                inoremap <Cr> <esc>:w<Cr>:call firenvim#press_keys('<Lt><Cr>')<Cr>ggdGa
+                inoremap <Cr> <Esc>:w<CR>:call firenvim#press_keys("<LT>CR>")<CR>ggdGa
             endfunction
 
         " any-jump
@@ -447,14 +447,16 @@
 
         " nvim-tree -- When ctrlp is not enough
             nnoremap <silent> <C-n> :NvimTreeToggle<Cr>:wincmd =<Cr>
-            let g:nvim_tree_bindings = [
-                \ { 'key': '<space>', 'cb': luaeval("require('nvim-tree.config').nvim_tree_callback('edit')")},
-                \ { 'key':'s', 'cb':luaeval("require('nvim-tree.config').nvim_tree_callback('vsplit')")},
-                \ { 'key':'i', 'cb':luaeval("require('nvim-tree.config').nvim_tree_callback('split')")},
-                \ { 'key':'t', 'cb':luaeval("require('nvim-tree.config').nvim_tree_callback('tabnew')")},
-                \ { 'key':']g', 'cb':luaeval("require('nvim-tree.config').nvim_tree_callback('next_git_item')")},
-                \ { 'key':'[g', 'cb':luaeval("require('nvim-tree.config').nvim_tree_callback('prev_git_item')")},
-            \ ]
+            " nnoremap <silent> <C-n> :NvimTreeToggle<Cr>
+
+            " let g:nvim_tree_bindings = [
+                " \ { 'key': '<space>', 'cb': luaeval("require('nvim-tree.config').nvim_tree_callback('edit')")},
+                " \ { 'key': 's',       'cb': luaeval("require('nvim-tree.config').nvim_tree_callback('vsplit')")},
+                " \ { 'key': 'i',       'cb': luaeval("require('nvim-tree.config').nvim_tree_callback('split')")},
+                " \ { 'key': 't',       'cb': luaeval("require('nvim-tree.config').nvim_tree_callback('tabnew')")},
+                " \ { 'key': ']g',      'cb': luaeval("require('nvim-tree.config').nvim_tree_callback('next_git_item')")},
+                " \ { 'key': '[g',      'cb': luaeval("require('nvim-tree.config').nvim_tree_callback('prev_git_item')")},
+            " \ ]
 
         " auto-pairs -- Auto pair parentheses and quotes
             " Togle autopairs

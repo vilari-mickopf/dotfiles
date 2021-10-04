@@ -95,6 +95,7 @@
             autocmd BufEnter kkb-production.jupyter-proxy.kaggle.net_*.txt set filetype=python
 
             autocmd BufEnter teams.microsoft.com_*.txt call FirenvimMappings()
+            autocmd BufEnter web.whatsapp.com_*.txt call FirenvimMappings()
         augroup END
 
     " Vimspector

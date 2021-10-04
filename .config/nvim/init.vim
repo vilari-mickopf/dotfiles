@@ -47,11 +47,11 @@
     set nobackup nowritebackup
 
     " Turn on undo files
-    if !isdirectory("/tmp/.vim-undo")
-        call mkdir("/tmp/.vim-undo", "", 0700)
-    endif
-    set undodir=/tmp/.vim-undo
-    set undofile
+    " if !isdirectory("/tmp/.vim-undo")
+        " call mkdir("/tmp/.vim-undo", "", 0700)
+    " endif
+    " set undodir=/tmp/.vim-undo
+    " set undofile
 
     " Make backspace work like most other programs
     set backspace=2
@@ -137,8 +137,6 @@
     " Don't pass messages
     set shortmess+=c
 
-    " Make comments italic, bc it's classy af
-    highlight Comment cterm=italic
 
     " Add different color past column 80 to indicate line break overstepping
     let &colorcolumn=join(range(81, 999), ',')
@@ -344,9 +342,9 @@
                         \ 'depends': ['fzf', 'fzf.vim']})
 
             " nvim-tree -- When ctrlp is not enough
-            call dein#add('kyazdani42/nvim-tree.lua', {
-                        \ 'on_cmd:': ['NvimTreeToggle', 'NvimTreeRefresh',
-                                    \ 'NvimTreeFindFile']})
+            call dein#add('kyazdani42/nvim-tree.lua')
+                        " \ 'on_cmd:': ['NvimTreeToggle', 'NvimTreeRefresh',
+                                    " \ 'NvimTreeFindFile']})
 
             " auto-pairs -- Auto pair parentheses and quotes
             call dein#add('jiangmiao/auto-pairs')
@@ -452,8 +450,7 @@
             call dein#add('rhysd/conflict-marker.vim')
 
             " i3-vim-syntax -- Syntax for i3 config
-            call dein#add('PotatoesMaster/i3-vim-syntax', {
-                        \ 'on_ft': 'i3'})
+            call dein#add('PotatoesMaster/i3-vim-syntax')
 
             " Tree-sitter stuff
                 " treesitter -- Highlighting
@@ -860,17 +857,18 @@
             exe 'hi NvimTreeGitRenamed guifg=' . s:colors.yellow.gui
             exe 'hi NvimTreeSpecialFile guifg=' s:colors.white.gui
 
-            let g:nvim_tree_auto_resize = 0
-            let g:nvim_tree_disable_keybindings = 0
-            let g:nvim_tree_auto_open = 1
-            let g:nvim_tree_width = 35
+            let g:nvim_tree_open_on_tab = 1
             let g:nvim_tree_gitignore = 1
             let g:nvim_tree_indent_markers = 1
             let g:nvim_tree_hide_dotfiles = 1
             let g:nvim_tree_git_hl = 1
-            let g:nvim_tree_tab_open = 0
-            let g:nvim_tree_auto_close = 1
-            let g:nvim_tree_lsp_diagnostics = 1
+            let g:nvim_tree_highlight_opened_files = 1
+            let g:nvim_tree_group_empty = 1
+            " let g:nvim_tree_disable_window_picker = 1
+            let g:nvim_tree_symlink_arrow = ' -> '
+            let g:nvim_tree_refresh_wait = 500
+            let g:nvim_tree_window_picker_exclude = {'buftype': ['terminal']}
+
             let g:nvim_tree_auto_ignore_ft = ['startify']
             let g:nvim_tree_show_icons = { 'git': 1, 'folders': 1, 'files': 1}
             let g:nvim_tree_git_hl = ''
@@ -898,6 +896,25 @@
                     \ 'warning': "",
                     \ 'error': ""}
                 \ }
+
+            lua require'nvim-tree'.setup({
+                \ auto_close = true,
+                \ lsp_diagnostics = true,
+                \ hijack_cursor = false,
+                \ update_cwd = false,
+                \ view = { auto_resize = false,
+                         \ width = 35,
+                         \ mappings = { custom_only = true,
+                             \ list = {
+                                \ { key = {'<space>', '<Cr>'}, cb = require('nvim-tree.config').nvim_tree_callback('edit')},
+                                \ { key = 's',       cb = require('nvim-tree.config').nvim_tree_callback('vsplit')},
+                                \ { key = 'i',       cb = require('nvim-tree.config').nvim_tree_callback('split')},
+                                \ { key = 't',       cb = require('nvim-tree.config').nvim_tree_callback('tabnew')},
+                                \ { key = ']g',      cb = require('nvim-tree.config').nvim_tree_callback('next_git_item')},
+                                \ { key = '[g',      cb = require('nvim-tree.config').nvim_tree_callback('prev_git_item')}},
+                        \ }
+                    \}
+                \})
 
         " auto-pairs -- Auto pair parentheses and quotes
             " Disable multiline pairs
